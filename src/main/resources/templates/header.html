@@ -1,0 +1,60 @@
+<div th:fragment="header(activTab)">
+    <!DOCTYPE html>
+    <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Shop</title>
+
+        <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet">
+
+        <script th:src="@{/js/jquery/jquery.min.js}" defer></script>
+        <script th:src="@{/js/bootstrap/popper.min.js}" defer></script>
+        <script th:src="@{/js/bootstrap/bootstrap.min.js}" defer></script>
+    </head>
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}">
+                Mieten
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left Side Of Navbar -->
+                <ul class="navbar-nav mr-auto">
+
+                </ul>
+                <!-- Right Side Of Navbar -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- Authentication Links -->
+                    <div sec:authorize="isAnonymous()">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/login}">Логин</a>
+                        </li>
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <span th:remove="tag" sec:authentication="name">thymeleaf</span>                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Настройки</a>
+                                <!--                            @if(Auth::user()->isAdmin())-->
+                                <!--                            @endif-->
+                                <a class="dropdown-item" href="#">Профиль</a>
+                                <a class="dropdown-item" th:href="@{/logout}">Выйти</a>
+                            </div>
+                        </li>
+                    </div>
+                    <!--                    @endguest-->
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
