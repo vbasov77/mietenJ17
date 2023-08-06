@@ -1,18 +1,11 @@
-<div th:replace="~{header :: header(Front)}"/>
-<link th:href="@{/css/login.css}" rel="stylesheet">
-
-<!--<form th:action="@{/login}" method="post">-->
-<!--    <div><label> User Name : <input type="text" name="username"/> </label></div>-->
-<!--    <div><label> Password: <input type="password" name="password"/> </label></div>-->
-<!--    <div><input type="submit" value="Sign In"/></div>-->
-<!--</form>-->
-
-<div class="container">
+<div th:replace="~{layouts/header :: header(Login)}"/>
+<link th:href="@{/public/css/login.css}" rel="stylesheet">
+<div class="container" style="margin: 20px 0 20px 0 ">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div th:if="${param.error}">
-                    Invalid username and password.
+                <div class="reg" th:if="${param.error}">
+                    Неверная пара логин и пароль.
                 </div>
                 <div th:if="${param.logout}">
                     You have been logged out.
@@ -59,4 +52,4 @@
     </div>
 </div>
 
-<div th:replace="~{footer :: footer(Front)}"/>
+<div th:replace="~{layouts/footer :: footer(Login)}"/>

@@ -1,8 +1,6 @@
 package mieten17.controllers;
 
 
-import mieten17.models.Role;
-import mieten17.models.RoleUser;
 import mieten17.models.User;
 import mieten17.repositories.UserRepository;
 import mieten17.services.UserService;
@@ -13,11 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Map;
-import java.util.TreeSet;
 
 @Controller
 public class AuthController {
-
     @Autowired
     private UserService userService;
     @Autowired
@@ -43,6 +39,11 @@ public class AuthController {
 
     @PostMapping("/registration")
     public String addUser(User user, Map<String, Object> model) {
+        /**
+         * Проверка на существование логина и email в БД.
+         * Если один из них существует, то возвращаем юзера на страницу регистрации
+         * с соответствующим сообщением.
+         */
         User userFromDb = userRepository.findByUsername(user.getUsername());
         if (userFromDb != null) {
             model.put("message", "Пользователь или email уже существуют!");

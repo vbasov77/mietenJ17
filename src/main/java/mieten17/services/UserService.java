@@ -1,6 +1,5 @@
 package mieten17.services;
 
-import mieten17.config.WebSecurityConfig;
 import mieten17.models.Role;
 import mieten17.models.User;
 import mieten17.repositories.UserRepository;
@@ -26,15 +25,27 @@ public class UserService implements UserDetailsService {
         return (UserDetails) userRepository.findByUsername(username);
     }
 
+    /**
+     * Добавление нового юзера в БД
+     *
+     * @param user - переменная нового Юзера;
+     */
     public void save(User user) {
         userRepository.save(user);
     }
 
+    /**
+     * Метод добавляет пользователя в БД в таблицу - user
+     * и его роль в таблицу roles_users.
+     * Изначально юзеру присваивается роль - USER.
+     *
+     * @param user - переменная нового Юзера
+     */
     public void creatNewUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         TreeSet<Role> role = new TreeSet<>();
         role.add(Role.valueOf("USER"));
-        user.setRoles(role);
+        user.setRole(role);
         save(user);
     }
 }

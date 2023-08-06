@@ -1,11 +1,11 @@
-<div th:replace="~{header :: header(Front)}"/>
-<link th:href="@{/css/login.css}" rel="stylesheet">
+<div th:replace="~{layouts/header :: header(Registration)}"/>
+<link th:href="@{/public/css/login.css}" rel="stylesheet">
 
-<div class="container">
+<div class="container" style="margin: 20px 0 20px 0 ">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div th:if="${message}">
+                <div class="reg" th:if="${message}" >
                     <span th:text="${message}"/>
                 </div>
 
@@ -61,4 +61,4 @@
     </div>
 </div>
 
-<div th:replace="~{footer :: footer(Front)}"/>
+<div th:replace="~{layouts/footer :: footer(Registration)}"/>

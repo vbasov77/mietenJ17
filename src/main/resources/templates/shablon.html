@@ -1,0 +1,22 @@
+<div th:replace="~{layouts/header :: header(Front)}"/>
+
+<h1 th:inline="text">Hello <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h1>
+
+<div th:text="${locality}"></div>
+
+<script th:inline="javascript">
+    alert(1234)
+</script>
+
+<div class="reg" th:if="${message}" >
+    <span th:text="${message}"/>
+</div>
+
+<form th:action="@{/login}" method="post">
+
+    <input type="checkbox" class="form-check-input" id="remember">
+    <button class="btn btn-primary" type="submit">Войти</button>
+    <a class="btn btn-link" th:href="@{/registration}">Регистрация</a>
+</form>
+
+<div th:replace="~{layouts/footer :: footer(Front)}"/>

@@ -1,0 +1,101 @@
+{
+  "response": {
+    "GeoObjectCollection": {
+      "metaDataProperty": {
+        "GeocoderResponseMetaData": {
+          "request": "проспект Авиаторов Балтики,13",
+          "results": "10",
+          "found": "1"
+        }
+      },
+      "featureMember": [
+        {
+          "GeoObject": {
+            "metaDataProperty": {
+              "GeocoderMetaData": {
+                "precision": "exact",
+                "text": "Россия, Ленинградская область, Всеволожский район, Мурино, проспект Авиаторов Балтики, 13",
+                "kind": "house",
+                "Address": {
+                  "country_code": "RU",
+                  "formatted": "Россия, Ленинградская область, Всеволожский район, Мурино, проспект Авиаторов Балтики, 13",
+                  "postal_code": "188678",
+                  "Components": [
+                    {
+                      "kind": "country",
+                      "name": "Россия"
+                    },
+                    {
+                      "kind": "province",
+                      "name": "Северо-Западный федеральный округ"
+                    },
+                    {
+                      "kind": "province",
+                      "name": "Ленинградская область"
+                    },
+                    {
+                      "kind": "area",
+                      "name": "Всеволожский район"
+                    },
+                    {
+                      "kind": "area",
+                      "name": "Муринское городское поселение"
+                    },
+                    {
+                      "kind": "locality",
+                      "name": "Мурино"
+                    },
+                    {
+                      "kind": "street",
+                      "name": "проспект Авиаторов Балтики"
+                    },
+                    {
+                      "kind": "house",
+                      "name": "13"
+                    }
+                  ]
+                },
+                "AddressDetails": {
+                  "Country": {
+                    "AddressLine": "Россия, Ленинградская область, Всеволожский район, Мурино, проспект Авиаторов Балтики, 13",
+                    "CountryNameCode": "RU",
+                    "CountryName": "Россия",
+                    "AdministrativeArea": {
+                      "AdministrativeAreaName": "Ленинградская область",
+                      "SubAdministrativeArea": {
+                        "SubAdministrativeAreaName": "Всеволожский район",
+                        "Locality": {
+                          "LocalityName": "Мурино",
+                          "Thoroughfare": {
+                            "ThoroughfareName": "проспект Авиаторов Балтики",
+                            "Premise": {
+                              "PremiseNumber": "13",
+                              "PostalCode": {
+                                "PostalCodeNumber": "188678"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "name": "проспект Авиаторов Балтики, 13",
+            "description": "Мурино, Всеволожский район, Ленинградская область, Россия",
+            "boundedBy": {
+              "Envelope": {
+                "lowerCorner": "30.437293 60.054231",
+                "upperCorner": "30.445504 60.058336"
+              }
+            },
+            "Point": {
+              "pos": "30.441399 60.056283"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

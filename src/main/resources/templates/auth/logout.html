@@ -1,5 +1,5 @@
-<div th:replace="~{header :: header(Front)}"/>
+<div th:replace="~{layouts/header :: header(Logout)}"/>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
-<div th:replace="~{footer :: footer(Front)}"/>
+<div th:replace="~{layouts/footer :: footer(Logout)}"/>

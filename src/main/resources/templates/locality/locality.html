@@ -1,0 +1,63 @@
+<div th:replace="~{layouts/without_app_locality :: without_app_locality(Locality)}"/>
+
+<style th:inline="css">
+    .preloader {
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%)
+    }
+    .reg {
+        color: red;
+        padding: 10px;
+        text-align: center;
+    }
+</style>
+<div class="preloader">
+    <img th:src='@{public/images/loader/preloader.svg}'>
+</div>
+
+
+<div class="container-fluid mt-4" style="white-space: nowrap; height: 75vh">
+    <article>
+        <script th:src="@{/public/js/preloader/preloader.js}"></script>
+        <div class="card">
+            <div class="reg mess" th:if="${message}">
+                <span th:text="${message}"/>
+            </div>
+            <div class="card-body" style="background-color: cadetblue;">
+                <form method="post" th:action="@{/get_city}">
+                    <div class="form-group">
+                        <div class="main-search-input-wrap search">
+                            <div class="main-search-input fl-wrap">
+
+                                <div class="main-search-input-item">
+                                    <input name="locality" id="value" type="text" value=""
+                                           placeholder="Начните вводить город">
+                                </div>
+                                <button style="background-color: #50898b" class="main-search-button">Применить
+                                </button>
+                            </div>
+                            <br>
+                            <div id="dropdown" style="margin-top: 40px">
+                                <select class="select" name="list" id="list"></select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </article>
+</div>
+</article>
+<script type="text/javascript" th:src="@{/public/js/messages/message_hide.js}"></script>
+<script type="text/javascript" th:src="@{/public/js/search/search_locality.js}"></script>
+
+
+<div th:replace="~{layouts/footer :: footer(Locality)}"/>
+
+
+
+
