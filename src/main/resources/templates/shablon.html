@@ -4,13 +4,21 @@
 
 <div th:text="${locality}"></div>
 
-<script th:inline="javascript">
-    alert(1234)
-</script>
+<style th:inline="css">
+    .files img {
+        max-width: 200px;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+
+
+</style>
 
 <div class="reg" th:if="${message}" >
     <span th:text="${message}"/>
 </div>
+
+<script type="text/javascript" th:src="@{/js/checkbox/checkbox.js}"></script>
 
 <form th:action="@{/login}" method="post">
 

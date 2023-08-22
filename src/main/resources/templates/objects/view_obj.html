@@ -1,0 +1,13 @@
+<div th:replace="~{layouts/header :: header(View_obj)}"/>
+<section>
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8">
+                <div th:remove="tag" th:utext="${obj.getAddress()}"></div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{layouts/footer :: footer(View_obj)}"/>

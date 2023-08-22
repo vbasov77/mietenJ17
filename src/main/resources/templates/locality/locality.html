@@ -16,13 +16,13 @@
     }
 </style>
 <div class="preloader">
-    <img th:src='@{public/images/loader/preloader.svg}'>
+    <img th:src='@{/images/loader/preloader.svg}'>
 </div>
 
 
 <div class="container-fluid mt-4" style="white-space: nowrap; height: 75vh">
     <article>
-        <script th:src="@{/public/js/preloader/preloader.js}"></script>
+        <script th:src="@{/js/preloader/preloader.js}"></script>
         <div class="card">
             <div class="reg mess" th:if="${message}">
                 <span th:text="${message}"/>
@@ -52,8 +52,8 @@
     </article>
 </div>
 </article>
-<script type="text/javascript" th:src="@{/public/js/messages/message_hide.js}"></script>
-<script type="text/javascript" th:src="@{/public/js/search/search_locality.js}"></script>
+<script type="text/javascript" th:src="@{/js/messages/message_hide.js}"></script>
+<script type="text/javascript" th:src="@{/js/search/search_locality.js}"></script>
 
 
 <div th:replace="~{layouts/footer :: footer(Locality)}"/>

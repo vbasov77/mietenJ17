@@ -1,0 +1,29 @@
+<div th:fragment="balcony(activTab)">
+    <div id="balconyAp" >
+        <div class="messageBalcony" id="messageBalcony"></div>
+        <label class="checkbox-btn2">
+            <input id="noneBalcony"  type="checkbox" name="balcony[]" value="нет">
+            <span>Нет</span>
+        </label>
+        <label class="checkbox-btn2">
+            <input id="balcony" class="balcony" type="checkbox" name="balcony[]"
+                   value="балкон">
+            <span>Балкон</span>
+        </label>
+        <label class="checkbox-btn2">
+            <input id="loggia" type="checkbox" name="balcony[]"
+                   value="лоджия">
+            <span>Лоджия</span>
+        </label>
+    </div>
+    <script th:inline="javascript">
+        let balcony = [[${balcony}]];
+        balconyArr = balcony.split(",")
+        $('#balconyAp').find(':checkbox[name="balcony[]"]').each(function () {
+            if (balconyArr.some(v => v.trimStart() == $(this).val())) {
+                $(this).prop('checked', true);
+            }
+        });
+    </script>
+
+</div>

@@ -19,4 +19,5 @@ public class Locality {
     @Column(name = "locality")
     private String locality;
 
+
 }

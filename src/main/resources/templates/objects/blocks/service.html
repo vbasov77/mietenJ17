@@ -1,0 +1,75 @@
+<div th:fragment="service(activTab)">
+    <div id="service">
+        <h4>Сервис</h4>
+
+        <h5>Техника:</h5>
+        <label class="checkbox-btn2">
+            <input type="checkbox" name="service[]"
+            value="кондиционер">
+            <span>Кондиционер</span>
+        </label>
+
+        <label class="checkbox-btn2">
+            <input type="checkbox" name="service[]"
+            value="холодильник">
+            <span>Холодильник</span>
+        </label>
+
+        <label class="checkbox-btn2">
+            <input type="checkbox" name="service[]"
+            value="плита">
+            <span>Плита</span>
+        </label>
+
+        <label class="checkbox-btn2">
+            <input type="checkbox" name="service[]"
+            value="микроволновка">
+            <span>Микроволновка</span>
+        </label>
+
+        <label class="checkbox-btn2">
+            <input type="checkbox" name="service[]"
+            value="стиральная машина">
+            <span>Стиральная машина</span>
+        </label>
+
+        <label class="checkbox-btn2">
+            <input type="checkbox" name="service[]"
+            value="посудомоечная машина">
+            <span>Посудомоечная машина</span>
+        </label>
+
+        <label class="checkbox-btn2">
+            <input type="checkbox" name="service[]"
+            value="водонагреватель">
+            <span>Водонагреватель</span>
+        </label>
+
+        <label class="checkbox-btn2">
+            <input type="checkbox" name="service[]"
+            value="телевизор">
+            <span>Телевизор</span>
+        </label>
+
+        <label class="checkbox-btn2">
+            <input type="checkbox" name="service[]"
+            value="фен">
+            <span>Фен</span>
+        </label>
+        <label class="checkbox-btn2">
+            <input type="checkbox" name="service[]"
+            value="утюг">
+            <span>Утюг</span>
+        </label>
+    </div>
+
+    <script th:inline="javascript">
+        let service = [[${service}]];
+        serviceArr = service.split(",")
+        $('#service').find(':checkbox[name="service[]"]').each(function () {
+            if (serviceArr.some(v => v.trimStart() == $(this).val())) {
+                $(this).prop('checked', true);
+            }
+        });
+    </script>
+</div>

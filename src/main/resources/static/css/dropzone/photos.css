@@ -1,0 +1,18 @@
+
+.files img, .filImg img {
+    max-width: 200px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+
+img.img-thumbnail.del {
+    margin: 5px;
+}
+.filImg {
+    display: flex;
+}
+
+.buttonsBlock {
+    margin: 0 0 60px 0;
+}

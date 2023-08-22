@@ -1,0 +1,11 @@
+<div th:fragment="images(activTab)">
+    <div id="file" class="upload"></div>
+    <div class="files" id="files"></div>
+    <div class="filImg"  id="filImg" th:if="${images}" >
+            <div th:each="image : ${images}" >
+                <img class="img-thumbnail del" th:src="@{${'/images/photo_obj/' + image}}" alt=""
+                th:data-file="${image}">
+            </div>
+    </div>
+    <div style="margin-top: 25px" class="preview" id="preview"></div>
+</div>

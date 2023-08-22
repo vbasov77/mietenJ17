@@ -1,32 +1,27 @@
 package mieten17;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import mieten17.models.Employee;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 
-@SpringBootTest
+
 public class JacksonTest {
-    ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules();;
+    static final String SQL_UPDATE_PUBLISHED =
+            "update objects set published = :published where user_id = :userId";
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Test
-    void pojoToJsonString() throws JsonProcessingException {
-        Employee employee = new Employee("Mark", "James", 20);
-
-        String json = objectMapper.writeValueAsString(employee);
-
-        System.out.println(json);
+    public void updatePublished(/*int published, Long userId*/) {
+        int published = 1;
+        Long userId = 1L;
+        var params = new MapSqlParameterSource();
+        params.addValue("published", published);
+        params.addValue("user_id", userId);
+        System.out.println(params);
+        jdbcTemplate.update(SQL_UPDATE_PUBLISHED, params);
     }
 
-    @Test
-    void jsonStringToPoj() throws JsonProcessingException {
-        String employeeJson = "{\n" +
-                " \"firstName\" : \"Jalil\",\n" +
-                " \"lastName\" : \"Jarjanazy\",\n" +
-                " \"age\" : 30\n" +
-                "}";
 
-        Employee employee = objectMapper.readValue(employeeJson, Employee.class);
-    }
 }

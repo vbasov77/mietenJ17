@@ -14,8 +14,6 @@ public interface LocalityRepository extends JpaRepository<Locality, Long> {
     Optional<List<Locality>> findLocalitiesByLocalityStartsWith(String locality);
 
     Locality findLocalityByLocality(String locality);
+    Long findIdByLocality(String locality);
 
-//    @Query(nativeQuery = true,
-//            value = "SELECT l.locality FROM locations l where l.locality like '%ан%'")
-//    Optional<Locality> findLocal(String locality);
 }

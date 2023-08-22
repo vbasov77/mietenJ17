@@ -1,0 +1,31 @@
+<div th:fragment="internet(activTab)">
+    <div id="internetAp">
+        <div class="messageInternet" id="messageInternet"></div>
+        <h5>Интернет и ТВ:</h5>
+        <label class="checkbox-btn2">
+            <input id="noneInternet" type="checkbox" name="service[]" value="нет">
+            <span>Нет</span>
+        </label>
+        <label  class="checkbox-btn2">
+            <input id="viFi" type="checkbox" name="service[]"
+            value="viFi">
+            <span>Vi-Fi</span>
+        </label>
+        <label class="checkbox-btn2">
+            <input id="television" type="checkbox" name="service[]"
+            value="телевидение">
+            <span>Телевидение</span>
+        </label>
+    </div>
+    <script th:inline="javascript">
+        let serviceInter = [[${service}]];
+
+        serviceArrInter = serviceInter.split(",")
+        $('#internetAp').find(':checkbox[name="service[]"]').each(function() {
+            if (serviceArrInter.some(v => v.trimStart() == $(this).val())) {
+                $(this).prop('checked', true);
+            }
+        });
+    </script>
+
+</div>

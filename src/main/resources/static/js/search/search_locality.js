@@ -1,5 +1,6 @@
 $(document).ready(function () {
     document.getElementById('dropdown').style.display = 'none';
+
     $("#value").autocomplete({
         source: function (request, response) {
             var $this = $(this);

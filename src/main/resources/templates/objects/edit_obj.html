@@ -1,0 +1,162 @@
+<div th:replace="~{layouts/header :: header(Edit_obj)}"/>
+<link th:href="@{/css/dropzone/photos.css}" rel="stylesheet">
+<link th:href="@{/css/checkbox.css}" rel="stylesheet">
+<style th:inline="css">
+    .preloader-img {
+        display: none;
+    }
+</style>
+<script th:inline="javascript">
+    function in_array(value, Arr) {
+        for (i = 0; i < Arr.length; i++) {
+            if (value === Arr[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    let id = [[${id}]]
+    // Скрипт на <div id="countRooms"> в checkbox.js
+    let countRooms = [[${countRooms}]]
+</script>
+<section>
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8">
+                <h1 style="margin: 40px 0 60px 0">Редактировать объект</h1>
+                <form id="form">
+                    <div>
+                        <h5>Заголовок:</h5>
+                        <input name="title" type="text" th:value="${title}"
+                               class="form-control"
+                               placeholder="Заголовок" autocomplete="off" required>
+                    </div>
+                    <br>
+                    <div>
+                        <h5>Адрес:</h5>
+                        <input name="address" type="text" th:value="${address}"
+                               class="form-control" id="suggest"
+                               placeholder="Адрес" autocomplete="off" readonly>
+                    </div>
+                    <br>
+                    <div>
+                        <h5>Цена:</h5>
+                        <input name="price" type="number" th:value="${price}"
+                               class="form-control"
+                               onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && /^\d{0,8}$/.test(this.value));"
+                               placeholder="Цена" autocomplete="off" required>
+                    </div>
+                    <br>
+                    <div>
+                        <h5>Общая площадь:</h5>
+                        <input id="area" name="area" type="text" th:value="${area}"
+                               onkeyup="return checkСommas(this);"
+                               class="form-control"
+                               placeholder="Общая площадь" autocomplete="off" required>
+                    </div>
+                    <br>
+                    <div>
+                        <h5>Этаж:</h5>
+                        <input name="floor" type="number" th:value="${floor}"
+                               onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && /^\d{0,3}$/.test(this.value));"
+                               class="form-control"
+                               placeholder="Этаж" autocomplete="off" required>
+                    </div>
+                    <br>
+                    <div>
+                        <h5>Этажей в доме:</h5>
+                        <input name="floors" type="number" th:value="${floors}"
+                               onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && /^\d{0,3}$/.test(this.value));"
+                               class="form-control"
+                               placeholder="Этажей в доме" autocomplete="off" required>
+                    </div>
+                    <br>
+                    <div th:replace="~{/objects/blocks/balcony :: balcony(Edit_obj)}"/>
+                    <br>
+                    <div th:replace="~{/objects/blocks/parking :: parking(Edit_obj)}"/>
+                    <br>
+                    <div id="countRooms">
+                        <h5>Количество комнат</h5>
+                        <label class="checkbox-btn2">
+                            <input type="checkbox" name="countRooms" id="rooms"
+                                   value="студия">
+                            <span>Студия</span>
+                        </label>
+
+                        <input id="count" name="countRooms" type="number"
+                               th:value="${countRooms}"
+                               class="form-control"
+                               onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && /^\d{0,2}$/.test(this.value));"
+                               placeholder="Количество комнат" autocomplete="off" required>
+
+                    </div>
+                    <br>
+                    <div>
+                        <h5>Вместимость человек:</h5>
+                        <input name="capacity" type="number" th:value="${capacity}"
+                               class="form-control"
+                               onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && /^\d{0,3}$/.test(this.value));"
+                               placeholder="Вместимость" autocomplete="off" required>
+                    </div>
+                    <br>
+                    <div th:replace="~{/objects/blocks/service :: service(Edit_obj)}"/>
+                    <br>
+                    <div th:replace="~{/objects/blocks/comfort :: comfort(Edit_obj)}"/>
+                    <br>
+                    <div th:replace="~{/objects/blocks/internet :: internet(Edit_obj)}"/>
+                    <br>
+                    <div th:replace="~{/objects/blocks/rules :: rules(Edit_obj)}"/>
+                    <br>
+                    <h5>Текст:</h5>
+                    <textarea class="form-control" placeholder="Введите текст..." name="textObj" id="text"
+                              rows="5" cols="85" th:text="${text_obj}"></textarea><br>
+                    <br>
+                    <div>
+                        <h5>Видео:</h5>
+                        <input name="video" type="text" th:value="${video}"
+                               class="form-control"
+                               placeholder="https://www.youtube.com/embed/WviGn7gjhdw" autocomplete="off">
+                    </div>
+                    <br>
+                    <div th:replace="~{/objects/blocks/images :: images(Edit_obj)}"/>
+                    <br>
+                    <br>
+                    <div class="buttonsBlock">
+                        <button class="btn btn-primary submit" id="submit" type="submit">Сохранить</button>
+                        <a th:href='@{"/"}' type='button'
+                           class='btn btn-success' style="margin: 5px">Просмотр</a>
+
+                        <a onClick="return confirm('Подтвердите удаление!')"
+                           th:href='@{"/"}' type='button'
+                           class='btn btn-danger' style="margin: 5px">Удалить</a>
+                        <img th:src="@{/images/loader/preloader.svg}" width="35px" height="auto" alt=""
+                             class="preloader-img"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script type="text/javascript" th:src="@{/js/dropzone/dropzone.min.js}"></script>
+
+<link th:href="@{/css/dropzone/dropzone.min.css}" rel="stylesheet">
+
+
+<script th:inline="javascript">
+    if (countRooms === "студия") {
+        document.getElementById('count').disabled = true;
+    }
+</script>
+
+<script type="text/javascript" th:src="@{/js/dropzone/edit.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/checkbox/checkbox.js}"></script>
+<script type="text/javascript" th:src="@{/js/checkСommas/checkСommas.js}"></script>
+
+<div th:replace="~{layouts/footer :: footer(Edit_obj)}"/>
+
+
+

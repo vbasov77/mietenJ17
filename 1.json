@@ -1,0 +1,187 @@
+{
+  "response": {
+    "GeoObjectCollection": {
+      "metaDataProperty": {
+        "GeocoderResponseMetaData": {
+          "request": "address=Ленинградская область, Всеволожский район, Мурино, Привокзальная площадь, 5Ак1 ",
+          "results": "10",
+          "found": "2"
+        }
+      },
+      "featureMember": [
+        {
+          "GeoObject": {
+            "metaDataProperty": {
+              "GeocoderMetaData": {
+                "precision": "exact",
+                "text": "Россия, Ленинградская область, Всеволожский район, Мурино, Привокзальная площадь, 5Ак1",
+                "kind": "house",
+                "Address": {
+                  "country_code": "RU",
+                  "formatted": "Россия, Ленинградская область, Всеволожский район, Мурино, Привокзальная площадь, 5Ак1",
+                  "postal_code": "188678",
+                  "Components": [
+                    {
+                      "kind": "country",
+                      "name": "Россия"
+                    },
+                    {
+                      "kind": "province",
+                      "name": "Северо-Западный федеральный округ"
+                    },
+                    {
+                      "kind": "province",
+                      "name": "Ленинградская область"
+                    },
+                    {
+                      "kind": "area",
+                      "name": "Всеволожский район"
+                    },
+                    {
+                      "kind": "area",
+                      "name": "Муринское городское поселение"
+                    },
+                    {
+                      "kind": "locality",
+                      "name": "Мурино"
+                    },
+                    {
+                      "kind": "street",
+                      "name": "Привокзальная площадь"
+                    },
+                    {
+                      "kind": "house",
+                      "name": "5Ак1"
+                    }
+                  ]
+                },
+                "AddressDetails": {
+                  "Country": {
+                    "AddressLine": "Россия, Ленинградская область, Всеволожский район, Мурино, Привокзальная площадь, 5Ак1",
+                    "CountryNameCode": "RU",
+                    "CountryName": "Россия",
+                    "AdministrativeArea": {
+                      "AdministrativeAreaName": "Ленинградская область",
+                      "SubAdministrativeArea": {
+                        "SubAdministrativeAreaName": "Всеволожский район",
+                        "Locality": {
+                          "LocalityName": "Мурино",
+                          "Thoroughfare": {
+                            "ThoroughfareName": "Привокзальная площадь",
+                            "Premise": {
+                              "PremiseNumber": "5Ак1",
+                              "PostalCode": {
+                                "PostalCodeNumber": "188678"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "name": "Привокзальная площадь, 5Ак1",
+            "description": "Мурино, Всеволожский район, Ленинградская область, Россия",
+            "boundedBy": {
+              "Envelope": {
+                "lowerCorner": "30.443034 60.049572",
+                "upperCorner": "30.451244 60.053678"
+              }
+            },
+            "Point": {
+              "pos": "30.447139 60.051625"
+            }
+          }
+        },
+        {
+          "GeoObject": {
+            "metaDataProperty": {
+              "GeocoderMetaData": {
+                "precision": "number",
+                "text": "Россия, Ленинградская область, Всеволожский район, Мурино, Привокзальная площадь, 5Ак2",
+                "kind": "house",
+                "Address": {
+                  "country_code": "RU",
+                  "formatted": "Россия, Ленинградская область, Всеволожский район, Мурино, Привокзальная площадь, 5Ак2",
+                  "postal_code": "188678",
+                  "Components": [
+                    {
+                      "kind": "country",
+                      "name": "Россия"
+                    },
+                    {
+                      "kind": "province",
+                      "name": "Северо-Западный федеральный округ"
+                    },
+                    {
+                      "kind": "province",
+                      "name": "Ленинградская область"
+                    },
+                    {
+                      "kind": "area",
+                      "name": "Всеволожский район"
+                    },
+                    {
+                      "kind": "area",
+                      "name": "Муринское городское поселение"
+                    },
+                    {
+                      "kind": "locality",
+                      "name": "Мурино"
+                    },
+                    {
+                      "kind": "street",
+                      "name": "Привокзальная площадь"
+                    },
+                    {
+                      "kind": "house",
+                      "name": "5Ак2"
+                    }
+                  ]
+                },
+                "AddressDetails": {
+                  "Country": {
+                    "AddressLine": "Россия, Ленинградская область, Всеволожский район, Мурино, Привокзальная площадь, 5Ак2",
+                    "CountryNameCode": "RU",
+                    "CountryName": "Россия",
+                    "AdministrativeArea": {
+                      "AdministrativeAreaName": "Ленинградская область",
+                      "SubAdministrativeArea": {
+                        "SubAdministrativeAreaName": "Всеволожский район",
+                        "Locality": {
+                          "LocalityName": "Мурино",
+                          "Thoroughfare": {
+                            "ThoroughfareName": "Привокзальная площадь",
+                            "Premise": {
+                              "PremiseNumber": "5Ак2",
+                              "PostalCode": {
+                                "PostalCodeNumber": "188678"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "name": "Привокзальная площадь, 5Ак2",
+            "description": "Мурино, Всеволожский район, Ленинградская область, Россия",
+            "boundedBy": {
+              "Envelope": {
+                "lowerCorner": "30.442216 60.049694",
+                "upperCorner": "30.450427 60.053799"
+              }
+            },
+            "Point": {
+              "pos": "30.446321 60.051747"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

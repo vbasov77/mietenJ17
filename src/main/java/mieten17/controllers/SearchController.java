@@ -1,7 +1,6 @@
 package mieten17.controllers;
 
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import jakarta.servlet.http.HttpServletRequest;
 import mieten17.models.Locality;
 import mieten17.repositories.LocalityRepository;
@@ -32,7 +31,6 @@ public class SearchController {
         for (int i = 0; i < localities.get().size(); i++) {
             arr.add(String.valueOf(localities.get().get(i).getLocality()));
         }
-        String str = String.join(",", arr);// Перевели массив в строку.
-        return str;
+        return String.join(",", arr);// Перевели массив в строку.;
     }
 }

@@ -19,3 +19,11 @@ spring:
   main:
     allow-circular-references: true
 
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 5MB
+
+  config:
+    location: D:\STUD\Spring\img_for_mieten17/
+    name: application
