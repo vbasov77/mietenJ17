@@ -1,5 +1,4 @@
 package mieten17.services;
-
 import mieten17.models.Role;
 import mieten17.models.User;
 import mieten17.repositories.UserRepository;
@@ -48,5 +47,8 @@ public class UserService implements UserDetailsService {
         user.setRole(role);
         save(user);
     }
-}
 
+    public User getUserById(Long id){
+        return userRepository.findUserById(id);
+    }
+}

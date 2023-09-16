@@ -1,0 +1,46 @@
+<div th:replace="~{layouts/header :: header(Add_address)}"/>
+<style th:inline="css">
+    .preloader-img {
+        display: none;
+    }
+</style>
+<section>
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8">
+                <div th:if="${message}">
+                    <span th:text="${message}"/>
+                </div>
+                <h1 style="margin: 40px 0 60px 0">Добавить объект</h1>
+                <div class="err" th:if="${error}">
+                    <span th:text="${error}"/>
+                </div>
+                <form id="form">
+                    <br>
+                    <div>
+                        <label th:for="address"><b>Адрес:</b></label>
+                        <input name="address" type="text"
+                               class="form-control" id="suggest"
+                               placeholder="Адрес" autocomplete="off" required>
+                    </div>
+                    <br>
+                    <div class="preview" id="preview"></div>
+                    <button class="btn btn-outline-success" type="submit" id="submit">
+                        Продолжить
+                    </button>
+                    <img th:src="@{images/loader/preloader.svg}" width="35px" height="auto" alt=""
+                         class="preloader-img"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="//api-maps.yandex.ru/2.1/?94532f3f-9b0c-4212-ba00-c873aeb2ab32&lang=ru_RU&load=SuggestView&onload=onLoad"></script>
+<script type="text/javascript" th:src="@{/js/ymaps/ymaps.js}"></script>
+<script type="text/javascript" th:src="@{/js/messages/message_hide_click.js}"></script>
+<script type="text/javascript" th:src="@{/js/obj/add_obj.js}"></script>
+<div th:replace="~{layouts/footer :: footer(Add_address)}"/>
+
+
+

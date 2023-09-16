@@ -1,0 +1,29 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mietenj17
+    username: root
+    password:
+
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  main:
+    allow-circular-references: true
+
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 5MB
+
+  config:
+    location: D:\STUD\Spring\img_for_mieten17/
+    name: application

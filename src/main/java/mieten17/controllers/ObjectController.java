@@ -51,6 +51,10 @@ public class ObjectController {
     @Autowired
     private AddressService addressService;
 
+
+    @Autowired
+    private ObjService objService;
+
     @Autowired
     private ObjRepository objRepository;
 
@@ -80,6 +84,7 @@ public class ObjectController {
         Obj obj = new Obj();
         obj.setUserId(user.getId());
         obj.setAddress(address);
+        obj.setPublished(0);
         obj.setCoordinates(Collections.singleton(coordinates));
 
         List object =
@@ -108,7 +113,7 @@ public class ObjectController {
         shortAddress.setObjId(id);
         shortAddress.setCountryId(countryId);
         shortAddress.setLocalityId(localityId);
-        shortAddress.setAddress(addressStr);
+        shortAddress.setLocality(addressStr);
         addressService.save(shortAddress);
 
         return id;
@@ -116,13 +121,15 @@ public class ObjectController {
 
     @GetMapping("/edit_obj/id{id}")
     public String editObjPage(@PathVariable Long id, Model model) {
+
+        String regex = "\\[|\\]";
         model.addAttribute("locality", id);
-        Obj obj = objRepository.findObjById(id);
+        Obj obj = objService.getObjById(id);
         Detail detail = detailRepository.findDetailByObjId(id);
         Rule rule = ruleRepository.findRuleByObjId(id);
         String address = obj.getAddress().toString();
         if (detail != null) {
-            String title = detail.getTitle().toString().replaceAll("\\[", "").replaceAll("\\]", "");
+            String title = detail.getTitle().toString();
             int price = detail.getPrice();
             float area = detail.getArea();
             int floor = detail.getFloor();
@@ -133,7 +140,7 @@ public class ObjectController {
             int capacity = detail.getCapacity();
             String service = detail.getService();
             String comfort = detail.getComfort();
-            String textObj = detail.getTextObj().toString().replaceAll("\\[", "").replaceAll("\\]", "");
+            String textObj = detail.getTextObj().toString();
             if (textObj.equals("null")) {
                 textObj = "";
             }
@@ -152,11 +159,12 @@ public class ObjectController {
         }
         if (rule != null) {
             String children = rule.getChildren();
-            String animals = rule.getAnimals().toString().replaceAll("\\[", "").replaceAll("\\]", "");
-            String smoking = rule.getSmoking().toString().replaceAll("\\[", "").replaceAll("\\]", "");
-            String party = rule.getParty().toString().replaceAll("\\[", "").replaceAll("\\]", "");
-            String documents = rule.getDocuments().toString().replaceAll("\\[", "").replaceAll("\\]", "");
-            String monthly = rule.getMonthly().toString().replaceAll("\\[", "").replaceAll("\\]", "");
+            String animals = rule.getAnimals().toString();
+            String smoking = rule.getSmoking().toString();
+
+            String party = rule.getParty().toString();
+            String documents = rule.getDocuments().toString();
+            String monthly = rule.getMonthly().toString();
             model.addAttribute("children", children);
             model.addAttribute("animals", animals);
             model.addAttribute("smoking", smoking);
@@ -165,8 +173,7 @@ public class ObjectController {
             model.addAttribute("monthly", monthly);
         }
 
-        String video = obj.getVideo().toString().replaceAll("\\[", "").replaceAll("\\]", "");
-
+        String video = obj.getVideo().toString().replaceAll(regex, "");
         List<Image> img = imageRepository.findAllByObjId(obj.getId());
         List<String> images = new ArrayList<>();
         if (!img.isEmpty()) {
@@ -182,6 +189,33 @@ public class ObjectController {
         model.addAttribute("images", images);
 
         return "objects/edit_obj";
+    }
+
+    @PostMapping("/publish")
+    @ResponseBody
+    public Object published(@RequestParam Long id) {
+        Map<String, Object> object = new HashMap<>();
+        objService.updatePublished(id);
+        object.put("answer", "ok");
+        return object;
+    }
+
+    @PostMapping("/take_off")
+    @ResponseBody
+    public Object takeOff(@RequestParam Long id) {
+        Map<String, Object> object = new HashMap<>();
+        objService.takeOff(id);
+        object.put("answer", "ok");
+        return object;
+    }
+
+    @PostMapping("/delete_obj")
+    @ResponseBody
+    public Object deleteObj(@RequestParam Long id){
+        objService.deleteObjById(id);
+        Map<String, Object> object = new HashMap<>();
+        object.put("answer", "ok");
+        return object;
     }
 
     @PostMapping("/edit_obj/id{id}")
@@ -210,11 +244,11 @@ public class ObjectController {
         ruleService.createRules(id, children, animals, smoking, party,
                 documents, monthly);
 
-        String balconyStr = balcony.toString().replaceAll("\\[", "").replaceAll("\\]", "");
-        String parkingStr = parking.toString().replaceAll("\\[", "").replaceAll("\\]", "");
-        String serviceStr = service.toString().replaceAll("\\[", "").replaceAll("\\]", "");
-        String comfortStr = comfort.toString().replaceAll("\\[", "").replaceAll("\\]", "");
-        System.out.println(comfortStr);
+
+        String balconyStr = String.join(",", balcony); // Из массива в строку
+        String parkingStr = String.join(",", parking);
+        String serviceStr = String.join(",", service);
+        String comfortStr = String.join(",", comfort);
 
         detailService.createDetailOrUpdate(id, title, floor, floors, balconyStr, area, price, capacity, countRooms,
                 serviceStr, comfortStr, parkingStr, textObj);
@@ -230,14 +264,32 @@ public class ObjectController {
 
     @GetMapping("/obj/id{id}")
     public String viewObj(@PathVariable Long id, Model model) {
-        Obj obj = objRepository.findObjById(id);
-        model.addAttribute("obj", obj);
+        Obj obj = objService.getObjById(id);
+        List<Image> img = imageRepository.findAllByObjId(id);
+        List<String> images = new ArrayList<>();
+        if (!img.isEmpty()) {
+            for (int i = 0; i < img.size(); i++) {
+                images.add(img.get(i).getPath());
+            }
+        } else {
+            images = null;
+        }
+        model.addAttribute("data", obj);
+
+        model.addAttribute("images", images);
         return "objects/view_obj";
     }
 
-    public String test() {
-        return "objects/view_obj";
+    @GetMapping("/my_obj")
+    public String myObjects(@AuthenticationPrincipal User user, Model model) {
+        List<Obj> objs = objService.getMyObj(user.getId());
+        model.addAttribute("data", objs);
+        return "objects/my";
     }
+
+
+
+
 
 
 }

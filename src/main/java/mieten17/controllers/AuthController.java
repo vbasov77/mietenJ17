@@ -1,6 +1,5 @@
 package mieten17.controllers;
 
-
 import mieten17.models.User;
 import mieten17.repositories.UserRepository;
 import mieten17.services.UserService;

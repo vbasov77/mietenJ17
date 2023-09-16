@@ -1,0 +1,1 @@
+Есть ли метод, получающий массив из БД только из имён. SearchController; autocomplete

@@ -1,80 +1,48 @@
 package mieten17.models;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Data
-@Table(name = "addresses")
-public class Address {
-
+@Table(name = "messages")
+public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "from_user_id")
+    private Long fromUserId;
+
+    @Column(name = "to_user_id")
+    private Long toUserId;
+
     @Column(name = "obj_id")
     private Long objId;
 
-    @Column(name = "country_id")
-    private Long countryId;
+    @Column(name = "body")
+    private String body;
 
-    @Column(name = "locality_id")
-    private Long localityId;
+    @Column(name = "status")
+    private int status;
 
-    @Column(name = "address")
-    private String address;
+    @Column(name = "created_at")
+    private String createdAt;
 
-    public Address(Long id, Long objId, Long countryId, Long localityId, String address) {
-        this.id = id;
-        this.objId = objId;
-        this.countryId = countryId;
-        this.localityId = localityId;
-        this.address = address;
-    }
+//    @ElementCollection
+//    @CollectionTable(name = "images", joinColumns = @JoinColumn(name = "obj_id", referencedColumnName="obj_id"))
+//    private Set<String> images = new HashSet<>();
+//
+//    public String getImageStr() {
+//        String string = String.join(", ", this.images);
+//        List<String> images = List.of(string.split(","));
+//        return images.get(0);
+//    }
 
-    public Address() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getObjId() {
-        return objId;
-    }
-
-    public void setObjId(Long objId) {
-        this.objId = objId;
-    }
-
-    public Long getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(Long countryId) {
-        this.countryId = countryId;
-    }
-
-    public Long getLocalityId() {
-        return localityId;
-    }
-
-    public void setLocalityId(Long localityId) {
-        this.localityId = localityId;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 }

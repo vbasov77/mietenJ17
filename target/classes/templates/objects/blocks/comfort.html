@@ -1,0 +1,38 @@
+<div th:fragment="comfort(activTab)">
+    <div id="comfortAp">
+        <div class="messageComfort" id="messageComfort"></div>
+        <h5 style="margin-top: 20px">Комфорт:</h5>
+
+        <label class="checkbox-btn2">
+            <input id="noneComfort" type="checkbox" name="comfort[]" value="нет">
+            <span>Нет</span>
+        </label>
+        <label class="checkbox-btn2">
+            <input id="linen" type="checkbox" name="comfort[]"
+            value="постельное бельё">
+            <span>Постельное бельё</span>
+        </label>
+
+        <label class="checkbox-btn2">
+            <input id="towels" type="checkbox" name="comfort[]"
+            value="полотенца">
+            <span>Полотенца</span>
+        </label>
+
+        <label class="checkbox-btn2">
+            <input id="hygieneProducts" type="checkbox" name="comfort[]"
+            value="средства гигиены">
+            <span>Средства гигиены</span>
+        </label>
+    </div>
+
+    <script th:inline="javascript">
+        let comfort = [[${comfort}]];
+        comfortArr = comfort.split(",")
+        $('#comfortAp').find(':checkbox[name="comfort[]"]').each(function() {
+            if (comfortArr.some(v => v.trimStart() == $(this).val())) {
+                $(this).prop('checked', true);
+            }
+        });
+    </script>
+</div>

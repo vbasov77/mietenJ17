@@ -18,11 +18,4 @@ public class AddressService {
     }
 
 
-    public Long getLocalityId() {
-        return 1L;
-    }
-
-    public Long getCountryId() {
-        return 1L;
-    }
 }

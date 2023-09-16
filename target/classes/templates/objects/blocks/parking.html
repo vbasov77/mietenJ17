@@ -1,0 +1,30 @@
+<div th:fragment="parking(activTab)">
+    <div id="parkingAp">
+        <div class="messageParking" id="messageParking"></div>
+        <h5>Паркинг:</h5>
+        <label class="checkbox-btn2">
+            <input id="noneParking" type="checkbox" name="parking[]" value="нет">
+            <span>Нет</span>
+        </label>
+        <label class="checkbox-btn2">
+            <input id="onTheStreet" type="checkbox" name="parking[]"
+            value="на улице">
+            <span>На улице</span>
+        </label>
+        <label class="checkbox-btn2">
+            <input id="inTheBuilding" type="checkbox" name="parking[]"
+            value="в здании">
+            <span>В здании</span>
+        </label>
+    </div>
+
+    <script th:inline="javascript">
+        let parking = [[${parking}]];
+        parkingArr = parking.split(",")
+        $('#parkingAp').find(':checkbox[name="parking[]"]').each(function () {
+            if (parkingArr.some(v => v.trimStart() == $(this).val())) {
+                $(this).prop('checked', true);
+            }
+        });
+    </script>
+</div>

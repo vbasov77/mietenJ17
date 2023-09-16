@@ -1,5 +1,4 @@
 package mieten17.models;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
