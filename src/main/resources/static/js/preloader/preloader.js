@@ -1,4 +1,5 @@
-const bod1 = document.querySelector('article');
+
+const bod1 = document.getElementById('preload');
 const markup = `<div class="preloader" >
             <img src="/images/loader/preloader.svg" >
         </div>`;

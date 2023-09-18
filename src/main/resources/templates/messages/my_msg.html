@@ -1,54 +1,57 @@
 <div th:replace="~{layouts/header :: header(Front)}"/>
+
+<link th:href="@{/css/preloader.css}" rel="stylesheet">
 <link th:href="@{/css/messages/messages.css}" rel="stylesheet">
-<section>
-    <div class="container px-4 px-lg-5" style="white-space: nowrap; height: 75vh">
-        <div class="row  justify-content-center text-center">
-            <div class="col-xl-8">
-                <div th:if="${message}">
-                    <div th:id="mess" th:class="mess"
-                         style="background-color: #43b143; color:#ffffff; padding: 5px;margin: 15px">
-                        <span th:text="${message}"/>
+<div id="preload">
+    <section>
+        <div class="container px-4 px-lg-5" style="white-space: nowrap; height: 75vh">
+            <div class="row  justify-content-center text-center">
+                <div class="col-xl-8">
+                    <div th:if="${message}">
+                        <div th:id="mess" th:class="mess"
+                             style="background-color: #43b143; color:#ffffff; padding: 5px;margin: 15px">
+                            <span th:text="${message}"/>
+                        </div>
                     </div>
-                </div>
-                <h1 style="margin-top: 40px">Мои сообщения</h1>
-                <div th:if="${messages != null}">
-                    <div th:each="msg : ${messages}">
-                        <a class="messageLink" style="text-decoration: none;" th:href="@{'/auth/message?obj_id=' + ${msg[3]} +
+                    <h1 style="margin-top: 40px">Мои сообщения</h1>
+                    <div th:if="${messages != null}">
+                        <div th:each="msg : ${messages}">
+                            <a class="messageLink" style="text-decoration: none;" th:href="@{'/auth/message?obj_id=' + ${msg[3]} +
                         '&to_user_id=' + ${msg[7]}}">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-xl-2 ">
-                                            <div th:if="${msg[8]}">
-                                                <img th:src="@{'/img_for_mieten17/' + ${msg[8]}}"
-                                                     style="width: 80px; height: auto">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-xl-2 ">
+                                                <div th:if="${msg[8]}">
+                                                    <img th:src="@{'/img_for_mieten17/' + ${msg[8]}}"
+                                                         style="width: 80px; height: auto">
+                                                </div>
+                                                <div th:unless="${msg[8]}">
+                                                    <img th:src="@{'/images/no_image/no_image.jpg'}"
+                                                         style="width: 100px; height: auto">
+                                                </div>
                                             </div>
-                                            <div th:unless="${msg[8]}">
-                                                <img th:src="@{'/images/no_image/no_image.jpg'}"
-                                                     style="width: 100px; height: auto">
+                                            <div class="col-xl-6 text-left">
+                                                <div th:text="${msg[4]}"></div>
                                             </div>
-                                        </div>
-                                        <div class="col-xl-6 text-left">
-                                            <div th:text="${msg[4]}"></div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div th:unless="${messages != null}">
-                    <center>Здесь будут ваши сообщения...</center>
-                    <img class="emptyIcons" style="opacity: .3; width: 200px; height: auto;"
-                         th:src="@{'/icons/message-emp.svg'}"></center>
+                    <div th:unless="${messages != null}">
+                        <center>Здесь будут ваши сообщения...</center>
+                        <img class="emptyIcons" style="opacity: .3; width: 200px; height: auto;"
+                             th:src="@{'/icons/message-emp.svg'}"></center>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+    <script type="text/javascript" th:src="@{/js/preloader/preloader.js}"></script>
+    <script type="text/javascript" th:src="@{js/messages/message_hide.js}"></script>
+    <div th:replace="~{layouts/footer :: footer(Front)}"/>
 
-<script type="text/javascript" th:src="@{js/messages/message_hide.js}"></script>
-<div th:replace="~{layouts/footer :: footer(Front)}"/>
-
-
+</div>
 
