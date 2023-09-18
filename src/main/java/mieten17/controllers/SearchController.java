@@ -59,107 +59,11 @@ public class SearchController {
                          @RequestParam(name = "monthly", required = false) String monthly,
                          Model model, HttpSession session
     ) {
-        /**
-         * Поиск по городу
-         */
 
-        Long localityId = (Long) session.getAttribute("localityId");
-        if (list != null) {
-            // Получим данные по выбранному городу и запишем всё в сессию localityId localityName.
-            Optional<Locality> loc = localityRepository.findByLocality(list);
-            session.setAttribute("localityId", loc.get().getId());
-            session.setAttribute("localityName", list);
-            localityId = loc.get().getId();
-        }
-
-        /**
-         * Поиск по количеству комнат
-         */
-        String countRoomsDb = "%";
-        if (countRooms != "") {
-            countRoomsDb = (countRooms.equals("студия")) ? "%студия%" : countRooms;
-        }
-
-        /**
-         * Поиск по количеству человек
-         */
-        Integer capacityDb = (capacity != null) ? capacity : 0;
-
-        /**
-         * Поиск по цене
-         */
-        Integer priceFromDb = (priceFrom != null) ? priceFrom : 0; // по цене от
-        Integer priceToDb = (priceTo != null) ? priceTo : Integer.MAX_VALUE; // по цене до
-
-
-        /**
-         * Поиск по площади недвижимости
-         */
-
-        Integer areaFromDb = (areaFrom != null) ? areaFrom : 0; // площадь от
-        Integer areaToDb = (areaTo != null) ? areaTo : Integer.MAX_VALUE; // площадь до
-
-        /**
-         * Поиск по наличию балкона - лоджии
-         */
-
-        String balconyDb = (balcony != null) ? "%" + String.join(",", balcony) + "%" : "%";
-
-        /**
-         * Поиск не первый и не последний этажи
-         */
-        Integer notFirstDb = (notFirst != null) ? 1 : Integer.MAX_VALUE; // не первый
-//        String notEndDb = (notEnd != null) ? " d.floors" : null; // не последний -----> НЕ РАБОТАЕТ!!!!!!!!!!!!!!!!!!
-
-        /**
-         * Поиск - можно с детьми
-         */
-        String childrenDb = (children != null) ? "да" : "%";
-
-        /**
-         * Поиск - можно с животными
-         */
-        String animalsDb = (animals != null) ? "да" : "%";
-
-        /**
-         * Поиск можно курить
-         */
-        String smokingDb = (smoking != null) ? "да" : "%";
-
-        /**
-         * Поиск - разрешены вечеринки
-         */
-        String partyDb = (party != null) ? "да" : "%";
-
-        /**
-         * Поиск - есть отчётные документы
-         */
-        String documentsDb = (documents != null) ? "да" : "%";
-
-        /**
-         * Возможно ли помесячно
-         */
-        String monthlyDb = (monthly != null) ? "да" : "%";
-
-        System.out.println(localityId + "\n");
-        System.out.println(countRoomsDb + "\n");
-        System.out.println(priceFromDb + "\n");
-        System.out.println(priceToDb + "\n");
-        System.out.println(areaFromDb + "\n");
-        System.out.println(areaTo + "\n");
-        System.out.println(areaToDb + "\n");
-        System.out.println(balconyDb + "\n");
-        System.out.println(notFirstDb + "\n");
-        System.out.println(childrenDb + "\n");
-        System.out.println(animalsDb + "\n");
-        System.out.println(smokingDb + "\n");
-        System.out.println(partyDb + "\n");
-        System.out.println(documentsDb + "\n");
-        System.out.println(localityId + "\n");
-        List<Obj> objs = objService.getFilterObj(localityId,
-                capacityDb, countRoomsDb, priceFromDb, priceToDb,
-                areaFromDb, areaToDb, balconyDb, notFirstDb, /*notEndDb,*/childrenDb,
-                animalsDb, smokingDb, partyDb, documentsDb, monthlyDb);
+        List<Obj> objs = objService.getFilterObj(list,
+                capacity, countRooms, priceFrom, priceTo,
+                areaFrom, areaTo, balcony, notFirst, /*notEndDb,*/children,
+                animals, smoking, party, documents, monthly, session);
         if (objs.size() < 1) {
             objs = null;
         }
