@@ -8,8 +8,6 @@ import mieten17.models.*;
 import mieten17.repositories.*;
 import mieten17.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +17,8 @@ import java.io.IOException;
 import java.util.*;
 
 @Controller
+@RequestMapping("/auth")
 public class ObjectController {
-
     public static final String LOCALITY = "locality";
     public static final String COUNTRY = "country";
     public static final String STREET = "street";
@@ -121,7 +119,6 @@ public class ObjectController {
 
     @GetMapping("/edit_obj/id{id}")
     public String editObjPage(@PathVariable Long id, Model model) {
-
         String regex = "\\[|\\]";
         model.addAttribute("locality", id);
         Obj obj = objService.getObjById(id);
@@ -129,9 +126,8 @@ public class ObjectController {
         Rule rule = ruleRepository.findRuleByObjId(id);
         String address = obj.getAddress().toString();
         if (detail != null) {
-            String title = detail.getTitle().toString();
             int price = detail.getPrice();
-            float area = detail.getArea();
+            Integer area = detail.getArea();
             int floor = detail.getFloor();
             int floors = detail.getFloors();
             String balcony = detail.getBalcony();
@@ -155,7 +151,7 @@ public class ObjectController {
             model.addAttribute("service", service);
             model.addAttribute("comfort", comfort);
             model.addAttribute("text_obj", textObj);
-            model.addAttribute("title", title);
+
         }
         if (rule != null) {
             String children = rule.getChildren();
@@ -220,9 +216,9 @@ public class ObjectController {
 
     @PostMapping("/edit_obj/id{id}")
     @ResponseBody
-    public Object editObj(@RequestParam String title,
+    public Object editObj(
                           @RequestParam int price,
-                          @RequestParam float area,
+                          @RequestParam Integer area,
                           @RequestParam int floor,
                           @RequestParam int floors,
                           @RequestParam("balcony[]") List<String> balcony,
@@ -250,7 +246,7 @@ public class ObjectController {
         String serviceStr = String.join(",", service);
         String comfortStr = String.join(",", comfort);
 
-        detailService.createDetailOrUpdate(id, title, floor, floors, balconyStr, area, price, capacity, countRooms,
+        detailService.createDetailOrUpdate(id, floor, floors, balconyStr, area, price, capacity, countRooms,
                 serviceStr, comfortStr, parkingStr, textObj);
 
         if (!video.isEmpty()) {
@@ -262,7 +258,7 @@ public class ObjectController {
         return object;
     }
 
-    @GetMapping("/obj/id{id}")
+    @RequestMapping("/obj/id{id}")
     public String viewObj(@PathVariable Long id, Model model) {
         Obj obj = objService.getObjById(id);
         List<Image> img = imageRepository.findAllByObjId(id);
@@ -281,6 +277,7 @@ public class ObjectController {
     }
 
     @GetMapping("/my_obj")
+
     public String myObjects(@AuthenticationPrincipal User user, Model model) {
         List<Obj> objs = objService.getMyObj(user.getId());
         model.addAttribute("data", objs);

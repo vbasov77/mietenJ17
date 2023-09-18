@@ -28,7 +28,7 @@ public class ObjService {
     }
 
     public List<Obj> getFilterObj(Long localityId, Integer capacityDb, String countRoomsDb, Integer priceFromDb, Integer priceToDb,
-                                  Float areaFromDb, Float areaToDb, String balconyDb, Integer notFirstDb,
+                                  Integer areaFromDb, Integer areaToDb, String balconyDb, Integer notFirstDb,
             /*String notEndDb,*/String childrenDb, String animalsDb, String smokingDb, String partyDb, String documentsDb, String monthlyDb) {
         return objRepository.getFilterObj(localityId, capacityDb, countRoomsDb, priceFromDb, priceToDb, areaFromDb, areaToDb,
                 balconyDb, notFirstDb, /*notEndDb,*/ childrenDb, animalsDb, smokingDb, partyDb, documentsDb, monthlyDb);

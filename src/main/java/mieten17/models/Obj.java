@@ -39,7 +39,7 @@ public class Obj {
 
     @ElementCollection
     @CollectionTable(name = "details", joinColumns = @JoinColumn(name = "obj_id"))
-    private Set<String> title, floor, floors, price, capacity, countRooms, service, textObj, balcony, comfort, area, parking
+    private Set<String> floor, floors, price, capacity, countRooms, service, textObj, balcony, comfort, area, parking
             = new HashSet<>();
 
     @ElementCollection
@@ -101,9 +101,6 @@ public class Obj {
         return String.join(",", this.video);
     }
 
-    public String getTitleStr() {
-        return String.join(", ", this.title);
-    }
 
     public String getFloorStr() {
         return String.join(", ", this.floor);

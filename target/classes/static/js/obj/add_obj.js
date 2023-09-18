@@ -15,7 +15,7 @@ $(function () {
                         method: 'POST',
                         contentType: 'application/json; charset=UTF-8',
                         dataType: "json",
-                        url: "/add_object",
+                        url: "/auth/add_object",
                         data: JSON.stringify(data),
                         beforeSend: function () {
                             preloader.fadeIn(300);
@@ -23,7 +23,7 @@ $(function () {
                         success: function (id) {
                             preloader.delay(500).fadeOut('slow', function () {
                                 if (id > -1) {
-                                    window.location.replace("/edit_obj/id" + id);
+                                    window.location.replace("/auth/edit_obj/id" + id);
                                 } else {
                                     let message = $('.preview').html(' <div class="alert alert-danger alert-dismissible" role="alert" > <button type="button" id="close"  class="close" data-dismiss="allert"' +
                                         'aria-label="Close" > <span aria-hidden="true" >&times;</span></button> Ошибка сохранения данных</div>');

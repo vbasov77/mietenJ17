@@ -11,11 +11,11 @@ public interface DetailRepository extends JpaRepository<Detail, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "update details set title = :title, floor = :floor, floors = :floors, balcony = :balcony, " +
+    @Query(value = "update details set floor = :floor, floors = :floors, balcony = :balcony, " +
             "area = :area,  price = :price, capacity = :capacity, count_rooms = :countRooms, service = :service, " +
             "comfort = :comfort, parking = :parking, text_obj = :textObj where obj_id = :objId",
             nativeQuery = true)
-    public void updateDetail(String title, int floor, int floors, String balcony, float area, int price, int capacity,
+    public void updateDetail(int floor, int floors, String balcony, Integer area, int price, int capacity,
                              String countRooms, String service, String comfort, String parking, String textObj,
                              Long objId);
 

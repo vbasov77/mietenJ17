@@ -7,7 +7,7 @@ $('body').on('click', '#publish', function () {
             <img src="/images/loader/preloader.svg" width="35px" >
         </div>`;
     $.ajax({
-        url: '/publish',
+        url: '/auth/publish',
         type: 'post',
         data: data,
         dataType: 'json',
@@ -26,7 +26,7 @@ $('body').on('click', '#publish', function () {
                         let inHtml = `<div data-id="` + id + `" class="d-inline-block">
                                         <a id="takeOff" title="Снять с публикации" class="rem"
                                            data-id="` + id + `">
-                                            <img src="icons/take_off.svg"
+                                            <img src="/icons/take_off.svg"
                                                  style="width: 18px; ">
                                         </a>
                                     </div>`;

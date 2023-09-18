@@ -55,11 +55,10 @@ create table details
 (
     id          bigint NOT NULL AUTO_INCREMENT,
     obj_id      bigint,
-    title       varchar(255),
     floor       int,
     floors      int,
     balcony     varchar(255),
-    area        float,
+    area        int,
     price       int    not null default 0,
     capacity    int    not null default 1,
     count_rooms int    not null,

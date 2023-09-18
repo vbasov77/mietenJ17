@@ -46,8 +46,8 @@ public class SearchController {
                          @RequestParam(name = "count_rooms", required = false) String countRooms,
                          @RequestParam(name = "price_from", required = false) Integer priceFrom,
                          @RequestParam(name = "price_to", required = false) Integer priceTo,
-                         @RequestParam(name = "area_from", required = false) Float areaFrom,
-                         @RequestParam(name = "area_to", required = false) Float areaTo,
+                         @RequestParam(name = "area_from", required = false) Integer areaFrom,
+                         @RequestParam(name = "area_to", required = false) Integer areaTo,
                          @RequestParam(name = "balcony[]", required = false) List<String> balcony,
                          @RequestParam(name = "not_first", required = false) String notFirst,
                          @RequestParam(name = "not_end", required = false) String notEnd,
@@ -96,14 +96,14 @@ public class SearchController {
          * Поиск по площади недвижимости
          */
 
-        Float areaFromDb = (areaFrom != null) ? areaFrom : 0; // площадь от
-        Float areaToDb = (areaTo != null) ? areaTo : Float.MAX_VALUE; // площадь до
+        Integer areaFromDb = (areaFrom != null) ? areaFrom : 0; // площадь от
+        Integer areaToDb = (areaTo != null) ? areaTo : Integer.MAX_VALUE; // площадь до
 
         /**
          * Поиск по наличию балкона - лоджии
          */
 
-        String balconyDb = (balcony != null) ? "%" + String.join(",", balcony) + "%" : "%нет%";
+        String balconyDb = (balcony != null) ? "%" + String.join(",", balcony) + "%" : "%";
 
         /**
          * Поиск не первый и не последний этажи
@@ -141,6 +141,21 @@ public class SearchController {
          */
         String monthlyDb = (monthly != null) ? "да" : "%";
 
+        System.out.println(localityId + "\n");
+        System.out.println(countRoomsDb + "\n");
+        System.out.println(priceFromDb + "\n");
+        System.out.println(priceToDb + "\n");
+        System.out.println(areaFromDb + "\n");
+        System.out.println(areaTo + "\n");
+        System.out.println(areaToDb + "\n");
+        System.out.println(balconyDb + "\n");
+        System.out.println(notFirstDb + "\n");
+        System.out.println(childrenDb + "\n");
+        System.out.println(animalsDb + "\n");
+        System.out.println(smokingDb + "\n");
+        System.out.println(partyDb + "\n");
+        System.out.println(documentsDb + "\n");
+        System.out.println(localityId + "\n");
         List<Obj> objs = objService.getFilterObj(localityId,
                 capacityDb, countRoomsDb, priceFromDb, priceToDb,
                 areaFromDb, areaToDb, balconyDb, notFirstDb, /*notEndDb,*/childrenDb,

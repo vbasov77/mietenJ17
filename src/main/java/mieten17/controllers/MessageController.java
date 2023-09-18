@@ -31,7 +31,7 @@ public class MessageController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/my_msg")
+    @GetMapping("/auth/my_msg")
     public String myMsgPage(Model model, @AuthenticationPrincipal User user) {
         List<Object> messages = messageService.myMessages(user.getId());
         List<Object> msgArr = new ArrayList<>();
@@ -47,18 +47,18 @@ public class MessageController {
         return "messages/my_msg";
     }
 
-    @RequestMapping(value = "/delete_chat", method = RequestMethod.GET)
+    @RequestMapping(value = "/auth/delete_chat", method = RequestMethod.GET)
     public String deleteChat(
             @RequestParam("to_user_id") Long toUserId,
             @RequestParam("from_user_id") Long fromUserId,
             @RequestParam("obj_id") Long objId) {
         System.out.println(toUserId);
         messageService.deleteChat(fromUserId, toUserId, objId);
-        return "redirect:/my_msg";
+        return "redirect:/auth/my_msg";
     }
 
 
-    @RequestMapping(value = "/message", method = RequestMethod.GET)
+    @RequestMapping(value = "/auth/message", method = RequestMethod.GET)
     public String view(@RequestParam("obj_id") Long objId, @RequestParam("to_user_id") Long toUserId,
                        Model model, @AuthenticationPrincipal User user) {
         List<Message> messages = messageService.getMsgToUsers(toUserId, user.getId(), objId);
@@ -101,7 +101,7 @@ public class MessageController {
         return "messages/view_msg";
     }
 
-    @RequestMapping(value = "/add_message", method = RequestMethod.POST)
+    @RequestMapping(value = "/auth/add_message", method = RequestMethod.POST)
     @ResponseBody
     public Object addMessage(@RequestParam("to_user_id") Long toUserId, @RequestParam("from_user_id") Long fromUserId,
                              @RequestParam("obj_id") Long objId,
@@ -143,7 +143,7 @@ public class MessageController {
         return null;
     }
 
-    @RequestMapping(value = "/delete_msg", method = RequestMethod.POST)
+    @RequestMapping(value = "/auth/delete_msg", method = RequestMethod.POST)
     @ResponseBody
     public Object deleteMsg(@RequestParam("id") Long id) {
         System.out.println(id);

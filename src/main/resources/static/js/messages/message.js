@@ -91,7 +91,7 @@ function newMessage() {
         "body": message,
     };
     $.ajax({
-        url: '/add_message',
+        url: '/auth/add_message',
         type: 'post',
         data: data,
         dataType: 'json',
@@ -143,7 +143,7 @@ $('body').on('click', '.close', function () {
     let $this = $(this);
     data = {'id': $this.data('id')};
     $.ajax({
-        url: '/delete_msg',
+        url: '/auth/delete_msg',
         type: 'post',
         data: data,
         dataType: 'json',

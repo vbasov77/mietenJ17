@@ -7,7 +7,7 @@ $('body').on('click', '#delete_obj', function () {
             <img src="/images/loader/preloader.svg" width="35px" >
         </div>`;
     $.ajax({
-        url: '/delete_obj',
+        url: '/auth/delete_obj',
         type: 'post',
         data: data,
         dataType: 'json',

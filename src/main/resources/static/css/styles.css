@@ -1,0 +1,12 @@
+.emptyIcons {
+    margin-top: 50px;
+    width: 250px;
+    height: auto;
+    opacity: .4
+}
+
+@media screen and (max-width: 255px) {
+    .emptyIcons {
+        width: 100%;
+    }
+}

@@ -13,7 +13,7 @@
                 <h1 style="margin-top: 40px">Мои сообщения</h1>
                 <div th:if="${messages != null}">
                     <div th:each="msg : ${messages}">
-                        <a class="messageLink" style="text-decoration: none;" th:href="@{'/message?obj_id=' + ${msg[3]} +
+                        <a class="messageLink" style="text-decoration: none;" th:href="@{'/auth/message?obj_id=' + ${msg[3]} +
                         '&to_user_id=' + ${msg[7]}}">
                             <div class="card">
                                 <div class="card-body">
@@ -24,7 +24,7 @@
                                                      style="width: 80px; height: auto">
                                             </div>
                                             <div th:unless="${msg[8]}">
-                                                <img th:src="@{'images/no_image/no_image.jpg'}"
+                                                <img th:src="@{'/images/no_image/no_image.jpg'}"
                                                      style="width: 100px; height: auto">
                                             </div>
                                         </div>
@@ -39,6 +39,8 @@
                 </div>
                 <div th:unless="${messages != null}">
                     <center>Здесь будут ваши сообщения...</center>
+                    <img class="emptyIcons" style="opacity: .3; width: 200px; height: auto;"
+                         th:src="@{'/icons/message-emp.svg'}"></center>
                 </div>
             </div>
         </div>

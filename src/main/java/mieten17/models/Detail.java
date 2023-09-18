@@ -18,9 +18,6 @@ public class Detail {
     @Column(name = "obj_id")
     private Long objId;
 
-    @Column(name = "title")
-    private String title;
-
     @Column(name = "floor")
     private int floor;
 
@@ -31,7 +28,7 @@ public class Detail {
     private String balcony;
 
     @Column(name = "area")
-    private float area;
+    private Integer area;
 
     @Column(name = "price")
     private int price;

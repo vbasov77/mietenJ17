@@ -193,7 +193,7 @@ $(document).ready(function () {
         } else {
 
             $.ajax({
-                url: '/edit_obj/id' + id,
+                url: '/auth/edit_obj/id' + id,
                 type: 'POST',
                 data: data,
                 dataType: "html", //формат данных

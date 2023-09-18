@@ -12,7 +12,7 @@ public class DetailService {
     @Autowired
     private DetailRepository detailRepository;
 
-    public void createDetailOrUpdate(Long objId, String title, int floor, int floors, String balcony, float area, int price,
+    public void createDetailOrUpdate(Long objId, int floor, int floors, String balcony, Integer area, int price,
                              int capacity, String countRooms, String service, String comfort,
                              String parking, String textObj) {
 
@@ -20,7 +20,6 @@ public class DetailService {
         if (checkDetail == null) {
             Detail details = new Detail();
             details.setObjId(objId);
-            details.setTitle(title);
             details.setFloor(floor);
             details.setFloors(floors);
             details.setBalcony(balcony);
@@ -34,7 +33,7 @@ public class DetailService {
             details.setTextObj(textObj);
             detailRepository.save(details);
         } else {
-            detailRepository.updateDetail(title, floor, floors, balcony, area, price, capacity, countRooms,
+            detailRepository.updateDetail( floor, floors, balcony, area, price, capacity, countRooms,
                     service, comfort, parking, textObj, objId);
         }
 

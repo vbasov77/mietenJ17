@@ -1,6 +1,6 @@
 <div th:replace="~{layouts/header :: header(ViewMsg)}"/>
-<link th:href="@{'css/awesome/font-awesome-4.7.0/css/font-awesome.min.css'}" rel="stylesheet">
-<link th:href="@{'css/messages/messages.css'}" rel="stylesheet">
+<link th:href="@{'/css/awesome/font-awesome-4.7.0/css/font-awesome.min.css'}" rel="stylesheet">
+<link th:href="@{'/css/messages/messages.css'}" rel="stylesheet">
 <style th:inline="css">
     .rem {
         opacity: 0.5;
@@ -57,7 +57,7 @@
 
                                             <a style="text-decoration: none;" title="Удалить чат"
                                                th:onClick="return confirm('Подтвердите удаление чата!')"
-                                               th:href="@{'/delete_chat?to_user_id='+${toUserId} +'&from_user_id=' + ${fromUserId}+ '&obj_id='+${objId}}">
+                                               th:href="@{'/auth/delete_chat?to_user_id='+${toUserId} +'&from_user_id=' + ${fromUserId}+ '&obj_id='+${objId}}">
 
                                                 <img class="imgMsg rem"
                                                      th:src="@{'/icons/del_message.svg'}"
@@ -164,7 +164,7 @@
                             <div class="text-center">
                                 <a class="btn btn-outline-danger btn-sm"
                                    onClick="return confirm('Подтвердите удаление!')"
-                                   th:href="@{'/delete_chat?to_user_id='+${toUserId} +'&from_user_id=' + ${fromUserId}+ '&obj_id='+${objId} }">Удалить чат
+                                   th:href="@{'/auth/delete_chat?to_user_id='+${toUserId} +'&from_user_id=' + ${fromUserId}+ '&obj_id='+${objId} }">Удалить чат
                                 </a>
                             </div>
                         </div>
@@ -181,7 +181,7 @@
         let from_user_id = [[${fromUserId}]];
         let obj_id = [[${objId}]];
     </script>
-    <script th:src="@{'js/messages/message.js'}"></script>
+    <script th:src="@{'/js/messages/message.js'}"></script>
 </div>
 
 <div th:replace="~{layouts/footer :: footer(ViewMsg)}"/>

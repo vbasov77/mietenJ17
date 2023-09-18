@@ -20,9 +20,6 @@ public class DataObj {
     @Column(name = "path")
     private String path;
 
-    @Column(name = "title")
-    private String title;
-
     @Column(name = "service")
     private String service;
 
@@ -75,7 +72,7 @@ public class DataObj {
     private int floor;
 
     @Column(name = "area")
-    private float area;
+    private Integer area;
 
 
 

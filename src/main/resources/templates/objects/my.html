@@ -88,7 +88,7 @@
                         <div class="card-body">
                             <div class="details">
                                 <div class="detail">
-                                    <img th:src="@{'icons/user.svg'}"
+                                    <img th:src="@{'/icons/user.svg'}"
                                          style="width: 17px; height: auto"
                                     >
                                     <span th:text="${value.getCapacityStr()}"/>
@@ -96,7 +96,7 @@
                                 <div class="detail">
                                     <div th:if="${value.getPriceStr()}">
                                         <img style="width: 17px; height: auto;"
-                                             th:src="@{'icons/ruble.svg'}">
+                                             th:src="@{'/icons/ruble.svg'}">
                                         &nbsp;От: <span th:text="${value.getPriceStr()}"/></b>
                                     </div>
                                 </div>
@@ -105,18 +105,18 @@
 
                                     <div th:if=" ${value.getCountRoomsStr().equals('студия')}">
                                         <img style="width: 15px; height: auto; "
-                                             th:src="@{'icons/room.svg'}">
+                                             th:src="@{'/icons/room.svg'}">
                                         <span th:text="${value.getCountRoomsStr()}"/>
                                     </div>
                                     <div th:if=" ${!value.getCountRoomsStr().equals('студия')}">
                                         <img style="width: 15px; height: auto; "
-                                             th:src="@{'icons/room.svg'}">
+                                             th:src="@{'/icons/room.svg'}">
                                         <span th:text="${value.getCountRoomsStr()}"/> комн.
                                     </div>
                                 </div>
 
                                 <div class="detail">
-                                    <img th:src="@{'icons/map.svg'}"
+                                    <img th:src="@{'/icons/map.svg'}"
                                          style="width: 17px; ">
                                     <span style="font-size: 13px" th:text="${value.getAddress()}"/>
                                 </div>
@@ -124,12 +124,12 @@
                                 <div class="down">
                                     <a title="Редактировать" class="rem"
                                        th:href="@{edit_obj/id{id}(id = ${value.getId()})}">
-                                        <img th:src="@{'icons/edit.svg'}"
+                                        <img th:src="@{'/icons/edit.svg'}"
                                              style="width: 17px; ">
                                     </a>
                                     <a title="Смотреть объект" class="rem"
                                        th:href="@{obj/id{id}(id = ${value.getId()})}">
-                                        <img th:src="@{'icons/eye.svg'}"
+                                        <img th:src="@{'/icons/eye.svg'}"
                                              style="width: 17px; ">
                                     </a>
 
@@ -140,7 +140,7 @@
                                          th:if="${value.getPublished() == 1}">
                                         <a id="takeOff" title="Снять с публикации" class="rem"
                                            th:data-id="${value.getId()}">
-                                            <img th:src="@{'icons/take_off.svg'}"
+                                            <img th:src="@{'/icons/take_off.svg'}"
                                                  style="width: 18px; ">
                                         </a>
                                     </div>
@@ -148,13 +148,13 @@
                                     <div th:data-id="${value.getId()}" class="d-inline-block"
                                          th:unless="${value.getPublished() == 1}">
                                         <a id="publish" title="Опубликовать" class="rem" th:data-id="${value.getId()}">
-                                            <img th:src="@{'icons/publish.svg'}"
+                                            <img th:src="@{'/icons/publish.svg'}"
                                                  style="width: 15px; ">
                                         </a>
                                     </div>
 
                                     <a th:data-id="${value.getId()}" title="Удалить объект" class="rem" id="delete_obj">
-                                        <img th:src="@{'icons/delete.svg'}"
+                                        <img th:src="@{'/icons/delete.svg'}"
                                              style="width: 20px; ">
                                     </a>
                                 </div>
@@ -177,12 +177,19 @@
                                        th:href="@{take_off/id{id}(id = ${value.getId()})}">
                                         Снять с публикации</a>
                                 </div>
-                                <center><div th:data-preload="${value.getId()}"></div></center>
+                                <center>
+                                    <div th:data-preload="${value.getId()}"></div>
+                                </center>
                             </div>
-
                         </section>
                     </div>
                 </div>
+            </div>
+            <div th:unless="${data.size() > 0}"><br>
+                <center>
+                    Здесь будут ваши объекты...<br>
+                    <img class="emptyIcons" style="opacity: .3; width: 200px; height: auto;"
+                         th:src="@{'/icons/home.svg'}"></center>
             </div>
         </div>
     </div>
