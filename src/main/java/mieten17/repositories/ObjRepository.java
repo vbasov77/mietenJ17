@@ -12,6 +12,8 @@ public interface ObjRepository extends JpaRepository<Obj, Long> {
 
     Obj findObjById(Long id);
 
+    List<Obj> findObjsByPublished(int published);
+
     @Transactional
     @Query(value = "select o.id, o.published, o.user_id, d.price, d.count_rooms, d.capacity," +
             "(select a.locality from addresses a where obj_id = o.id) " +
@@ -19,7 +21,7 @@ public interface ObjRepository extends JpaRepository<Obj, Long> {
             "path from objects o left join addresses a on o.id = a.obj_id " +
             "left join details d on o.id = d.obj_id where a.locality_id = :localityId and o.published = :published",
             nativeQuery = true)
-    List<Obj> getAllObj(Long localityId, Integer published);
+    List<Obj> getAllObjByLocalityId(Long localityId, Integer published);
 
     @Transactional
     @Query(value = "select o.id, d.price, d.count_rooms, d.capacity, o.published, o.user_id," +

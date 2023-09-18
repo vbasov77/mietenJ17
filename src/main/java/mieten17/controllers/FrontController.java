@@ -31,11 +31,16 @@ public class FrontController {
     public String front(HttpSession session, Model model, @AuthenticationPrincipal User user) {
         String sess = (String) session.getAttribute("localityName");
         if (sess == null) {
-            return "locality/locality";
+            List<Obj> objects = objService.findObjsByPublished(1);
+            if (objects.size() < 1)
+                objects = null;
+            model.addAttribute("data", objects);
+
+            return "front";
         }
         Long localityId = (Long) session.getAttribute("localityId");
         Integer published = 1;
-        List<Obj> objects = objService.getAllObj(localityId, published);
+        List<Obj> objects = objService.getAllObjByLocalityId(localityId, published);
         if (objects.size() < 1)
             objects = null;
         model.addAttribute("data", objects);

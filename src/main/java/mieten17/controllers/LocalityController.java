@@ -41,7 +41,7 @@ public class LocalityController {
     public String updateLocation(HttpSession session) {
         session.removeAttribute("localityId");
         session.removeAttribute("localityName");
-        return "redirect:/";
+        return "locality/locality";
     }
 
     @GetMapping("/get_locality_id")

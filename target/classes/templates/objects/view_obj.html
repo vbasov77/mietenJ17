@@ -31,13 +31,13 @@
                 <div style="padding: 20px">
                     <div th:if="${data.checkIsLoft()}">
                         <h3><img style="width: 15px; height: auto; "
-                             th:src="@{'/icons/room.svg'}">
-                        <span th:text="${data.getCountRoomsStr()}"/></h3>
+                                 th:src="@{'/icons/room.svg'}">
+                            <span th:text="${data.getCountRoomsStr()}"/></h3>
                     </div>
                     <div th:unless="${data.checkIsLoft()}">
                         <h3><img style="width: 15px; height: auto; "
-                             th:src="@{'/icons/room.svg'}">
-                        <span th:text="${data.getCountRoomsStr()}"/> комн.</h3>
+                                 th:src="@{'/icons/room.svg'}">
+                            <span th:text="${data.getCountRoomsStr()}"/> комн.</h3>
                     </div>
                 </div>
 

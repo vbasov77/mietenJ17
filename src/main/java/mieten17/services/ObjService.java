@@ -17,9 +17,13 @@ public class ObjService {
         objRepository.save(obj);
     }
 
-    public List<Obj> getAllObj(Long localityId, Integer published) {
-        List<Obj> allObj = objRepository.getAllObj(localityId, published);
+    public List<Obj> getAllObjByLocalityId(Long localityId, Integer published) {
+        List<Obj> allObj = objRepository.getAllObjByLocalityId(localityId, published);
         return allObj;
+    }
+
+    public List<Obj> findObjsByPublished(int published) {
+        return objRepository.findObjsByPublished(published);
     }
 
     public Obj getObjById(Long id) {
@@ -33,18 +37,20 @@ public class ObjService {
         return objRepository.getFilterObj(localityId, capacityDb, countRoomsDb, priceFromDb, priceToDb, areaFromDb, areaToDb,
                 balconyDb, notFirstDb, /*notEndDb,*/ childrenDb, animalsDb, smokingDb, partyDb, documentsDb, monthlyDb);
     }
-    public List<Obj> getMyObj(Long userId){
+
+    public List<Obj> getMyObj(Long userId) {
         return objRepository.getMyObj(userId);
     }
 
-    public void updatePublished(Long id){
+    public void updatePublished(Long id) {
         objRepository.updatePublished(id);
     }
-    public void takeOff(Long id){
+
+    public void takeOff(Long id) {
         objRepository.takeOff(id);
     }
 
-    public void deleteObjById(Long id){
+    public void deleteObjById(Long id) {
         objRepository.deleteById(id);
     }
 
