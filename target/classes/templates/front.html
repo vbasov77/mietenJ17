@@ -1,27 +1,7 @@
 <div th:replace="~{layouts/header :: header(Front)}"/>
 
+<link th:href="@{/css/preloader.css}" rel="stylesheet">
 <link th:href="@{/css/front.css}" rel="stylesheet">
-<style th:inline="css">
-    .preloader {
-        height: auto;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%)
-    }
-
-    .reg {
-        color: red;
-        padding: 10px;
-        text-align: center;
-    }
-
-</style>
-<!--<div class="preloader">-->
-<!--    <img th:src='@{/images/loader/preloader.svg}'>-->
-<!--</div>-->
-<script type="text/javascript" th:src="@{/js/preloader/preloader.js}"></script>
 
 <section style="margin-top: 40px">
     <div class="container-fluid px-4 px-lg-5 ">
@@ -30,82 +10,84 @@
                 <h3>Фильтр</h3>
                 <div th:replace="~{/objects/blocks/filter :: filter(Front)}"/>
             </div>
-            <div class="col justify-content-lg-start">
-                <div th:if="${data}">
-                    <div class="row gx-4 gx-lg-5">
-                        <div th:each="value : ${data}">
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-title">
-                                        <div th:if="${value.getPathStrOne()}">
-                                            <img th:src="@{'/img_for_mieten17/' + ${value.getPathStrOne()}}"
-                                                 class="card-img-top"
-                                                 alt="...">
-                                        </div>
-                                        <div th:unless="${value.getPathStrOne()}">
-                                            <img th:src="@{'images/no_image/no_image.jpg'}" class="card-img-top">
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="details">
-                                            <div class="detail">
-                                                <div th:if="${value.getCountRoomsStr()}">
-                                                    <div th:if="${value.checkIsLoft()}">
-                                                        <img style="width: 15px; height: auto; "
-                                                             th:src="@{'icons/room.svg'}">
-                                                        <span th:text="${value.getCountRoomsStr()}"/>
-                                                    </div>
-                                                    <div th:unless="${value.checkIsLoft()}">
-                                                        <img style="width: 15px; height: auto; "
-                                                             th:src="@{'icons/room.svg'}">
-                                                        <span th:text="${value.getCountRoomsStr()}"/> комн.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="detail">
-                                                <img style="width: 17px; height: auto;"
-                                                     th:src="@{'icons/user.svg'}">
-                                                <span th:text="${value.getCapacityStr()}"/>
-                                            </div>
 
-                                            <div class="detail">
-                                                <div th:if="${value.getPriceStr()}">
-                                                    <img style="width: 17px; height: auto;"
-                                                         th:src="@{'icons/ruble.svg'}">
-                                                    &nbsp;От: <span th:text="${value.getPriceStr()}"/></b>
-                                                </div>
+            <div class="col justify-content-lg-start" id="preload">
+
+                    <div th:if="${data}">
+                        <div class="row gx-4 gx-lg-5">
+                            <div th:each="value : ${data}">
+                                <div class="col">
+                                    <div class="card">
+                                        <div class="card-title">
+                                            <div th:if="${value.getPathStrOne()}">
+                                                <img th:src="@{'/img_for_mieten17/' + ${value.getPathStrOne()}}"
+                                                     class="card-img-top"
+                                                     alt="...">
                                             </div>
-                                            <div class="detail">
-                                                <img th:src="@{'icons/map.svg'}"
-                                                     style="width: 17px; "
-                                                >
-                                                <span th:text="${value.getAddress()}"/>
+                                            <div th:unless="${value.getPathStrOne()}">
+                                                <img th:src="@{'images/no_image/no_image.jpg'}" class="card-img-top">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <button class="btn btn-outline-success"
-                                                th:onclick="'window.location.href= \'' + @{obj/id{id}(id = ${value.getId()})} + '\''"
-                                        >
-                                            Подробнее
-                                        </button>
+                                        <div class="card-body">
+                                            <div class="details">
+                                                <div class="detail">
+                                                    <div th:if="${value.getCountRoomsStr()}">
+                                                        <div th:if="${value.checkIsLoft()}">
+                                                            <img style="width: 15px; height: auto; "
+                                                                 th:src="@{'icons/room.svg'}">
+                                                            <span th:text="${value.getCountRoomsStr()}"/>
+                                                        </div>
+                                                        <div th:unless="${value.checkIsLoft()}">
+                                                            <img style="width: 15px; height: auto; "
+                                                                 th:src="@{'icons/room.svg'}">
+                                                            <span th:text="${value.getCountRoomsStr()}"/> комн.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="detail">
+                                                    <img style="width: 17px; height: auto;"
+                                                         th:src="@{'icons/user.svg'}">
+                                                    <span th:text="${value.getCapacityStr()}"/>
+                                                </div>
+
+                                                <div class="detail">
+                                                    <div th:if="${value.getPriceStr()}">
+                                                        <img style="width: 17px; height: auto;"
+                                                             th:src="@{'icons/ruble.svg'}">
+                                                        &nbsp;От: <span th:text="${value.getPriceStr()}"/></b>
+                                                    </div>
+                                                </div>
+                                                <div class="detail">
+                                                    <img th:src="@{'icons/map.svg'}"
+                                                         style="width: 17px; "
+                                                    >
+                                                    <span th:text="${value.getAddress()}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button class="btn btn-outline-success"
+                                                    th:onclick="'window.location.href= \'' + @{obj/id{id}(id = ${value.getId()})} + '\''"
+                                            >
+                                                Подробнее
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div th:unless="${data}">
-                    <center>К сожалению, по вашему запросу объектов не найдено...<br>
-                        <img class="emptyIcons" style=""
-                             th:src="@{'icons/cat_empty.svg'}"></center>
-                </div>
+                    <div th:unless="${data}">
+                        <center>К сожалению, по вашему запросу объектов не найдено...<br>
+                            <img class="emptyIcons" style=""
+                                 th:src="@{'icons/cat_empty.svg'}"></center>
+                    </div>
             </div>
 
         </div>
     </div>
 </section>
-
+<script type="text/javascript" th:src="@{/js/preloader/preloader.js}"></script>
 <div th:replace="~{layouts/footer :: footer(Front)}"/>
 
 

@@ -1,14 +1,6 @@
 <div th:replace="~{layouts/without_app_locality :: without_app_locality(Locality)}"/>
-
+<link th:href="@{/css/preloader.css}" rel="stylesheet">
 <style th:inline="css">
-    .preloader {
-        height: auto;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-right: -50%;
-        transform: translate(-50%, -50%)
-    }
     .reg {
         color: red;
         padding: 10px;
@@ -21,8 +13,7 @@
 
 
 <div class="container-fluid mt-4" style="white-space: nowrap; height: 75vh">
-    <article>
-        <script th:src="@{/js/preloader/preloader.js}"></script>
+    <div id="preload">
         <div class="card">
             <div class="reg mess" th:if="${message}">
                 <span th:text="${message}"/>
@@ -32,7 +23,6 @@
                     <div class="form-group">
                         <div class="main-search-input-wrap search">
                             <div class="main-search-input fl-wrap">
-
                                 <div class="main-search-input-item">
                                     <input name="locality" id="value" type="text" value=""
                                            placeholder="Начните вводить город">
@@ -49,9 +39,10 @@
                 </form>
             </div>
         </div>
-    </article>
+    </div>
 </div>
-</article>
+
+<script type="text/javascript" th:src="@{/js/preloader/preloader.js}"></script>
 <script type="text/javascript" th:src="@{/js/messages/message_hide.js}"></script>
 <script type="text/javascript" th:src="@{/js/search/search_locality.js}"></script>
 

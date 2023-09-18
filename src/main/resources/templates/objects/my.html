@@ -1,6 +1,7 @@
 <div th:replace="~{layouts/header :: header(My)}"/>
-<style th:inline="css">
 
+<link th:href="@{/css/preloader.css}" rel="stylesheet">
+<style th:inline="css">
     .rowM .big img {
         width: 18rem;
         float: left;
@@ -67,137 +68,138 @@
     }
 </style>
 <center><h1 style="margin-top: 50px">Мои объекты</h1></center>
-
-
-<!--<script type="text/javascript" th:src="@{/js/preloader/preloader.js}"></script>-->
-
-<section class="section">
-    <div class="container-fluid px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 lit">
-            <div class="col-lg-10 d-flex align-items-center" th:if="${data.size() > 0}">
-                <div th:each="value : ${data}">
-                    <div class="card d-inline-block padding" th:data-card="${value.getId()}" style="width: 18rem;">
-                        <div th:if="${value.getPathStrOne()}">
-                            <img th:src="@{'/img_for_mieten17/' + ${value.getPathStrOne()}}"
-                                 class="card-img-top"
-                                 alt="...">
-                        </div>
-                        <div th:unless="${value.getPathStrOne()}">
-                            <img th:src="@{'images/no_image/no_image.jpg'}" class="card-img-top">
-                        </div>
-                        <div class="card-body">
-                            <div class="details">
-                                <div class="detail">
-                                    <img th:src="@{'/icons/user.svg'}"
-                                         style="width: 17px; height: auto"
-                                    >
-                                    <span th:text="${value.getCapacityStr()}"/>
-                                </div>
-                                <div class="detail">
-                                    <div th:if="${value.getPriceStr()}">
-                                        <img style="width: 17px; height: auto;"
-                                             th:src="@{'/icons/ruble.svg'}">
-                                        &nbsp;От: <span th:text="${value.getPriceStr()}"/></b>
+<div id="preload">
+    <section class="section">
+        <div class="container-fluid px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 lit">
+                <div class="col-lg-10 d-flex align-items-center" th:if="${data.size() > 0}">
+                    <div th:each="value : ${data}">
+                        <div class="card d-inline-block padding" th:data-card="${value.getId()}" style="width: 18rem;">
+                            <div th:if="${value.getPathStrOne()}">
+                                <img th:src="@{'/img_for_mieten17/' + ${value.getPathStrOne()}}"
+                                     class="card-img-top"
+                                     alt="...">
+                            </div>
+                            <div th:unless="${value.getPathStrOne()}">
+                                <img th:src="@{'images/no_image/no_image.jpg'}" class="card-img-top">
+                            </div>
+                            <div class="card-body">
+                                <div class="details">
+                                    <div class="detail">
+                                        <img th:src="@{'/icons/user.svg'}"
+                                             style="width: 17px; height: auto"
+                                        >
+                                        <span th:text="${value.getCapacityStr()}"/>
                                     </div>
-                                </div>
-
-                                <div class="detail">
-
-                                    <div th:if=" ${value.getCountRoomsStr().equals('студия')}">
-                                        <img style="width: 15px; height: auto; "
-                                             th:src="@{'/icons/room.svg'}">
-                                        <span th:text="${value.getCountRoomsStr()}"/>
+                                    <div class="detail">
+                                        <div th:if="${value.getPriceStr()}">
+                                            <img style="width: 17px; height: auto;"
+                                                 th:src="@{'/icons/ruble.svg'}">
+                                            &nbsp;От: <span th:text="${value.getPriceStr()}"/></b>
+                                        </div>
                                     </div>
-                                    <div th:if=" ${!value.getCountRoomsStr().equals('студия')}">
-                                        <img style="width: 15px; height: auto; "
-                                             th:src="@{'/icons/room.svg'}">
-                                        <span th:text="${value.getCountRoomsStr()}"/> комн.
+
+                                    <div class="detail">
+
+                                        <div th:if=" ${value.getCountRoomsStr().equals('студия')}">
+                                            <img style="width: 15px; height: auto; "
+                                                 th:src="@{'/icons/room.svg'}">
+                                            <span th:text="${value.getCountRoomsStr()}"/>
+                                        </div>
+                                        <div th:if=" ${!value.getCountRoomsStr().equals('студия')}">
+                                            <img style="width: 15px; height: auto; "
+                                                 th:src="@{'/icons/room.svg'}">
+                                            <span th:text="${value.getCountRoomsStr()}"/> комн.
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="detail">
-                                    <img th:src="@{'/icons/map.svg'}"
-                                         style="width: 17px; ">
-                                    <span style="font-size: 13px" th:text="${value.getAddress()}"/>
-                                </div>
-
-                                <div class="down">
-                                    <a title="Редактировать" class="rem"
-                                       th:href="@{edit_obj/id{id}(id = ${value.getId()})}">
-                                        <img th:src="@{'/icons/edit.svg'}"
+                                    <div class="detail">
+                                        <img th:src="@{'/icons/map.svg'}"
                                              style="width: 17px; ">
-                                    </a>
-                                    <a title="Смотреть объект" class="rem"
-                                       th:href="@{obj/id{id}(id = ${value.getId()})}">
-                                        <img th:src="@{'/icons/eye.svg'}"
-                                             style="width: 17px; ">
-                                    </a>
+                                        <span style="font-size: 13px" th:text="${value.getAddress()}"/>
+                                    </div>
 
-                                    <div class="d-inline-block" id="addTakeOffOrPublished"
-                                         th:data-inn="${value.getId()}"></div>
+                                    <div class="down">
+                                        <a title="Редактировать" class="rem"
+                                           th:href="@{edit_obj/id{id}(id = ${value.getId()})}">
+                                            <img th:src="@{'/icons/edit.svg'}"
+                                                 style="width: 17px; ">
+                                        </a>
+                                        <a title="Смотреть объект" class="rem"
+                                           th:href="@{obj/id{id}(id = ${value.getId()})}">
+                                            <img th:src="@{'/icons/eye.svg'}"
+                                                 style="width: 17px; ">
+                                        </a>
 
+                                        <div class="d-inline-block" id="addTakeOffOrPublished"
+                                             th:data-inn="${value.getId()}"></div>
+
+                                        <div th:data-id="${value.getId()}" class="d-inline-block"
+                                             th:if="${value.getPublished() == 1}">
+                                            <a id="takeOff" title="Снять с публикации" class="rem"
+                                               th:data-id="${value.getId()}">
+                                                <img th:src="@{'/icons/take_off.svg'}"
+                                                     style="width: 18px; ">
+                                            </a>
+                                        </div>
+
+                                        <div th:data-id="${value.getId()}" class="d-inline-block"
+                                             th:unless="${value.getPublished() == 1}">
+                                            <a id="publish" title="Опубликовать" class="rem"
+                                               th:data-id="${value.getId()}">
+                                                <img th:src="@{'/icons/publish.svg'}"
+                                                     style="width: 15px; ">
+                                            </a>
+                                        </div>
+
+                                        <a th:data-id="${value.getId()}" title="Удалить объект" class="rem"
+                                           id="delete_obj">
+                                            <img th:src="@{'/icons/delete.svg'}"
+                                                 style="width: 20px; ">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <section>
+                                <div class="card-footer" style="height: 60px">
+                                    <div th:data-footer="${value.getId()}" class="d-inline-block"></div>
+                                    <div th:data-id="${value.getId()}" class="d-inline-block"
+                                         th:if="${value.getPublished() == 0}">
+                                        <div style="color: red">Не опубликовано</div>
+                                        <a style="text-decoration: none" title="Опубликовать"
+                                           th:href="@{publish/id{id}(id = ${value.getId()})}">
+                                            Опубликовать</a>
+                                    </div>
                                     <div th:data-id="${value.getId()}" class="d-inline-block"
                                          th:if="${value.getPublished() == 1}">
-                                        <a id="takeOff" title="Снять с публикации" class="rem"
-                                           th:data-id="${value.getId()}">
-                                            <img th:src="@{'/icons/take_off.svg'}"
-                                                 style="width: 18px; ">
-                                        </a>
+                                        <div style="color: #2fa360">Опубликовано</div>
+                                        <a style="text-decoration: none; color: red;"
+                                           th:href="@{take_off/id{id}(id = ${value.getId()})}">
+                                            Снять с публикации</a>
                                     </div>
-
-                                    <div th:data-id="${value.getId()}" class="d-inline-block"
-                                         th:unless="${value.getPublished() == 1}">
-                                        <a id="publish" title="Опубликовать" class="rem" th:data-id="${value.getId()}">
-                                            <img th:src="@{'/icons/publish.svg'}"
-                                                 style="width: 15px; ">
-                                        </a>
-                                    </div>
-
-                                    <a th:data-id="${value.getId()}" title="Удалить объект" class="rem" id="delete_obj">
-                                        <img th:src="@{'/icons/delete.svg'}"
-                                             style="width: 20px; ">
-                                    </a>
+                                    <center>
+                                        <div th:data-preload="${value.getId()}"></div>
+                                    </center>
                                 </div>
-                            </div>
+                            </section>
                         </div>
-                        <section>
-                            <div class="card-footer" style="height: 60px">
-                                <div th:data-footer="${value.getId()}" class="d-inline-block"></div>
-                                <div th:data-id="${value.getId()}" class="d-inline-block"
-                                     th:if="${value.getPublished() == 0}">
-                                    <div style="color: red">Не опубликовано</div>
-                                    <a style="text-decoration: none" title="Опубликовать"
-                                       th:href="@{publish/id{id}(id = ${value.getId()})}">
-                                        Опубликовать</a>
-                                </div>
-                                <div th:data-id="${value.getId()}" class="d-inline-block"
-                                     th:if="${value.getPublished() == 1}">
-                                    <div style="color: #2fa360">Опубликовано</div>
-                                    <a style="text-decoration: none; color: red;"
-                                       th:href="@{take_off/id{id}(id = ${value.getId()})}">
-                                        Снять с публикации</a>
-                                </div>
-                                <center>
-                                    <div th:data-preload="${value.getId()}"></div>
-                                </center>
-                            </div>
-                        </section>
                     </div>
                 </div>
-            </div>
-            <div th:unless="${data.size() > 0}"><br>
-                <center>
-                    Здесь будут ваши объекты...<br>
-                    <img class="emptyIcons" style="opacity: .3; width: 200px; height: auto;"
-                         th:src="@{'/icons/home.svg'}"></center>
+                <div th:unless="${data.size() > 0}"><br>
+                    <center>
+                        Здесь будут ваши объекты...<br>
+                        <img class="emptyIcons" style="opacity: .3; width: 200px; height: auto;"
+                             th:src="@{'/icons/home.svg'}"></center>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<script type="text/javascript" th:src="@{/js/obj/publish.js}"></script>
-<script type="text/javascript" th:src="@{/js/obj/take_off.js}"></script>
-<script type="text/javascript" th:src="@{/js/obj/delete.js}"></script>
+    <script type="text/javascript" th:src="@{/js/preloader/preloader.js}"></script>
+    <script type="text/javascript" th:src="@{/js/obj/publish.js}"></script>
+    <script type="text/javascript" th:src="@{/js/obj/take_off.js}"></script>
+    <script type="text/javascript" th:src="@{/js/obj/delete.js}"></script>
 
 
-<div th:replace="~{layouts/footer :: footer(My)}"/>
+    <div th:replace="~{layouts/footer :: footer(My)}"/>
+</div>
