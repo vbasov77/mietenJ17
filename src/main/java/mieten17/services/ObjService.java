@@ -1,21 +1,19 @@
 package mieten17.services;
 
 import jakarta.servlet.http.HttpSession;
-import mieten17.models.Locality;
 import mieten17.models.Obj;
-import mieten17.repositories.LocalityRepository;
 import mieten17.repositories.ObjRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ObjService {
 
+
     @Autowired
-    private LocalityRepository localityRepository;
+    private FilterService filterService;
 
     @Autowired
     private ObjRepository objRepository;
@@ -24,7 +22,7 @@ public class ObjService {
         objRepository.save(obj);
     }
 
-    public List<Obj> getAllObjByLocalityId(Long localityId, Integer published) {
+    public List<Obj> getAllObjByLocalityId(String localityId, Integer published) {
         List<Obj> allObj = objRepository.getAllObjByLocalityId(localityId, published);
         return allObj;
     }
@@ -38,93 +36,52 @@ public class ObjService {
         return obj;
     }
 
-    public List<Obj> getFilterObj(String list, Integer capacity, String countRooms, Integer priceFrom, Integer priceTo,
-                                  Integer areaFrom, Integer areaTo, List <String> balcony, String notFirst,
+    public List<Obj> getFilterObj(String localityName, Integer capacity, String countRooms, Integer priceFrom, Integer priceTo,
+                                  Integer areaFrom, Integer areaTo, List<String> balcony, Integer notFirst,
             /*String notEnd,*/String children, String animals, String smoking, String party, String documents, String monthly, HttpSession session) {
 
-        /**
-         * Поиск по городу
-         */
 
-        Long localityId = (Long) session.getAttribute("localityId");
-        if (list != null) {
-            // Получим данные по выбранному городу и запишем всё в сессию localityId localityName.
-            Optional<Locality> loc = localityRepository.findByLocality(list);
-            session.setAttribute("localityId", loc.get().getId());
-            session.setAttribute("localityName", list);
-            localityId = loc.get().getId();
-        }
+        String localityId = filterService.localityIdSession(localityName, session);// по городу
 
-        /**
-         * Поиск по количеству комнат
-         */
-        String countRoomsDb = "%";
-        if (countRooms != "") {
-            countRoomsDb = (countRooms.equals("студия")) ? "%студия%" : countRooms;
-        }
+        String countRoomsDb = filterService.countRoomsSession(countRooms, session); // по количеству комнат
 
-        /**
-         * Поиск по количеству человек
-         */
-        Integer capacityDb = (capacity != null) ? capacity : 0;
+        Integer capacityDb = filterService.capacitySession(capacity, session);// Поиск по количеству человек
 
-        /**
-         * Поиск по цене
-         */
-        Integer priceFromDb = (priceFrom != null) ? priceFrom : 0; // по цене от
-        Integer priceToDb = (priceTo != null) ? priceTo : Integer.MAX_VALUE; // по цене до
+        Integer priceFromDb = filterService.priceFromSession(priceFrom, session); // по цене от
+        Integer priceToDb = filterService.priceToDbSession(priceTo, session); // по цене до
 
+        Integer areaFromDb = filterService.areaFromSession(areaFrom, session); // площадь от
+        Integer areaToDb = filterService.areaToDbSession(areaTo, session); // площадь до
 
-        /**
-         * Поиск по площади недвижимости
-         */
-
-        Integer areaFromDb = (areaFrom != null) ? areaFrom : 0; // площадь от
-        Integer areaToDb = (areaTo != null) ? areaTo : Integer.MAX_VALUE; // площадь до
-
-        /**
-         * Поиск по наличию балкона - лоджии
-         */
-
-        String balconyDb = (balcony != null) ? "%" + String.join(",", balcony) + "%" : "%";
-
-        /**
-         * Поиск не первый и не последний этажи
-         */
-        Integer notFirstDb = (notFirst != null) ? 1 : Integer.MAX_VALUE; // не первый
+        String balconyDb = filterService.balconySession(balcony, session); // Поиск по наличию балкона - лоджии
+        Integer notFirstDb = filterService.notFirstSession(notFirst, session); // не первый
 //        String notEndDb = (notEnd != null) ? " d.floors" : null; // не последний -----> НЕ РАБОТАЕТ!!!!!!!!!!!!!!!!!!
 
-        /**
-         * Поиск - можно с детьми
-         */
-        String childrenDb = (children != null) ? "да" : "%";
-
-        /**
-         * Поиск - можно с животными
-         */
-        String animalsDb = (animals != null) ? "да" : "%";
-
-        /**
-         * Поиск можно курить
-         */
-        String smokingDb = (smoking != null) ? "да" : "%";
-
-        /**
-         * Поиск - разрешены вечеринки
-         */
-        String partyDb = (party != null) ? "да" : "%";
-
-        /**
-         * Поиск - есть отчётные документы
-         */
-        String documentsDb = (documents != null) ? "да" : "%";
-
-        /**
-         * Возможно ли помесячно
-         */
-        String monthlyDb = (monthly != null) ? "да" : "%";
+        String childrenDb = filterService.childrenSession(children, session);// можно с детьми
+        String animalsDb = filterService.animalsSession(animals, session);// можно с животными
+        String smokingDb = filterService.smokingSession(smoking, session);// можно курить
+        String partyDb = filterService.partySession(party, session);// разрешены вечеринки
+        String documentsDb = filterService.documentsSession(documents, session);// есть отчётные документы
+        String monthlyDb = filterService.monthlySession(monthly, session);// есть отчётные документы
 
 
+
+//        System.out.println(localityId);
+//        System.out.println(capacityDb);
+//        System.out.println("countRoomsDb - " + countRoomsDb.isEmpty());
+//        System.out.println("countRooms - " + countRooms.isEmpty());
+//        System.out.println(priceFromDb);
+//        System.out.println(priceToDb);
+//        System.out.println(areaFromDb);
+//        System.out.println(areaToDb);
+//        System.out.println(balconyDb);
+//        System.out.println(notFirstDb);
+//        System.out.println(childrenDb);
+//        System.out.println(animalsDb);
+//        System.out.println(smokingDb);
+//        System.out.println(partyDb);
+//        System.out.println(documentsDb);
+//        System.out.println(monthlyDb);
         return objRepository.getFilterObj(localityId, capacityDb, countRoomsDb, priceFromDb, priceToDb, areaFromDb, areaToDb,
                 balconyDb, notFirstDb, /*notEndDb,*/ childrenDb, animalsDb, smokingDb, partyDb, documentsDb, monthlyDb);
     }

@@ -52,7 +52,6 @@ public class MessageController {
             @RequestParam("to_user_id") Long toUserId,
             @RequestParam("from_user_id") Long fromUserId,
             @RequestParam("obj_id") Long objId) {
-        System.out.println(toUserId);
         messageService.deleteChat(fromUserId, toUserId, objId);
         return "redirect:/auth/my_msg";
     }
@@ -146,7 +145,6 @@ public class MessageController {
     @RequestMapping(value = "/auth/delete_msg", method = RequestMethod.POST)
     @ResponseBody
     public Object deleteMsg(@RequestParam("id") Long id) {
-        System.out.println(id);
         Map<String, Object> response = new HashMap<>();
         response.put("answer", "ok");
         messageService.delete(id);

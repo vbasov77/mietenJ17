@@ -15,16 +15,19 @@
     <form method="post" th:action="@{/filter}">
         <div class="">
             <label for="value">Город:</label>
-            <input id="value" class="form-control" type="text" value=""
+            <input id="value" class="form-control" type="text" th:value="${filter.getLocalityName()}"
+                   name="localityName"
                    placeholder="Начните вводить город">
         </div>
         <div id="dropdown" style="margin-top: 10px">
-            <select class="select" name="list" id="list"></select>
+            <select class="select" id="list"></select>
         </div>
         <br>
         <div>
             <label for="capacity">Количество человек:</label>
-            <input id="capacity" name="capacity" type="number" class="form-control" placeholder="Количество человек">
+            <input id="capacity" name="capacity" th:value="${filter.getCapacity()}" type="number"
+                   class="form-control" placeholder="Количество человек">
+
         </div>
         <br>
         <div>
@@ -42,75 +45,81 @@
         <br>
         <div>
             <label for="price_from">Цена от:</label>
-            <input id="price_from" name="price_from" type="number" class="form-control" placeholder="Цена от">
+            <input id="price_from" name="price_from" type="number" th:value="${filter.getPriceFrom()}"
+                   class="form-control" placeholder="Цена от">
         </div>
         <br>
         <div>
             <label for="price_to">Цена до:</label>
-            <input id="price_to" name="price_to" type="number" class="form-control" placeholder="Цена до">
+            <input id="price_to" name="price_to" th:value="${filter.getPriceTo()}" type="number" class="form-control"
+                   placeholder="Цена до">
         </div>
         <br>
         <div>
             <label for="area_from">Общая площадь от:</label>
-            <input id="area_from" name="area_from" class="form-control" placeholder="Площадь от">
+            <input id="area_from" name="area_from" th:value="${filter.getAreaFrom()}" class="form-control"
+                   placeholder="Площадь от">
         </div>
         <br>
         <div>
             <label for="area_to">Общая площадь до:</label>
-            <input id="area_to" name="area_to" class="form-control" placeholder="Площадь до">
+            <input id="area_to" name="area_to" th:value="${filter.getAreaTo()}" class="form-control"
+                   placeholder="Площадь до">
         </div>
         <br>
-        <label class="checkbox-btn2">
-            <input id="balcony" class="balcony" type="checkbox" name="balcony[]"
-                   value="балкон">
-            <span>Балкон</span>
-        </label>
-        <label class="checkbox-btn2">
-            <input id="loggia" type="checkbox" name="balcony[]"
-                   value="лоджия">
-            <span>Лоджия</span>
-        </label>
+        <div id="balconyAp">
+            <label class="checkbox-btn2">
+                <input id="balcony" class="balcony" type="checkbox" name="balcony[]"
+                       value="балкон">
+                <span>Балкон</span>
+            </label>
+            <label class="checkbox-btn2">
+                <input id="loggia" type="checkbox" name="balcony[]"
+                       value="лоджия">
+                <span>Лоджия</span>
+            </label>
+        </div>
         <h5 style="margin-top: 25px">Этажность</h5>
         <label class="checkbox-btn2">
-            <input type="checkbox" name="not_first"
-                   value="true">
+            <input type="checkbox" name="not_first" id = "notFirst"
+                   value="1">
             <span>Не первый</span>
         </label>
         <label class="checkbox-btn2">
             <input type="checkbox" name="not_end"
-                   value="true">
+                   value="1">
             <span>Не последний</span>
         </label>
         <br>
         <br>
         <label class="checkbox-btn2">
-            <input type="checkbox" name="children"
-                   value="true">
+            <input type="checkbox" name="children" id = "children"
+                   value="да">
             <span>Можно с детьми</span>
         </label>
         <label class="checkbox-btn2">
-            <input type="checkbox" name="animals"
-                   value="true">
+            <input type="checkbox" name="animals" id = "animals"
+                   value="да">
             <span>Можно с животными</span>
         </label>
         <label class="checkbox-btn2">
-            <input type="checkbox" name="smoking"
-                   value="true">
+            <input type="checkbox" name="smoking" id = "smoking"
+                   value="да">
             <span>Можно курить</span>
         </label>
         <label class="checkbox-btn2">
-            <input type="checkbox" name="party"
-                   value="true">
+            <input type="checkbox" name="party" id = "party"
+                   value="да">
             <span>Разрешены вечеринки</span>
         </label>
         <label class="checkbox-btn2">
-            <input type="checkbox" name="documents"
-                   value="true">
+            <input type="checkbox" name="documents" id = "documents"
+                   value="да">
             <span>Есть отчётные документы</span>
         </label>
         <label class="checkbox-btn2">
-            <input type="checkbox" name="monthly"
-                   value="true">
+            <input type="checkbox" name="monthly" id = "monthly"
+                   value="да">
             <span>Можно помесячно</span>
         </label>
         <br>
@@ -121,7 +130,64 @@
 
     <script th:inline="javascript">
 
+        let countRooms = [[${filter.getCountRooms}]]
+        let loft = document.getElementById("rooms");
+        if (countRooms === "студия") {
+            loft.checked = true;
+            document.getElementById('count').disabled = true;
+        }
+
+        let balcony = [[${filter.getBalcony()}]];
+        balconyArr = balcony.split(",")
+        $('#balconyAp').find(':checkbox[name="balcony[]"]').each(function () {
+            if (balconyArr.some(v => v.trimStart() == $(this).val())) {
+                $(this).prop('checked', true);
+            }
+        });
+
+        let notFirst = [[${filter.getNotFirst()}]]
+        let notFirstEl = document.getElementById("notFirst");
+        if(notFirst != null){
+            notFirstEl.checked = true;
+        }
+
+        let children = [[${filter.getChildren()}]]
+        let childrenEl = document.getElementById("children");
+        if(children != null){
+            childrenEl.checked = true;
+        }
+
+        let animals = [[${filter.getAnimals()}]]
+        let animalsEl = document.getElementById("animals");
+        if(animals != null){
+            animalsEl.checked = true;
+        }
+
+        let smoking = [[${filter.getSmoking()}]]
+        let smokingEl = document.getElementById("smoking");
+        if(smoking != null){
+            smokingEl.checked = true;
+        }
+
+        let party = [[${filter.getParty()}]]
+        let partyEl = document.getElementById("party");
+        if(party != null){
+            partyEl.checked = true;
+        }
+
+        let documents = [[${filter.getDocuments()}]]
+        let documentsEl = document.getElementById("documents");
+        if(documents != null){
+            documentsEl.checked = true;
+        }
+
+        let monthly = [[${filter.getMonthly()}]]
+        let monthlyEl = document.getElementById("monthly");
+        if(monthly != null){
+            monthlyEl.checked = true;
+        }
     </script>
+
     <script type="text/javascript" th:src="@{/js/search/search_locality.js}"></script>
     <script type="text/javascript" th:src="@{/js/checkbox/checkbox.js}"></script>
 </div>

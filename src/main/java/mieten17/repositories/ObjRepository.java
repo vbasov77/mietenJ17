@@ -21,7 +21,7 @@ public interface ObjRepository extends JpaRepository<Obj, Long> {
             "path from objects o left join addresses a on o.id = a.obj_id " +
             "left join details d on o.id = d.obj_id where a.locality_id = :localityId and o.published = :published",
             nativeQuery = true)
-    List<Obj> getAllObjByLocalityId(Long localityId, Integer published);
+    List<Obj> getAllObjByLocalityId(String localityId, Integer published);
 
     @Transactional
     @Query(value = "select o.id, d.price, d.count_rooms, d.capacity, o.published, o.user_id," +
@@ -37,7 +37,7 @@ public interface ObjRepository extends JpaRepository<Obj, Long> {
             "and d.floor not like :notFirstDb and r.children like :childrenDb and r.animals like :animalsDb " +
             "and r.smoking like :smokingDb and r.party like :partyDb and r.documents like :documentsDb and r.monthly like " +
             ":monthlyDb", nativeQuery = true)
-    List<Obj> getFilterObj(Long localityId, Integer capacityDb, String countRoomsDb, Integer priceFromDb, Integer priceToDb,
+    List<Obj> getFilterObj(String localityId, Integer capacityDb, String countRoomsDb, Integer priceFromDb, Integer priceToDb,
                            Integer areaFromDb, Integer areaToDb, String balconyDb, Integer notFirstDb, /*String notEndDb,*/
                            String childrenDb, String animalsDb, String smokingDb, String partyDb, String documentsDb,
                            String monthlyDb);

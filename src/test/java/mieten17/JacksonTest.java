@@ -19,7 +19,6 @@ public class JacksonTest {
         var params = new MapSqlParameterSource();
         params.addValue("published", published);
         params.addValue("user_id", userId);
-        System.out.println(params);
         jdbcTemplate.update(SQL_UPDATE_PUBLISHED, params);
     }
 

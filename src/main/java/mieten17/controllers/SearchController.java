@@ -3,9 +3,11 @@ package mieten17.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import mieten17.models.Filter;
 import mieten17.models.Locality;
 import mieten17.models.Obj;
 import mieten17.repositories.LocalityRepository;
+import mieten17.services.FilterService;
 import mieten17.services.ObjService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,9 @@ import java.util.Optional;
 
 @Controller
 public class SearchController {
+
+    @Autowired
+    private FilterService filterService;
 
     @Autowired
     private LocalityRepository localityRepository;
@@ -41,7 +46,7 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/filter", method = RequestMethod.POST)
-    public String filter(@RequestParam(name = "list", required = false) String list,
+    public String filter(@RequestParam(name = "localityName", required = false) String localityName,
                          @RequestParam(name = "capacity", required = false) Integer capacity,
                          @RequestParam(name = "count_rooms", required = false) String countRooms,
                          @RequestParam(name = "price_from", required = false) Integer priceFrom,
@@ -49,7 +54,7 @@ public class SearchController {
                          @RequestParam(name = "area_from", required = false) Integer areaFrom,
                          @RequestParam(name = "area_to", required = false) Integer areaTo,
                          @RequestParam(name = "balcony[]", required = false) List<String> balcony,
-                         @RequestParam(name = "not_first", required = false) String notFirst,
+                         @RequestParam(name = "not_first", required = false) Integer notFirst,
                          @RequestParam(name = "not_end", required = false) String notEnd,
                          @RequestParam(name = "children", required = false) String children,
                          @RequestParam(name = "animals", required = false) String animals,
@@ -59,19 +64,17 @@ public class SearchController {
                          @RequestParam(name = "monthly", required = false) String monthly,
                          Model model, HttpSession session
     ) {
-
-        List<Obj> objs = objService.getFilterObj(list,
+        List<Obj> objs = objService.getFilterObj(localityName,
                 capacity, countRooms, priceFrom, priceTo,
                 areaFrom, areaTo, balcony, notFirst, /*notEndDb,*/children,
                 animals, smoking, party, documents, monthly, session);
         if (objs.size() < 1) {
             objs = null;
         }
-        System.out.println(objs);
 
+        Filter filter = filterService.getFilter(session);
+        model.addAttribute("filter", filter);
         model.addAttribute("data", objs);
-
-
         return "front";
     }
 }
