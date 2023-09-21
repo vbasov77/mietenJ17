@@ -31,7 +31,7 @@ public class FilterService {
     public Integer capacitySession(Integer capacity, HttpSession session) {
         Integer capacityDb = 0;
         if (capacity == null) {
-            session.setAttribute("capacity", 0);
+            session.setAttribute("capacity", capacityDb);
         } else {
             capacityDb = capacity;
             session.setAttribute("capacity", capacity);
@@ -107,14 +107,14 @@ public class FilterService {
 
     public String localityIdSession(String localityName, HttpSession session) {
         String localityId = PERCENT;
-        if (localityName != null) {
+        if (localityName != null && !localityName.isEmpty()) {
             // Получим данные по выбранному городу и запишем всё в сессию localityId localityName.
             Optional<Locality> loc = localityRepository.findByLocality(localityName);
             session.setAttribute("localityId", loc.get().getId());
             session.setAttribute("localityName", localityName);
             localityId = String.valueOf(loc.get().getId());
         } else {
-            session.setAttribute("localityId", PERCENT);
+            session.setAttribute("localityId", null);
             session.removeAttribute("localityName");
         }
 
@@ -195,10 +195,11 @@ public class FilterService {
     public Filter getFilter(HttpSession session) {
         Filter filter = new Filter();
         filter.setLocalityName((String) session.getAttribute("localityName"));
-        filter.setLocalityId(String.valueOf((Long) session.getAttribute("localityId")));
+        filter.setLocalityId((Long) session.getAttribute("localityId"));
 
+        Integer capacity = (session.getAttribute("capacity") == "") ? null : (Integer) session.getAttribute("capacity");
+        filter.setCapacity(capacity);
 
-        filter.setCapacity((Integer) session.getAttribute("capacity"));
         filter.setCountRooms((String) session.getAttribute("countRooms"));
         filter.setPriceFrom((Integer) session.getAttribute("priceFrom"));
         filter.setPriceTo((Integer) session.getAttribute("priceTo"));
@@ -214,5 +215,24 @@ public class FilterService {
         filter.setMonthly((String) session.getAttribute("monthly"));
 
         return filter;
+    }
+
+    public void removeSessionFilter(HttpSession session) {
+        session.removeAttribute("localityName");
+        session.removeAttribute("localityId");
+        session.setAttribute("capacity", "");
+        session.removeAttribute("countRooms");
+        session.removeAttribute("priceFrom");
+        session.removeAttribute("priceTo");
+        session.removeAttribute("areaFrom");
+        session.removeAttribute("areaTo");
+        session.removeAttribute("balcony");
+        session.removeAttribute("notFirst");
+        session.removeAttribute("children");
+        session.removeAttribute("animals");
+        session.removeAttribute("smoking");
+        session.removeAttribute("party");
+        session.removeAttribute("documents");
+        session.removeAttribute("monthly");
     }
 }
