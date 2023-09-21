@@ -81,113 +81,70 @@
         </div>
         <h5 style="margin-top: 25px">Этажность</h5>
         <label class="checkbox-btn2">
-            <input type="checkbox" name="not_first" id = "notFirst"
+            <input type="checkbox" name="not_first" id="notFirst"
                    value="1">
             <span>Не первый</span>
         </label>
         <label class="checkbox-btn2">
-            <input type="checkbox" name="not_end"
+            <input type="checkbox" name="not_end" id="notEnd"
                    value="1">
             <span>Не последний</span>
         </label>
         <br>
         <br>
         <label class="checkbox-btn2">
-            <input type="checkbox" name="children" id = "children"
+            <input type="checkbox" name="children" id="children"
                    value="да">
             <span>Можно с детьми</span>
         </label>
         <label class="checkbox-btn2">
-            <input type="checkbox" name="animals" id = "animals"
+            <input type="checkbox" name="animals" id="animals"
                    value="да">
             <span>Можно с животными</span>
         </label>
         <label class="checkbox-btn2">
-            <input type="checkbox" name="smoking" id = "smoking"
+            <input type="checkbox" name="smoking" id="smoking"
                    value="да">
             <span>Можно курить</span>
         </label>
         <label class="checkbox-btn2">
-            <input type="checkbox" name="party" id = "party"
+            <input type="checkbox" name="party" id="party"
                    value="да">
             <span>Разрешены вечеринки</span>
         </label>
         <label class="checkbox-btn2">
-            <input type="checkbox" name="documents" id = "documents"
+            <input type="checkbox" name="documents" id="documents"
                    value="да">
             <span>Есть отчётные документы</span>
         </label>
         <label class="checkbox-btn2">
-            <input type="checkbox" name="monthly" id = "monthly"
+            <input type="checkbox" name="monthly" id="monthly"
                    value="да">
             <span>Можно помесячно</span>
         </label>
         <br>
         <button class="btn btn-outline-success small" type="submit">Искать</button>
-
     </form>
+    <button class="btn btn-outline-danger small" id="reset" type="submit">Сбросить фильтр</button>
 
 
     <script th:inline="javascript">
-
-        let countRooms = [[${filter.getCountRooms}]]
-        let loft = document.getElementById("rooms");
-        if (countRooms === "студия") {
-            loft.checked = true;
-            document.getElementById('count').disabled = true;
-        }
-
+        let monthly = [[${filter.getMonthly()}]];
+        let countRooms = [[${filter.getCountRooms}]];
         let balcony = [[${filter.getBalcony()}]];
-        balconyArr = balcony.split(",")
-        $('#balconyAp').find(':checkbox[name="balcony[]"]').each(function () {
-            if (balconyArr.some(v => v.trimStart() == $(this).val())) {
-                $(this).prop('checked', true);
-            }
-        });
+        let notFirst = [[${filter.getNotFirst()}]];
+        let children = [[${filter.getChildren()}]];
+        let animals = [[${filter.getAnimals()}]];
+        let smoking = [[${filter.getSmoking()}]];
+        let party = [[${filter.getParty()}]];
+        let documents = [[${filter.getDocuments()}]];
 
-        let notFirst = [[${filter.getNotFirst()}]]
-        let notFirstEl = document.getElementById("notFirst");
-        if(notFirst != null){
-            notFirstEl.checked = true;
-        }
 
-        let children = [[${filter.getChildren()}]]
-        let childrenEl = document.getElementById("children");
-        if(children != null){
-            childrenEl.checked = true;
-        }
 
-        let animals = [[${filter.getAnimals()}]]
-        let animalsEl = document.getElementById("animals");
-        if(animals != null){
-            animalsEl.checked = true;
-        }
-
-        let smoking = [[${filter.getSmoking()}]]
-        let smokingEl = document.getElementById("smoking");
-        if(smoking != null){
-            smokingEl.checked = true;
-        }
-
-        let party = [[${filter.getParty()}]]
-        let partyEl = document.getElementById("party");
-        if(party != null){
-            partyEl.checked = true;
-        }
-
-        let documents = [[${filter.getDocuments()}]]
-        let documentsEl = document.getElementById("documents");
-        if(documents != null){
-            documentsEl.checked = true;
-        }
-
-        let monthly = [[${filter.getMonthly()}]]
-        let monthlyEl = document.getElementById("monthly");
-        if(monthly != null){
-            monthlyEl.checked = true;
-        }
     </script>
 
+    <script type="text/javascript" th:src="@{/js/filter/filter.js}"></script>
+    <script type="text/javascript" th:src="@{/js/filter/reset.js}"></script>
     <script type="text/javascript" th:src="@{/js/search/search_locality.js}"></script>
     <script type="text/javascript" th:src="@{/js/checkbox/checkbox.js}"></script>
 </div>

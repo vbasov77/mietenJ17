@@ -1,7 +1,6 @@
 package mieten17.models;
 
 
-
 public class Filter {
     public static final String PERCENT = "%";
 
@@ -9,7 +8,7 @@ public class Filter {
     private String localityName;
 
 
-    private String localityId;
+    private Long localityId;
     private Integer capacity;
     private String countRooms;
     private Integer priceFrom;
@@ -31,78 +30,83 @@ public class Filter {
     }
 
 
-    public String getLocalityId() {
-        localityId = (this.localityId.equals(PERCENT)) ? null : this.localityId;
+    public Long getLocalityId() {
         return localityId;
     }
 
     public Integer getCapacity() {
-        capacity = (this.capacity == 0) ? null : this.capacity;
-            return capacity;
+        if (capacity == null || capacity == 0) {
+            capacity = null;
+        }
+        return capacity;
     }
 
     public String getCountRooms() {
-        countRooms = (this.countRooms.equals(PERCENT)) ? null : this.countRooms;
         return countRooms;
     }
 
     public Integer getPriceFrom() {
-        priceFrom = (this.priceFrom == 0) ? null : this.priceFrom;
+        if (priceFrom == null || priceFrom == 0) {
+            priceFrom = null;
+        }
         return priceFrom;
     }
 
     public Integer getPriceTo() {
-        priceTo = (this.priceTo == Integer.MAX_VALUE) ? null : this.priceTo;
+        if (priceTo == null || priceTo == Integer.MAX_VALUE) {
+            priceTo = null;
+        }
         return priceTo;
     }
 
     public Integer getAreaFrom() {
-        areaFrom = (this.areaFrom == 0) ? null : this.areaFrom;
+        if (areaFrom == null || areaFrom == 0) {
+            areaFrom = null;
+        }
         return areaFrom;
     }
 
     public Integer getAreaTo() {
-        areaTo = (this.areaTo == Integer.MAX_VALUE) ? null : this.areaTo;
+        if (areaTo == null || areaTo == Integer.MAX_VALUE) {
+            areaTo = null;
+        }
         return areaTo;
     }
 
     public String getBalcony() {
-        balcony = (this.balcony.equals(PERCENT)) ? null : this.balcony;
         return balcony;
     }
 
     public Integer getNotFirst() {
-        notFirst = (this.notFirst == Integer.MAX_VALUE) ? null : this.notFirst;
         return notFirst;
     }
 
     public String getChildren() {
-        children = (this.children.equals(PERCENT)) ? null : this.children;
+
         return children;
     }
 
     public String getAnimals() {
-        animals = (this.animals.equals(PERCENT)) ? null : this.animals;
+
         return animals;
     }
 
     public String getSmoking() {
-        smoking = (this.smoking.equals(PERCENT)) ? null : this.smoking;
+
         return smoking;
     }
 
     public String getParty() {
-        party = (this.party.equals(PERCENT)) ? null : this.party;
+
         return party;
     }
 
     public String getDocuments() {
-        documents = (this.documents.equals(PERCENT)) ? null : this.documents;
         return documents;
     }
 
     public String getMonthly() {
-        monthly = (this.monthly.equals(PERCENT)) ? null : this.monthly;
+
         return monthly;
     }
 
@@ -110,7 +114,7 @@ public class Filter {
         this.localityName = localityName;
     }
 
-    public void setLocalityId(String localityId) {
+    public void setLocalityId(Long localityId) {
         this.localityId = localityId;
     }
 

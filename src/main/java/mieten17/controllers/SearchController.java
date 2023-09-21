@@ -14,9 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class SearchController {
@@ -64,6 +62,7 @@ public class SearchController {
                          @RequestParam(name = "monthly", required = false) String monthly,
                          Model model, HttpSession session
     ) {
+
         List<Obj> objs = objService.getFilterObj(localityName,
                 capacity, countRooms, priceFrom, priceTo,
                 areaFrom, areaTo, balcony, notFirst, /*notEndDb,*/children,
@@ -73,8 +72,18 @@ public class SearchController {
         }
 
         Filter filter = filterService.getFilter(session);
+
         model.addAttribute("filter", filter);
         model.addAttribute("data", objs);
         return "front";
+    }
+
+    @GetMapping("/remove_filter")
+    @ResponseBody
+    public Object removeFilter(HttpSession session) {
+        filterService.removeSessionFilter(session);
+        Map<String, Object> object = new HashMap<>();
+        object.put("answer", "ok");
+        return object;
     }
 }
