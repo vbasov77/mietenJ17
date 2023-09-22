@@ -17,6 +17,7 @@ public class Filter {
     private Integer areaTo;
     private String balcony;
     private Integer notFirst;
+    private Integer notEnd;
     private String children;
     private String animals;
     private String smoking;
@@ -57,6 +58,17 @@ public class Filter {
             priceTo = null;
         }
         return priceTo;
+    }
+
+    public Integer getNotEnd() {
+        if (notEnd == null || notEnd == 0) {
+            notEnd = null;
+        }
+        return notEnd;
+    }
+
+    public void setNotEnd(Integer notEnd) {
+        this.notEnd = notEnd;
     }
 
     public Integer getAreaFrom() {

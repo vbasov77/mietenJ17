@@ -129,10 +129,11 @@
 
 
     <script th:inline="javascript">
+        let notFirst = [[${filter.getNotFirst()}]]
+        let notEnd = [[${filter.getNotEnd()}]]
         let monthly = [[${filter.getMonthly()}]];
         let countRooms = [[${filter.getCountRooms}]];
         let balcony = [[${filter.getBalcony()}]];
-        let notFirst = [[${filter.getNotFirst()}]];
         let children = [[${filter.getChildren()}]];
         let animals = [[${filter.getAnimals()}]];
         let smoking = [[${filter.getSmoking()}]];

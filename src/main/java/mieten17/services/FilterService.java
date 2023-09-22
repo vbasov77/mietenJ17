@@ -3,10 +3,13 @@ package mieten17.services;
 import jakarta.servlet.http.HttpSession;
 import mieten17.models.Filter;
 import mieten17.models.Locality;
+import mieten17.models.Obj;
 import mieten17.repositories.LocalityRepository;
+import mieten17.repositories.ObjRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +19,9 @@ public class FilterService {
     public static final String PERCENT = "%";
     @Autowired
     private LocalityRepository localityRepository;
+
+    @Autowired
+    private ObjRepository objRepository;
 
     public String countRoomsSession(String countRooms, HttpSession session) {
         String countRoomsDb = PERCENT;
@@ -84,25 +90,37 @@ public class FilterService {
     }
 
 
-    public String balconySession(List<String> balcony, HttpSession session) {
+    public String balconySession(String  balcony, HttpSession session) {
         String balconyDb = PERCENT;
         session.setAttribute("balcony", PERCENT);
-        if (balcony != null) {
+        if (balcony != null && !balcony.equals(PERCENT)) {
             session.setAttribute("balcony", String.join(",", balcony));
-            balconyDb = "%" + String.join(",", balcony) + "%";
+            balconyDb = "%" + balcony + "%";
         }
         return balconyDb;
     }
 
     public Integer notFirstSession(Integer notFirst, HttpSession session) {
         Integer notFirstDb = Integer.MAX_VALUE;
-        if (notFirst == null) {
+        System.out.println(notFirst);
+        if (notFirst == null || notFirst == Integer.MAX_VALUE) {
             session.setAttribute("notFirst", Integer.MAX_VALUE);
         } else {
             notFirstDb = 1;
             session.setAttribute("notFirst", 1);
         }
         return notFirstDb;
+    }
+
+    public Integer notEndSession(Integer notEnd, HttpSession session) {
+        Integer notEndDb = 1;
+        if (notEnd == null) {
+            notEndDb = 0;
+            session.setAttribute("notEnd", 0);
+        } else {
+            session.setAttribute("notEnd", 1);
+        }
+        return notEndDb;
     }
 
     public String localityIdSession(String localityName, HttpSession session) {
@@ -207,6 +225,7 @@ public class FilterService {
         filter.setAreaTo((Integer) session.getAttribute("areaTo"));
         filter.setBalcony((String) session.getAttribute("balcony"));
         filter.setNotFirst((Integer) session.getAttribute("notFirst"));
+        filter.setNotEnd((Integer) session.getAttribute("notEnd"));
         filter.setChildren((String) session.getAttribute("children"));
         filter.setAnimals((String) session.getAttribute("animals"));
         filter.setSmoking((String) session.getAttribute("smoking"));
@@ -218,8 +237,8 @@ public class FilterService {
     }
 
     public void removeSessionFilter(HttpSession session) {
-        session.removeAttribute("localityName");
-        session.removeAttribute("localityId");
+//        session.removeAttribute("localityName");
+//        session.removeAttribute("localityId");
         session.setAttribute("capacity", "");
         session.removeAttribute("countRooms");
         session.removeAttribute("priceFrom");
@@ -228,6 +247,7 @@ public class FilterService {
         session.removeAttribute("areaTo");
         session.removeAttribute("balcony");
         session.removeAttribute("notFirst");
+        session.removeAttribute("notEnd");
         session.removeAttribute("children");
         session.removeAttribute("animals");
         session.removeAttribute("smoking");
@@ -235,4 +255,66 @@ public class FilterService {
         session.removeAttribute("documents");
         session.removeAttribute("monthly");
     }
+
+    public List<Obj> variablesByFilter(Filter filter, HttpSession session) {
+        String localityId = localityIdSession(filter.getLocalityName(), session);
+
+        String countRooms = filter.getCountRooms();
+        if (countRooms == null || countRooms.isEmpty()) {
+            countRooms = "";
+        }
+        String countRoomsDb = countRoomsSession(countRooms, session);
+
+        Integer capacityDb = capacitySession(filter.getCapacity(), session);
+
+        Integer priceFromDb = priceFromSession(filter.getPriceFrom(), session);
+
+        Integer priceToDb = priceToDbSession(filter.getPriceTo(), session);
+
+        Integer areaFromDb = areaFromSession(filter.getAreaFrom(), session);
+
+        Integer areaToDb = areaToDbSession(filter.getAreaTo(), session);
+
+        String balconyDb = balconySession(filter.getBalcony(), session);
+
+        Integer notFirstDb = notFirstSession(filter.getNotFirst(), session);
+
+        Integer notEndDb = notEndSession(filter.getNotEnd(), session);
+
+        String childrenDb = childrenSession(filter.getChildren(), session);
+
+        String animalsDb = animalsSession(filter.getAnimals(), session);
+
+        String smokingDb = smokingSession(filter.getSmoking(), session);
+
+        String partyDb = partySession(filter.getParty(), session);
+
+        String documentsDb = documentsSession(filter.getDocuments(), session);
+
+        String monthlyDb = monthlySession(filter.getMonthly(), session);
+
+//        System.out.println("Locality " + localityId);
+//        System.out.println("Count " + countRoomsDb);
+//        System.out.println("capacityDb " + capacityDb);
+//        System.out.println("priceFromDb " + priceFromDb);
+//        System.out.println("priceToDb " + priceToDb);
+//        System.out.println("areaFromDb " + areaFromDb);
+//        System.out.println("areaToDb " + areaToDb);
+//        System.out.println("balconyDb " + balconyDb);
+//        System.out.println("notFirstDb " + notFirstDb);
+//        System.out.println("notEndDb " + notEndDb);
+//        System.out.println("childrenDb " + childrenDb);
+//        System.out.println("animalsDb " + animalsDb);
+//        System.out.println("smokingDb " + smokingDb);
+//        System.out.println("partyDb " + partyDb);
+//        System.out.println("documentsDb " + documentsDb);
+//        System.out.println("monthlyDb " + monthlyDb);
+//
+//        System.out.println("balconyDb " + filter.getBalcony());
+
+
+        return objRepository.getFilterObj(localityId, capacityDb, countRoomsDb, priceFromDb, priceToDb, areaFromDb, areaToDb,
+                balconyDb, notFirstDb, notEndDb, childrenDb, animalsDb, smokingDb, partyDb, documentsDb, monthlyDb);
+    }
+
 }

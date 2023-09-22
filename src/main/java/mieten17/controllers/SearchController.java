@@ -53,7 +53,7 @@ public class SearchController {
                          @RequestParam(name = "area_to", required = false) Integer areaTo,
                          @RequestParam(name = "balcony[]", required = false) List<String> balcony,
                          @RequestParam(name = "not_first", required = false) Integer notFirst,
-                         @RequestParam(name = "not_end", required = false) String notEnd,
+                         @RequestParam(name = "not_end", required = false) Integer notEnd,
                          @RequestParam(name = "children", required = false) String children,
                          @RequestParam(name = "animals", required = false) String animals,
                          @RequestParam(name = "smoking", required = false) String smoking,
@@ -65,14 +65,13 @@ public class SearchController {
 
         List<Obj> objs = objService.getFilterObj(localityName,
                 capacity, countRooms, priceFrom, priceTo,
-                areaFrom, areaTo, balcony, notFirst, /*notEndDb,*/children,
+                areaFrom, areaTo, balcony, notFirst, notEnd, children,
                 animals, smoking, party, documents, monthly, session);
         if (objs.size() < 1) {
             objs = null;
         }
 
         Filter filter = filterService.getFilter(session);
-
         model.addAttribute("filter", filter);
         model.addAttribute("data", objs);
         return "front";

@@ -34,28 +34,15 @@ public class FrontController {
     private ObjService objService;
 
     @GetMapping("/")
-    public String front(HttpSession session, Model model, @AuthenticationPrincipal User user) {
-        String sess = (String) session.getAttribute("localityName");
-        if (sess == null) {
-            List<Obj> objects = objService.findObjsByPublished(1);
-            if (objects.size() < 1)
-                objects = null;
-            model.addAttribute("data", objects);
-            Filter filter = filterService.getFilter(session);
-            model.addAttribute("filter", filter);
-            return "front";
-        }
-        String localityId = String.valueOf((Long) session.getAttribute("localityId"));
-        Integer published = 1;
-        List<Obj> objects = objService.getAllObjByLocalityId(localityId, published);
-        if (objects.size() < 1)
-            objects = null;
-        model.addAttribute("data", objects);
+    public String front(HttpSession session, Model model) {
         Filter filter = filterService.getFilter(session);
-
+        List<Obj> objs = filterService.variablesByFilter(filter, session);
+        if(objs.size() < 1){
+            objs = null;
+        }
+        model.addAttribute("data", objs);
         model.addAttribute("filter", filter);
         return "front";
-
     }
 
 }

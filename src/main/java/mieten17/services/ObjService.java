@@ -36,10 +36,11 @@ public class ObjService {
         return obj;
     }
 
-    public List<Obj> getFilterObj(String localityName, Integer capacity, String countRooms, Integer priceFrom, Integer priceTo,
-                                  Integer areaFrom, Integer areaTo, List<String> balcony, Integer notFirst,
-            /*String notEnd,*/String children, String animals, String smoking, String party, String documents, String monthly, HttpSession session) {
-
+    public List<Obj> getFilterObj(String localityName, Integer capacity, String countRooms, Integer priceFrom,
+                                  Integer priceTo, Integer areaFrom, Integer areaTo, List<String> balcony,
+                                  Integer notFirst, Integer notEnd, String children, String animals,
+                                  String smoking, String party, String documents, String monthly,
+                                  HttpSession session) {
 
         String localityId = filterService.localityIdSession(localityName, session);// по городу
 
@@ -53,9 +54,13 @@ public class ObjService {
         Integer areaFromDb = filterService.areaFromSession(areaFrom, session); // площадь от
         Integer areaToDb = filterService.areaToDbSession(areaTo, session); // площадь до
 
-        String balconyDb = filterService.balconySession(balcony, session); // Поиск по наличию балкона - лоджии
+        String balconyStr = null;
+        if(balcony != null){
+            balconyStr = String.join(",", balcony);
+        }
+        String balconyDb = filterService.balconySession(balconyStr, session); // Поиск по наличию балкона - лоджии
         Integer notFirstDb = filterService.notFirstSession(notFirst, session); // не первый
-//        String notEndDb = (notEnd != null) ? " d.floors" : null; // не последний -----> НЕ РАБОТАЕТ!!!!!!!!!!!!!!!!!!
+        Integer notEndDb = filterService.notEndSession(notEnd, session); // не последний
 
         String childrenDb = filterService.childrenSession(children, session);// можно с детьми
         String animalsDb = filterService.animalsSession(animals, session);// можно с животными
@@ -66,24 +71,8 @@ public class ObjService {
 
 
 
-//        System.out.println(localityId);
-//        System.out.println(capacityDb);
-//        System.out.println("countRoomsDb - " + countRoomsDb.isEmpty());
-//        System.out.println("countRooms - " + countRooms.isEmpty());
-//        System.out.println(priceFromDb);
-//        System.out.println(priceToDb);
-//        System.out.println(areaFromDb);
-//        System.out.println(areaToDb);
-//        System.out.println(balconyDb);
-//        System.out.println(notFirstDb);
-//        System.out.println(childrenDb);
-//        System.out.println(animalsDb);
-//        System.out.println(smokingDb);
-//        System.out.println(partyDb);
-//        System.out.println(documentsDb);
-//        System.out.println(monthlyDb);
         return objRepository.getFilterObj(localityId, capacityDb, countRoomsDb, priceFromDb, priceToDb, areaFromDb, areaToDb,
-                balconyDb, notFirstDb, /*notEndDb,*/ childrenDb, animalsDb, smokingDb, partyDb, documentsDb, monthlyDb);
+                balconyDb, notFirstDb,  notEndDb, childrenDb, animalsDb, smokingDb, partyDb, documentsDb, monthlyDb);
     }
 
     public List<Obj> getMyObj(Long userId) {

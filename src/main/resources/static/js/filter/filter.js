@@ -16,13 +16,17 @@ $('#balconyAp').find(':checkbox[name="balcony[]"]').each(function () {
 
 
 let notFirstEl = document.getElementById("notFirst");
-if(notFirst != null && notFirst !== 2147483647) {
+if(notFirst !== 2147483647) {
     notFirstEl.checked = true;
 }
 
+let notEndEl = document.getElementById("notEnd");
+if(notEnd === 1){
+    notEndEl.checked = true;
+}
 
 let childrenEl = document.getElementById("children");
-if(children != null && children !== percent){
+if(children !== percent){
     childrenEl.checked = true;
 }
 

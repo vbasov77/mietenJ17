@@ -34,11 +34,12 @@ public interface ObjRepository extends JpaRepository<Obj, Long> {
             "where a.locality_id like :localityId and o.published = 1 and d.count_rooms like :countRoomsDb " +
             "and d.capacity >= :capacityDb and d.price >= :priceFromDb and d.price <= :priceToDb " +
             "and d.area >= :areaFromDb and d.area <= :areaToDb and d.balcony like :balconyDb " +
-            "and d.floor not like :notFirstDb and r.children like :childrenDb and r.animals like :animalsDb " +
+            "and d.floor not like :notFirstDb and if(:notEndDb = 1, d.floor != d.floors, d.floor like '%') and r.children like :childrenDb and r.animals like :animalsDb " +
             "and r.smoking like :smokingDb and r.party like :partyDb and r.documents like :documentsDb and r.monthly like " +
             ":monthlyDb", nativeQuery = true)
     List<Obj> getFilterObj(String localityId, Integer capacityDb, String countRoomsDb, Integer priceFromDb, Integer priceToDb,
-                           Integer areaFromDb, Integer areaToDb, String balconyDb, Integer notFirstDb, /*String notEndDb,*/
+                           Integer areaFromDb, Integer areaToDb, String balconyDb, Integer notFirstDb,
+                           Integer notEndDb,
                            String childrenDb, String animalsDb, String smokingDb, String partyDb, String documentsDb,
                            String monthlyDb);
 
