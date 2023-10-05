@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.*;
 
 @Controller
-@RequestMapping("/auth")
 public class ObjectController {
     public static final String LOCALITY = "locality";
     public static final String COUNTRY = "country";
@@ -59,13 +58,13 @@ public class ObjectController {
     @Autowired
     CoordinatesRepository coordinatesRepository;
 
-    @GetMapping("/add_obj")
+    @GetMapping("/auth/add_obj")
     public String addAddressPage() {
         return "objects/add_address";
     }
 
 
-    @PostMapping("/add_object")
+    @PostMapping("/auth/add_object")
     @ResponseBody
     public Long addObject(@RequestBody String data, @AuthenticationPrincipal User user) throws IOException {
         DocumentContext response = JsonPath.parse(data);
@@ -117,7 +116,7 @@ public class ObjectController {
         return id;
     }
 
-    @GetMapping("/edit_obj/id{id}")
+    @GetMapping("/auth/edit_obj/id{id}")
     public String editObjPage(@PathVariable Long id, Model model) {
         String regex = "\\[|\\]";
         model.addAttribute("locality", id);
@@ -187,7 +186,7 @@ public class ObjectController {
         return "objects/edit_obj";
     }
 
-    @PostMapping("/publish")
+    @PostMapping("/auth/publish")
     @ResponseBody
     public Object published(@RequestParam Long id) {
         Map<String, Object> object = new HashMap<>();
@@ -196,7 +195,7 @@ public class ObjectController {
         return object;
     }
 
-    @PostMapping("/take_off")
+    @PostMapping("/auth/take_off")
     @ResponseBody
     public Object takeOff(@RequestParam Long id) {
         Map<String, Object> object = new HashMap<>();
@@ -205,7 +204,7 @@ public class ObjectController {
         return object;
     }
 
-    @PostMapping("/delete_obj")
+    @PostMapping("/auth/delete_obj")
     @ResponseBody
     public Object deleteObj(@RequestParam Long id){
         objService.deleteObjById(id);
@@ -214,7 +213,7 @@ public class ObjectController {
         return object;
     }
 
-    @PostMapping("/edit_obj/id{id}")
+    @PostMapping("/auth/edit_obj/id{id}")
     @ResponseBody
     public Object editObj(
                           @RequestParam int price,
@@ -276,7 +275,7 @@ public class ObjectController {
         return "objects/view_obj";
     }
 
-    @GetMapping("/my_obj")
+    @GetMapping("/auth/my_obj")
 
     public String myObjects(@AuthenticationPrincipal User user, Model model) {
         List<Obj> objs = objService.getMyObj(user.getId());
