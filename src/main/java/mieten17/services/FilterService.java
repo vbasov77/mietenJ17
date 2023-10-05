@@ -102,7 +102,6 @@ public class FilterService {
 
     public Integer notFirstSession(Integer notFirst, HttpSession session) {
         Integer notFirstDb = Integer.MAX_VALUE;
-        System.out.println(notFirst);
         if (notFirst == null || notFirst == Integer.MAX_VALUE) {
             session.setAttribute("notFirst", Integer.MAX_VALUE);
         } else {
@@ -138,11 +137,7 @@ public class FilterService {
 
         return localityId;
     }
-
-    public void localityNameSession(HttpSession session) {
-
-    }
-
+    
     public String childrenSession(String children, HttpSession session) {
         String childrenDb = PERCENT;
         if (children == null) {
@@ -237,8 +232,11 @@ public class FilterService {
     }
 
     public void removeSessionFilter(HttpSession session) {
-//        session.removeAttribute("localityName");
-//        session.removeAttribute("localityId");
+        /**
+         * Удаляет все сессии фильтра, кроме localityName и localityId
+         * для того, чтобы изменить город поиска, юзеру предложено это сделать в шапке сайта или в самом фильтре.
+         */
+
         session.setAttribute("capacity", "");
         session.removeAttribute("countRooms");
         session.removeAttribute("priceFrom");

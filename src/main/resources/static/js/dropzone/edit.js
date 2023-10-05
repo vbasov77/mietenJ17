@@ -117,7 +117,6 @@ $(document).ready(function () {
             var ar = String(response.fil);
             array = ar.split(',');
             var inHTML = '';
-
             if (response.answer === 'error') {
                 $('.preview').html(' <div class="alert alert-danger alert-dismissible" role="alert" > <button type="button" class="close" data-dismiss="allert"' +
                     'aria-label="Close" > <span aria-hidden="true" >&times;</span></button>' + res.mess + '</div>');
