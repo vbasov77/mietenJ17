@@ -17,7 +17,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+
+
 @Controller
+@RequestMapping("/auth")
 public class MessageController {
 
     @Autowired
@@ -31,7 +34,7 @@ public class MessageController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/auth/my_msg")
+    @GetMapping("/my_msg")
     public String myMsgPage(Model model, @AuthenticationPrincipal User user) {
         List<Object> messages = messageService.myMessages(user.getId());
         List<Object> msgArr = new ArrayList<>();
@@ -47,7 +50,7 @@ public class MessageController {
         return "messages/my_msg";
     }
 
-    @RequestMapping(value = "/auth/delete_chat", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete_chat", method = RequestMethod.GET)
     public String deleteChat(
             @RequestParam("to_user_id") Long toUserId,
             @RequestParam("from_user_id") Long fromUserId,
@@ -57,7 +60,7 @@ public class MessageController {
     }
 
 
-    @RequestMapping(value = "/auth/message", method = RequestMethod.GET)
+    @RequestMapping(value = "/message", method = RequestMethod.GET)
     public String view(@RequestParam("obj_id") Long objId, @RequestParam("to_user_id") Long toUserId,
                        Model model, @AuthenticationPrincipal User user) {
         List<Message> messages = messageService.getMsgToUsers(toUserId, user.getId(), objId);
@@ -65,11 +68,6 @@ public class MessageController {
         Long userId = user.getId();
 
         if (messages.size() != 0) {
-//            if (messages.get(0).getFromUserId() != userId) {
-//                toUserId = messages.get(0).getFromUserId();
-//            } else {
-//                toUserId = messages.get(0).getToUserId();
-//            }
             int countMess = messages.size();
             List<Long> ids = new ArrayList<>();
 
@@ -100,7 +98,7 @@ public class MessageController {
         return "messages/view_msg";
     }
 
-    @RequestMapping(value = "/auth/add_message", method = RequestMethod.POST)
+    @RequestMapping(value = "/add_message", method = RequestMethod.POST)
     @ResponseBody
     public Object addMessage(@RequestParam("to_user_id") Long toUserId, @RequestParam("from_user_id") Long fromUserId,
                              @RequestParam("obj_id") Long objId,
@@ -125,24 +123,7 @@ public class MessageController {
         return msg;
     }
 
-    @RequestMapping(value = "/notified", method = RequestMethod.POST)
-    public String view(@RequestParam("to_user_id") Long toUserId, @RequestParam("obj_id") Long objId,
-                       @RequestParam("array_id") Long[] arrayId,
-                       Model model, @AuthenticationPrincipal User user) {
-
-        List<Message> notified = new ArrayList<>();
-        int count = arrayId.length;
-        for (int i = 0; i < count; i++) {
-            Message message = messageService.findMessageByIdAndStatus(arrayId[i], 1);
-//            if ($not->status == 1) {
-//                $notified [] = $not;
-//            }
-        }
-//        exit(json_encode($notified));
-        return null;
-    }
-
-    @RequestMapping(value = "/auth/delete_msg", method = RequestMethod.POST)
+    @RequestMapping(value = "/delete_msg", method = RequestMethod.POST)
     @ResponseBody
     public Object deleteMsg(@RequestParam("id") Long id) {
         Map<String, Object> response = new HashMap<>();
