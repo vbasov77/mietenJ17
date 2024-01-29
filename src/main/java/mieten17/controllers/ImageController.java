@@ -30,7 +30,9 @@ public class ImageController {
         imageService.deleteImg(file);
         Map<String, Object> object = new HashMap<>();
         object.put("answer", "ok");
+
         return object;
+
     }
 
     @RequestMapping(value = "/add_img/id{id}", method = RequestMethod.POST)

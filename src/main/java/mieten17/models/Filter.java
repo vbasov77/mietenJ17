@@ -3,11 +3,7 @@ package mieten17.models;
 
 public class Filter {
     public static final String PERCENT = "%";
-
-
     private String localityName;
-
-
     private Long localityId;
     private Integer capacity;
     private String countRooms;
@@ -25,11 +21,9 @@ public class Filter {
     private String documents;
     private String monthly;
 
-
     public String getLocalityName() {
         return localityName;
     }
-
 
     public Long getLocalityId() {
         return localityId;

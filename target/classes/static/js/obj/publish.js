@@ -7,7 +7,7 @@ $('body').on('click', '#publish', function () {
             <img src="/images/loader/preloader.svg" width="35px" >
         </div>`;
     $.ajax({
-        url: '/auth/publish',
+        url: '/user/publish',
         type: 'post',
         data: data,
         dataType: 'json',
@@ -34,9 +34,7 @@ $('body').on('click', '#publish', function () {
 
                         let inHtmlFooter = `<div data-id="` + id + `" class="d-inline-block">
                                         <div style="color: #2fa360">Опубликовано</div>
-                                        <a id="takeOff"  style="text-decoration: none; color: red;"
-                                           >
-                                            Снять с публикации</a>
+                                     
                                     </div>`;
 
 

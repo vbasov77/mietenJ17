@@ -57,7 +57,7 @@
 
                                             <a style="text-decoration: none;" title="Удалить чат"
                                                th:onClick="return confirm('Подтвердите удаление чата!')"
-                                               th:href="@{'/auth/delete_chat?to_user_id='+${toUserId} +'&from_user_id=' + ${fromUserId}+ '&obj_id='+${objId}}">
+                                               th:href="@{'/user/delete_chat?to_user_id='+${toUserId} +'&from_user_id=' + ${fromUserId}+ '&obj_id='+${objId}}">
 
                                                 <img class="imgMsg rem"
                                                      th:src="@{'/icons/del_message.svg'}"
@@ -164,7 +164,7 @@
                             <div class="text-center">
                                 <a class="btn btn-outline-danger btn-sm"
                                    onClick="return confirm('Подтвердите удаление!')"
-                                   th:href="@{'/auth/delete_chat?to_user_id='+${toUserId} +'&from_user_id=' + ${fromUserId}+ '&obj_id='+${objId} }">Удалить чат
+                                   th:href="@{'/user/delete_chat?to_user_id='+${toUserId} +'&from_user_id=' + ${fromUserId}+ '&obj_id='+${objId} }">Удалить чат
                                 </a>
                             </div>
                         </div>

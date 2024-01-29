@@ -68,6 +68,7 @@ $(document).ready(function () {
         viFi.disabled = true;
         television.disabled = true;
     }
+
     $('body').on('click', '#noneInternet', function () {
         if (noneInternet.checked) {
             viFi.disabled = true;
@@ -192,7 +193,7 @@ $(document).ready(function () {
         } else {
 
             $.ajax({
-                url: '/auth/edit_obj/id' + id,
+                url: '/user/edit_obj/id' + id,
                 type: 'POST',
                 data: data,
                 dataType: "html", //формат данных
@@ -201,7 +202,7 @@ $(document).ready(function () {
                 },
                 success: function (response) {
                     var res = JSON.parse(response);
-                    console.log(typeof res)
+
                     preloader.delay(500).fadeOut('slow', function () {
                         // var button = document.querySelector('#close');
                         if (res.answer === 'ok') {

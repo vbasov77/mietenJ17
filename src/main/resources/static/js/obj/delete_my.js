@@ -6,7 +6,7 @@ $('body').on('click', '#delete_obj', function () {
             <img src="/images/loader/preloader.svg" width="35px" >
         </div>`;
     $.ajax({
-        url: '/auth/delete_obj',
+        url: '/user/delete_obj',
         type: 'post',
         data: data,
         dataType: 'json',
@@ -19,7 +19,7 @@ $('body').on('click', '#delete_obj', function () {
                 $(message).show().delay(3000).hide('slow');
                 window.setTimeout(slowAlert, 4000);
                 function slowAlert() {
-                    window.location.replace("/auth/my_obj");
+                    window.location.replace("/user/my_obj");
                 }
 
 

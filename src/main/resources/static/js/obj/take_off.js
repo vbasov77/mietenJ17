@@ -7,7 +7,7 @@ $('body').on('click', '#takeOff', function () {
             <img src="/images/loader/preloader.svg" width="35px" >
         </div>`;
     $.ajax({
-        url: '/auth/take_off',
+        url: '/user/take_off',
         type: 'post',
         data: data,
         dataType: 'json',
@@ -32,9 +32,7 @@ $('body').on('click', '#takeOff', function () {
                     $(`div[data-inn="${id}"]`).html(inHTML);
                     let inHtmlFooter = `<div data-id="` + id + `" class="d-inline-block">
                                     <div style="color: red">Не опубликовано</div>
-                                    <a style="text-decoration: none" title="Опубликовать"
-                                       href="#">
-                                        Опубликовать</a>
+                                    
                                 </div>`;
                     $(`div[data-footer="${id}"]`).html(inHtmlFooter);
                 }));

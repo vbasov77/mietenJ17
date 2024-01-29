@@ -1,4 +1,4 @@
-package mieten17.controllers;
+package mieten17.controllers.User;
 
 import mieten17.models.Message;
 import mieten17.models.Obj;
@@ -20,7 +20,7 @@ import java.util.*;
 
 
 @Controller
-@RequestMapping("/auth")
+@RequestMapping("/user")
 public class MessageController {
 
     @Autowired
@@ -56,7 +56,7 @@ public class MessageController {
             @RequestParam("from_user_id") Long fromUserId,
             @RequestParam("obj_id") Long objId) {
         messageService.deleteChat(fromUserId, toUserId, objId);
-        return "redirect:/auth/my_msg";
+        return "redirect:/user/my_msg";
     }
 
 

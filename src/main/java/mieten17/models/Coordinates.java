@@ -7,7 +7,6 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "coordinates")
-
 public class Coordinates {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +18,6 @@ public class Coordinates {
 
     @Column(name = "coordinates")
     private String coordinates;
-
 
 
 }
