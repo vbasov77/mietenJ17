@@ -6,11 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import mieten17.models.Filter;
 import mieten17.models.Obj;
-import mieten17.models.User;
 import mieten17.services.FilterService;
 import mieten17.services.ObjService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +24,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FrontController {
-
     @Autowired
     private FilterService filterService;
 

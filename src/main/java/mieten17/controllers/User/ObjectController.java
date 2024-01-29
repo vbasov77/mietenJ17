@@ -1,4 +1,4 @@
-package mieten17.controllers;
+package mieten17.controllers.User;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Controller
+@RequestMapping("/user")
 public class ObjectController {
     public static final String LOCALITY = "locality";
     public static final String COUNTRY = "country";
@@ -58,13 +59,13 @@ public class ObjectController {
     @Autowired
     CoordinatesRepository coordinatesRepository;
 
-    @GetMapping("/auth/add_obj")
+    @GetMapping("/add_obj")
     public String addAddressPage() {
         return "objects/add_address";
     }
 
 
-    @PostMapping("/auth/add_object")
+    @PostMapping("/add_object")
     @ResponseBody
     public Long addObject(@RequestBody String data, @AuthenticationPrincipal User user) throws IOException {
         DocumentContext response = JsonPath.parse(data);
@@ -116,7 +117,7 @@ public class ObjectController {
         return id;
     }
 
-    @GetMapping("/auth/edit_obj/id{id}")
+    @GetMapping("/edit_obj/id{id}")
     public String editObjPage(@PathVariable Long id, Model model) {
         String regex = "\\[|\\]";
         model.addAttribute("locality", id);
@@ -186,7 +187,7 @@ public class ObjectController {
         return "objects/edit_obj";
     }
 
-    @PostMapping("/auth/publish")
+    @PostMapping("/publish")
     @ResponseBody
     public Object published(@RequestParam Long id) {
         Map<String, Object> object = new HashMap<>();
@@ -195,7 +196,7 @@ public class ObjectController {
         return object;
     }
 
-    @PostMapping("/auth/take_off")
+    @PostMapping("/take_off")
     @ResponseBody
     public Object takeOff(@RequestParam Long id) {
         Map<String, Object> object = new HashMap<>();
@@ -204,37 +205,37 @@ public class ObjectController {
         return object;
     }
 
-    @PostMapping("/auth/delete_obj")
+    @PostMapping("/delete_obj")
     @ResponseBody
-    public Object deleteObj(@RequestParam Long id){
+    public Object deleteObj(@RequestParam Long id) {
         objService.deleteObjById(id);
         Map<String, Object> object = new HashMap<>();
         object.put("answer", "ok");
         return object;
     }
 
-    @PostMapping("/auth/edit_obj/id{id}")
+    @PostMapping("/edit_obj/id{id}")
     @ResponseBody
     public Object editObj(
-                          @RequestParam int price,
-                          @RequestParam Integer area,
-                          @RequestParam int floor,
-                          @RequestParam int floors,
-                          @RequestParam("balcony[]") List<String> balcony,
-                          @RequestParam("parking[]") List<String> parking,
-                          @RequestParam String countRooms,
-                          @RequestParam int capacity,
-                          @RequestParam("service[]") List<String> service,
-                          @RequestParam("comfort[]") List<String> comfort,
-                          @RequestParam String children,
-                          @RequestParam String animals,
-                          @RequestParam String smoking,
-                          @RequestParam String party,
-                          @RequestParam String documents,
-                          @RequestParam String monthly,
-                          @RequestParam String textObj,
-                          @RequestParam String video,
-                          @PathVariable Long id) {
+            @RequestParam int price,
+            @RequestParam Integer area,
+            @RequestParam int floor,
+            @RequestParam int floors,
+            @RequestParam("balcony[]") List<String> balcony,
+            @RequestParam("parking[]") List<String> parking,
+            @RequestParam String countRooms,
+            @RequestParam int capacity,
+            @RequestParam("service[]") List<String> service,
+            @RequestParam("comfort[]") List<String> comfort,
+            @RequestParam String children,
+            @RequestParam String animals,
+            @RequestParam String smoking,
+            @RequestParam String party,
+            @RequestParam String documents,
+            @RequestParam String monthly,
+            @RequestParam String textObj,
+            @RequestParam String video,
+            @PathVariable Long id) {
         Detail checkDetails = detailRepository.findDetailByObjId(id);
         ruleService.createRules(id, children, animals, smoking, party,
                 documents, monthly);
@@ -257,35 +258,13 @@ public class ObjectController {
         return object;
     }
 
-    @RequestMapping("/obj/id{id}")
-    public String viewObj(@PathVariable Long id, Model model) {
-        Obj obj = objService.getObjById(id);
-        List<Image> img = imageRepository.findAllByObjId(id);
-        List<String> images = new ArrayList<>();
-        if (!img.isEmpty()) {
-            for (int i = 0; i < img.size(); i++) {
-                images.add(img.get(i).getPath());
-            }
-        } else {
-            images = null;
-        }
-        model.addAttribute("data", obj);
 
-        model.addAttribute("images", images);
-        return "objects/view_obj";
-    }
-
-    @GetMapping("/auth/my_obj")
-
+    @GetMapping("/my_obj")
     public String myObjects(@AuthenticationPrincipal User user, Model model) {
         List<Obj> objs = objService.getMyObj(user.getId());
         model.addAttribute("data", objs);
         return "objects/my";
     }
-
-
-
-
 
 
 }

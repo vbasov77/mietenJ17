@@ -126,7 +126,7 @@
                                                  style="width: 17px; ">
                                         </a>
                                         <a title="Смотреть объект" class="rem"
-                                           th:href="@{obj/id{id}(id = ${value.getId()})}">
+                                           th:href="@{/obj/id{id}(id = ${value.getId()})}">
                                             <img th:src="@{'/icons/eye.svg'}"
                                                  style="width: 17px; ">
                                         </a>
@@ -166,16 +166,10 @@
                                     <div th:data-id="${value.getId()}" class="d-inline-block"
                                          th:if="${value.getPublished() == 0}">
                                         <div style="color: red">Не опубликовано</div>
-                                        <a style="text-decoration: none" title="Опубликовать"
-                                           th:href="@{publish/id{id}(id = ${value.getId()})}">
-                                            Опубликовать</a>
                                     </div>
                                     <div th:data-id="${value.getId()}" class="d-inline-block"
                                          th:if="${value.getPublished() == 1}">
                                         <div style="color: #2fa360">Опубликовано</div>
-                                        <a style="text-decoration: none; color: red;"
-                                           th:href="@{take_off/id{id}(id = ${value.getId()})}">
-                                            Снять с публикации</a>
                                     </div>
                                     <center>
                                         <div th:data-preload="${value.getId()}"></div>

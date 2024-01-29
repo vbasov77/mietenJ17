@@ -12,7 +12,7 @@ public interface ImageRepository extends JpaRepository<Image, Long> {
 
     List<Image> findAllByObjId(Long objId);
 
-    public void deleteImageByPath(String pathImg);
+    void deleteImageByPath(String pathImg);
 
     @Transactional
     @Modifying

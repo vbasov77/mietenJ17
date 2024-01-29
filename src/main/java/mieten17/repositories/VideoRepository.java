@@ -15,4 +15,5 @@ public interface VideoRepository extends JpaRepository<Video, Long> {
     @Modifying
     @Query(value = "update video set video = :videoPath where obj_id = :objId",
             nativeQuery = true)
-    public void updateVideo(String videoPath, Long objId);}
+    public void updateVideo(String videoPath, Long objId);
+}

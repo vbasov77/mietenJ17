@@ -16,7 +16,7 @@
                     <h1 style="margin-top: 40px">Мои сообщения</h1>
                     <div th:if="${messages != null}">
                         <div th:each="msg : ${messages}">
-                            <a class="messageLink" style="text-decoration: none;" th:href="@{'/auth/message?obj_id=' + ${msg[3]} +
+                            <a class="messageLink" style="text-decoration: none;" th:href="@{'/user/message?obj_id=' + ${msg[3]} +
                         '&to_user_id=' + ${msg[7]}}">
                                 <div class="card">
                                     <div class="card-body">

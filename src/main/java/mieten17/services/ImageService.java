@@ -1,6 +1,5 @@
 package mieten17.services;
 
-
 import mieten17.models.Image;
 import mieten17.repositories.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ public class ImageService {
 
     @Autowired
     private ImageRepository imageRepository;
-
 
     public void createImg(Long objId, String pathImg) {
         Image image = new Image();

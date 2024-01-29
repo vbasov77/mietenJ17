@@ -92,7 +92,6 @@ public class Obj {
         return String.join(", ", this.monthly);
     }
 
-
     public String getCoordinateStr() {
         return String.join(",", this.coordinates);
     }

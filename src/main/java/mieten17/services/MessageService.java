@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class MessageService {
-
     @Autowired
     private MessageRepository messageRepository;
 
@@ -42,7 +41,6 @@ public class MessageService {
     public void deleteChat(Long fromUserId, Long toUserId, Long objId) {
         messageRepository.deleteChat(fromUserId, toUserId, objId);
     }
-
 
 
 }
