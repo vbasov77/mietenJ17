@@ -35,14 +35,6 @@ public class Message {
     @Column(name = "created_at")
     private String createdAt;
 
-//    @ElementCollection
-//    @CollectionTable(name = "images", joinColumns = @JoinColumn(name = "obj_id", referencedColumnName="obj_id"))
-//    private Set<String> images = new HashSet<>();
-//
-//    public String getImageStr() {
-//        String string = String.join(", ", this.images);
-//        List<String> images = List.of(string.split(","));
-//        return images.get(0);
-//    }
+
 
 }

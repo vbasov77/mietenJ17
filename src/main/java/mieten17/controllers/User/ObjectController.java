@@ -4,10 +4,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import mieten17.config.MyUserDetails;
 import mieten17.models.*;
 import mieten17.repositories.*;
 import mieten17.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +26,7 @@ public class ObjectController {
     public static final String COUNTRY = "country";
     public static final String STREET = "street";
     public static final String HOUSE = "house";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
 
     @Autowired
     private VideoService videoService;
@@ -59,15 +63,99 @@ public class ObjectController {
     @Autowired
     CoordinatesRepository coordinatesRepository;
 
+    @GetMapping("/edit_obj/id{id}")
+    @PreAuthorize("hasAuthority('ROLE_USER') || hasAuthority('ROLE_ADMIN')")
+//    @PostAuthorize(value = "#serv.getObjById(#id).userId == #user.id")
+    public String editObjPage(@PathVariable Long id, Model model, @AuthenticationPrincipal MyUserDetails user) {
+        Obj obj = objService.getObjById(id);
+        if (obj.isAuthor(user.getId()) || user.isAdmin()) {
+            String regex = "\\[|\\]";
+            model.addAttribute("locality", id);
+            Detail detail = detailRepository.findDetailByObjId(id);
+            Rule rule = ruleRepository.findRuleByObjId(id);
+            String address = obj.getAddress().toString();
+            if (detail != null) {
+                int price = detail.getPrice();
+                Integer area = detail.getArea();
+                int floor = detail.getFloor();
+                int floors = detail.getFloors();
+                String balcony = detail.getBalcony();
+                String parking = detail.getParking();
+                String countRooms = detail.getCountRooms();
+                int capacity = detail.getCapacity();
+                String service = detail.getService();
+                String comfort = detail.getComfort();
+                String textObj = detail.getTextObj().toString();
+                if (textObj.equals("null")) {
+                    textObj = "";
+                }
+                model.addAttribute("area", area);
+                model.addAttribute("price", price);
+                model.addAttribute("floor", floor);
+                model.addAttribute("floors", floors);
+                model.addAttribute("balcony", balcony);
+                model.addAttribute("parking", parking);
+                model.addAttribute("countRooms", countRooms);
+                model.addAttribute("capacity", capacity);
+                model.addAttribute("service", service);
+                model.addAttribute("comfort", comfort);
+                model.addAttribute("text_obj", textObj);
+
+            }
+            if (rule != null) {
+                String children = rule.getChildren();
+                String animals = rule.getAnimals().toString();
+                String smoking = rule.getSmoking().toString();
+
+                String party = rule.getParty().toString();
+                String documents = rule.getDocuments().toString();
+                String monthly = rule.getMonthly().toString();
+                model.addAttribute("children", children);
+                model.addAttribute("animals", animals);
+                model.addAttribute("smoking", smoking);
+                model.addAttribute("party", party);
+                model.addAttribute("documents", documents);
+                model.addAttribute("monthly", monthly);
+            }
+
+            String video = obj.getVideo().toString().replaceAll(regex, "");
+            List<Image> img = imageRepository.findAllByObjId(obj.getId());
+            List<String> images = new ArrayList<>();
+            if (!img.isEmpty()) {
+                for (int i = 0; i < img.size(); i++) {
+                    images.add(img.get(i).getPath());
+                }
+            } else {
+                images = null;
+            }
+            model.addAttribute("id", obj.getId());
+            model.addAttribute("address", address);
+            model.addAttribute("video", video);
+            model.addAttribute("images", images);
+
+            return "objects/edit_obj";
+        } else {
+            model.addAttribute("error", "У вас нет доступа к этой странице!");
+            return "message_page";
+        }
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_USER') || hasAuthority('ROLE_ADMIN')")
     @GetMapping("/add_obj")
     public String addAddressPage() {
         return "objects/add_address";
     }
 
+    @GetMapping("/my_obj")
+    public String myObjects(@AuthenticationPrincipal MyUserDetails user, Model model) {
+        List<Obj> objs = objService.getMyObj(user.getId());
+        model.addAttribute("data", objs);
+        return "objects/my";
+    }
 
     @PostMapping("/add_object")
     @ResponseBody
-    public Long addObject(@RequestBody String data, @AuthenticationPrincipal User user) throws IOException {
+    public Long addObject(@RequestBody String data, @AuthenticationPrincipal MyUserDetails user) throws IOException {
         DocumentContext response = JsonPath.parse(data);
 
         String coordinatesStr = response.read("$.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos");
@@ -117,76 +205,6 @@ public class ObjectController {
         return id;
     }
 
-    @GetMapping("/edit_obj/id{id}")
-    public String editObjPage(@PathVariable Long id, Model model) {
-        String regex = "\\[|\\]";
-        model.addAttribute("locality", id);
-        Obj obj = objService.getObjById(id);
-        Detail detail = detailRepository.findDetailByObjId(id);
-        Rule rule = ruleRepository.findRuleByObjId(id);
-        String address = obj.getAddress().toString();
-        if (detail != null) {
-            int price = detail.getPrice();
-            Integer area = detail.getArea();
-            int floor = detail.getFloor();
-            int floors = detail.getFloors();
-            String balcony = detail.getBalcony();
-            String parking = detail.getParking();
-            String countRooms = detail.getCountRooms();
-            int capacity = detail.getCapacity();
-            String service = detail.getService();
-            String comfort = detail.getComfort();
-            String textObj = detail.getTextObj().toString();
-            if (textObj.equals("null")) {
-                textObj = "";
-            }
-            model.addAttribute("area", area);
-            model.addAttribute("price", price);
-            model.addAttribute("floor", floor);
-            model.addAttribute("floors", floors);
-            model.addAttribute("balcony", balcony);
-            model.addAttribute("parking", parking);
-            model.addAttribute("countRooms", countRooms);
-            model.addAttribute("capacity", capacity);
-            model.addAttribute("service", service);
-            model.addAttribute("comfort", comfort);
-            model.addAttribute("text_obj", textObj);
-
-        }
-        if (rule != null) {
-            String children = rule.getChildren();
-            String animals = rule.getAnimals().toString();
-            String smoking = rule.getSmoking().toString();
-
-            String party = rule.getParty().toString();
-            String documents = rule.getDocuments().toString();
-            String monthly = rule.getMonthly().toString();
-            model.addAttribute("children", children);
-            model.addAttribute("animals", animals);
-            model.addAttribute("smoking", smoking);
-            model.addAttribute("party", party);
-            model.addAttribute("documents", documents);
-            model.addAttribute("monthly", monthly);
-        }
-
-        String video = obj.getVideo().toString().replaceAll(regex, "");
-        List<Image> img = imageRepository.findAllByObjId(obj.getId());
-        List<String> images = new ArrayList<>();
-        if (!img.isEmpty()) {
-            for (int i = 0; i < img.size(); i++) {
-                images.add(img.get(i).getPath());
-            }
-        } else {
-            images = null;
-        }
-        model.addAttribute("id", obj.getId());
-        model.addAttribute("address", address);
-        model.addAttribute("video", video);
-        model.addAttribute("images", images);
-
-        return "objects/edit_obj";
-    }
-
     @PostMapping("/publish")
     @ResponseBody
     public Object published(@RequestParam Long id) {
@@ -215,6 +233,7 @@ public class ObjectController {
     }
 
     @PostMapping("/edit_obj/id{id}")
+    @PreAuthorize("hasAuthority('ROLE_USER') || hasAuthority('ROLE_ADMIN')")
     @ResponseBody
     public Object editObj(
             @RequestParam int price,
@@ -235,35 +254,31 @@ public class ObjectController {
             @RequestParam String monthly,
             @RequestParam String textObj,
             @RequestParam String video,
-            @PathVariable Long id) {
-        Detail checkDetails = detailRepository.findDetailByObjId(id);
-        ruleService.createRules(id, children, animals, smoking, party,
-                documents, monthly);
-
-
-        String balconyStr = String.join(",", balcony); // Из массива в строку
-        String parkingStr = String.join(",", parking);
-        String serviceStr = String.join(",", service);
-        String comfortStr = String.join(",", comfort);
-
-        detailService.createDetailOrUpdate(id, floor, floors, balconyStr, area, price, capacity, countRooms,
-                serviceStr, comfortStr, parkingStr, textObj);
-
-        if (!video.isEmpty()) {
-            videoService.save(id, video);
-        }
-
+            @PathVariable Long id,
+            @AuthenticationPrincipal MyUserDetails user) {
+        Obj objById = objService.getObjById(id);
         Map<String, Object> object = new HashMap<>();
-        object.put("answer", "ok");
+        if (objById.isAuthor(user.getId()) || user.isAdmin()) {
+            Detail checkDetails = detailRepository.findDetailByObjId(id);
+            ruleService.createRules(id, children, animals, smoking, party,
+                    documents, monthly);
+
+            String balconyStr = String.join(",", balcony); // Из массива в строку
+            String parkingStr = String.join(",", parking);
+            String serviceStr = String.join(",", service);
+            String comfortStr = String.join(",", comfort);
+
+            detailService.createDetailOrUpdate(id, floor, floors, balconyStr, area, price, capacity, countRooms,
+                    serviceStr, comfortStr, parkingStr, textObj);
+
+            if (!video.isEmpty()) {
+                videoService.save(id, video);
+            }
+            object.put("answer", "ok");
+            return object;
+        }
+        object.put("answer", "error");
         return object;
-    }
-
-
-    @GetMapping("/my_obj")
-    public String myObjects(@AuthenticationPrincipal User user, Model model) {
-        List<Obj> objs = objService.getMyObj(user.getId());
-        model.addAttribute("data", objs);
-        return "objects/my";
     }
 
 

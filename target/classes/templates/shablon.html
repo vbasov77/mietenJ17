@@ -7,16 +7,24 @@
 
 
 <style th:inline="css"></style>
+<script type="text/javascript" th:src="@{/js/checkbox/checkbox.js}"></script>
 
 <div th:if="${message}" ><span th:text="${message}"/></div>
 <div th:unless="${value.getPathStrOne()}"></div>
 
 
-
-<script type="text/javascript" th:src="@{/js/checkbox/checkbox.js}"></script>
-
 <form th:action="@{/login}" method="post">
     <a class="btn btn-link" th:href="@{/registration}">Регистрация</a>
 </form>
+
+<th:block th:each="user : ${users}">
+    <tr>
+        <td th:text="${user.login}">...</td>
+        <td th:text="${user.name}">...</td>
+    </tr>
+    <tr>
+        <td colspan="2" th:text="${user.address}">...</td>
+    </tr>
+</th:block>
 
 <div th:replace="~{layouts/footer :: footer(Front)}"/>

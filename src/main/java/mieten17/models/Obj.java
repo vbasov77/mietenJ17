@@ -1,7 +1,9 @@
 package mieten17.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import mieten17.services.ObjService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,6 +13,8 @@ import java.util.Set;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "objects")
 public class Obj {
     @Id
@@ -54,14 +58,13 @@ public class Obj {
     @ElementCollection
     @CollectionTable(name = "images", joinColumns = @JoinColumn(name = "obj_id"))
     private Set<String> path = new HashSet<>();
-//
-//    @ElementCollection
-//    @CollectionTable(name = "rules", joinColumns = @JoinColumn(name = "obj_id"))
-//    private Set<String> children, animals, smoking, party, documents, monthly = new HashSet<>();
 
+    public Obj(Long userId) {
+        this.userId = userId;
+    }
 
-    public Long getUserId(User user) {
-        return user.getId();
+    public boolean isAuthor(Long userId){
+        return this.getUserId().equals(userId);
     }
 
     public String getPriceStr() {
@@ -171,7 +174,7 @@ public class Obj {
         return images.get(0);
     }
 
-    public boolean checkIsLoft(){
+    public boolean checkIsLoft() {
         return this.countRooms.equals("студия");
     }
 

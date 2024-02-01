@@ -1,4 +1,4 @@
-package mieten17.controllers;
+package mieten17.controllers.User;
 
 
 import mieten17.models.Image;
@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/user")
 public class ImageController {
     @Autowired
     private ImageService imageService;

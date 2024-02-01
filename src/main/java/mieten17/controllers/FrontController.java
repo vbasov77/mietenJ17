@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -37,6 +38,8 @@ public class FrontController {
         if(objs.size() < 1){
             objs = null;
         }
+        String img = objs.get(0).getPathStrOne();
+        System.out.println(img.equals(""));
         model.addAttribute("data", objs);
         model.addAttribute("filter", filter);
         return "front";
