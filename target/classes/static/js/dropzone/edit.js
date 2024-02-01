@@ -87,7 +87,7 @@ $(document).ready(function () {
         var $this = $(this);
         file = $this.data('file');
         $.ajax({
-            url: '/delete_img',
+            url: '/user/delete_img',
             data: {file: file},
             success: function (responce) {
                 $this.fadeOut();
@@ -100,7 +100,7 @@ $(document).ready(function () {
     });
 
     let myDropzone = new Dropzone("div#file", {
-        url: "/add_img/id" + id,
+        url: "/user/add_img/id" + id,
         enctype: 'multipart/form-data',
         processData: false,
         contentType: false,

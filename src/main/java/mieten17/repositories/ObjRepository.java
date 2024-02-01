@@ -62,4 +62,7 @@ public interface ObjRepository extends JpaRepository<Obj, Long> {
     void takeOff(Long id);
 
     void deleteById(Long id);
+    @Transactional
+    @Query(value = "select user_id from objects where id = :id", nativeQuery = true)
+    Long findUserIdByID(Long id);
 }

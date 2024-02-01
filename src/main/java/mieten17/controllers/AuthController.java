@@ -2,7 +2,8 @@ package mieten17.controllers;
 
 import mieten17.models.User;
 import mieten17.repositories.UserRepository;
-import mieten17.services.UserService;
+import mieten17.services.CreateUserService;
+import mieten17.services.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,7 @@ import java.util.Map;
 @Controller
 public class AuthController {
     @Autowired
-    private UserService userService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private CreateUserService createUserService;
 
     @Autowired
     private UserRepository userRepository;
@@ -48,7 +47,7 @@ public class AuthController {
             model.put("message", "Пользователь или email уже существуют!");
             return "auth/registration";
         }
-        userService.creatNewUser(user);
+        createUserService.creatNewUser(user);
         return "redirect:/login";
     }
 

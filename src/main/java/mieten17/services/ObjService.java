@@ -32,8 +32,7 @@ public class ObjService {
     }
 
     public Obj getObjById(Long id) {
-        Obj obj = objRepository.findObjById(id);
-        return obj;
+        return objRepository.findObjById(id);
     }
 
     public List<Obj> getFilterObj(String localityName, Integer capacity, String countRooms, Integer priceFrom,
@@ -89,6 +88,10 @@ public class ObjService {
 
     public void deleteObjById(Long id) {
         objRepository.deleteById(id);
+    }
+
+    public Long findUserIdByID(Long id){
+       return objRepository.findUserIdByID(id);
     }
 
 }

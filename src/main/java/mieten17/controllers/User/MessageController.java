@@ -1,13 +1,16 @@
 package mieten17.controllers.User;
 
+import mieten17.config.MyUserDetails;
 import mieten17.models.Message;
 import mieten17.models.Obj;
 import mieten17.models.User;
 import mieten17.repositories.AddressRepository;
+import mieten17.services.CreateUserService;
 import mieten17.services.MessageService;
+import mieten17.services.MyUserDetailsService;
 import mieten17.services.ObjService;
-import mieten17.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,10 +35,10 @@ public class MessageController {
     private MessageService messageService;
 
     @Autowired
-    private UserService userService;
+    private CreateUserService createUserService;
 
     @GetMapping("/my_msg")
-    public String myMsgPage(Model model, @AuthenticationPrincipal User user) {
+    public String myMsgPage(Model model, @AuthenticationPrincipal MyUserDetails user) {
         List<Object> messages = messageService.myMessages(user.getId());
         List<Object> msgArr = new ArrayList<>();
         if (messages.size() > 0) {
@@ -62,7 +65,7 @@ public class MessageController {
 
     @RequestMapping(value = "/message", method = RequestMethod.GET)
     public String view(@RequestParam("obj_id") Long objId, @RequestParam("to_user_id") Long toUserId,
-                       Model model, @AuthenticationPrincipal User user) {
+                       Model model, @AuthenticationPrincipal MyUserDetails user) {
         List<Message> messages = messageService.getMsgToUsers(toUserId, user.getId(), objId);
 
         Long userId = user.getId();
@@ -86,7 +89,7 @@ public class MessageController {
         }
 
         Obj obj = objService.getObjById(objId);
-        String opponent = userService.getUserById(toUserId).getUsername();
+        String opponent = createUserService.getUserById(toUserId).getUsername();
 
         model.addAttribute("messages", messages);
         model.addAttribute("fromUserId", userId);
@@ -124,6 +127,7 @@ public class MessageController {
     }
 
     @RequestMapping(value = "/delete_msg", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ROLE_USER') || hasAuthority('ROLE_ADMIN')")
     @ResponseBody
     public Object deleteMsg(@RequestParam("id") Long id) {
         Map<String, Object> response = new HashMap<>();
