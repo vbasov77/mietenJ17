@@ -39,7 +39,6 @@ public class FrontController {
             objs = null;
         }
         String img = objs.get(0).getPathStrOne();
-        System.out.println(img.equals(""));
         model.addAttribute("data", objs);
         model.addAttribute("filter", filter);
         return "front";

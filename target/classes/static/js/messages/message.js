@@ -65,7 +65,7 @@ function checkNewMsg() {
                 if (res.bool === true) {
                     for (let i = 0; i < res.messages.length; i++) { // выведет 0, затем 1, затем 2
                         if (res.messages[i].to_user_id = to_user_id) {
-                            $(`<li class="sent"> <div class="myClass">
+                            $(`<li class="send"> <div class="myClass">
 <div id="` + res.messages[i].id + `" data-id="` + res.messages[i].id + `" style="font-size: 17px; background-color: #f5f5f5; " class="messageBlock">
                 ${res.messages[i].body}<br>
                 <small  style="font-size: 10px; opacity: 0.6" class="mb-0 text-left">${res.messages[i].created_at.toLocaleString()}</small >
@@ -88,6 +88,7 @@ function newMessage() {
         "to_user_id": to_user_id,
         "from_user_id": from_user_id,
         "obj_id": obj_id,
+        "chatId": chatId,
         "body": message,
     };
     $.ajax({
@@ -100,11 +101,10 @@ function newMessage() {
             let date = res.date;
             if ($.trim(message) == '') {
                 message = $('.message-input .emoji-wysiwyg-editor').html();
-                if ($.trim(message) == '') {
-                    return false;
-                }
+                return false;
             }
-            $(`<li class="sent"> <div class="myClass">
+
+            $(`<li class="send"> <div class="myClass">
 <div id="` + res.id + `" data-id="` + res.id + `" style="float: right; font-size: 17px; background-color: #dad6f5; " class="messageBlock">
 <div class="round-popup">
 <button data-id="` + res.id + `" type="button" class="close"
@@ -123,7 +123,7 @@ ${escapeHtml(res.body)}<br>
 
 $('.submit').click(function () {
     let input = document.querySelector('input');
-    if(input.value !== ""){
+    if (input.value !== "") {
         newMessage();
     }
 

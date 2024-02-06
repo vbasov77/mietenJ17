@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public class ImageService {
 
+
     @Autowired
     private ImageRepository imageRepository;
 
@@ -19,6 +20,7 @@ public class ImageService {
         image.setPath(pathImg);
         imageRepository.save(image);
     }
+
 
     public List<Image> getImages(Long objId) {
         return imageRepository.findAllByObjId(objId);

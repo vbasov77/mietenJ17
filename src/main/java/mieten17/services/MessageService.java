@@ -42,5 +42,8 @@ public class MessageService {
         messageRepository.deleteChat(fromUserId, toUserId, objId);
     }
 
+    public List<Long> getUnreadMessages(Long toUserId, Long fromUserId) {
+        return messageRepository.getUnreadMessages(toUserId, fromUserId);
+    }
 
 }
