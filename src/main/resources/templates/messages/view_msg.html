@@ -54,7 +54,6 @@
                                             </div>
                                         </th>
                                         <div th:if="${messages}">
-
                                             <a style="text-decoration: none;" title="Удалить чат"
                                                th:onClick="return confirm('Подтвердите удаление чата!')"
                                                th:href="@{'/user/delete_chat?to_user_id='+${toUserId} +'&from_user_id=' + ${fromUserId}+ '&obj_id='+${objId}}">
@@ -84,10 +83,10 @@
                         <div class="messages">
                             <ul>
                                 <div th:each="msg : ${messages}">
-                                    <li class="sent">
+                                    <li class="send">
                                         <div class="myClass">
+<!--                                            Эти сообщения от собеседника, отобразятся слева-->
                                             <div th:if="${msg.getFromUserId() != toUserId}">
-
                                                 <div th:if="${msg.getStatus() == 0}">
                                                     <div class="messageBlock" th:id="${msg.getId()}"
                                                          style="background-color: #dad6f5; float: right;"
@@ -149,13 +148,14 @@
                                         </div>
                                     </li>
                                 </div>
+                                <div id="messages"></div>
                             </ul>
                         </div>
                         <div th:if="${objId}">
                             <div class="message-input">
                                 <div class="wrap">
-                                    <input class="form-control" type="text" placeholder="Ваше сообщение..."/>
-                                    <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                    <input class="form-control" id="private-message" type="text" placeholder="Ваше сообщение..."/>
+                                    <button id="send-private" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>
                                     </button>
                                 </div>
                             </div>
@@ -176,12 +176,16 @@
 
 </section>
 <div th:if="${objId}">
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script th:inline="javascript">
         let to_user_id = [[${toUserId}]];
         let from_user_id = [[${fromUserId}]];
         let obj_id = [[${objId}]];
+        let chatId = [[${chatId}]];
     </script>
     <script th:src="@{'/js/messages/message.js'}"></script>
+    <script th:src="@{'/js/messages/websocket/websocket.js'}"></script>
 </div>
 
 <div th:replace="~{layouts/footer :: footer(ViewMsg)}"/>

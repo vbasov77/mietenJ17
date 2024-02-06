@@ -47,5 +47,12 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
             nativeQuery = true)
     public void deleteChat(Long fromUserId, Long toUserId, Long objId);
 
+    @Transactional
+    @Modifying
+    @Query(value = "select id from messages " +
+            "where (from_user_id = :toUserId and to_user_id = :fromUserId  and status = 0) " +
+            "or (from_user_id = :fromUserId and to_user_id = :toUserId  and status = 0);",
+            nativeQuery = true)
+    List<Long> getUnreadMessages(Long toUserId, Long fromUserId);
 
 }

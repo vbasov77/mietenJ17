@@ -3,12 +3,8 @@ package mieten17.controllers.User;
 import mieten17.config.MyUserDetails;
 import mieten17.models.Message;
 import mieten17.models.Obj;
-import mieten17.models.User;
 import mieten17.repositories.AddressRepository;
-import mieten17.services.CreateUserService;
-import mieten17.services.MessageService;
-import mieten17.services.MyUserDetailsService;
-import mieten17.services.ObjService;
+import mieten17.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,15 +17,21 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
-
 @Controller
 @RequestMapping("/user")
 public class MessageController {
 
     @Autowired
+    private RandomService randomService;
+    @Autowired
+    private WSService wsService;
+    @Autowired
     private AddressRepository addressRepository;
     @Autowired
     private ObjService objService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private MessageService messageService;
@@ -64,10 +66,10 @@ public class MessageController {
 
 
     @RequestMapping(value = "/message", method = RequestMethod.GET)
-    public String view(@RequestParam("obj_id") Long objId, @RequestParam("to_user_id") Long toUserId,
+    public String view(@RequestParam("obj_id") Long objId,
+                       @RequestParam("to_user_id") Long toUserId,
                        Model model, @AuthenticationPrincipal MyUserDetails user) {
         List<Message> messages = messageService.getMsgToUsers(toUserId, user.getId(), objId);
-
         Long userId = user.getId();
 
         if (messages.size() != 0) {
@@ -81,15 +83,21 @@ public class MessageController {
                     messages.get(i).setStatus(1);
                 }
             }
-            if (!ids.isEmpty()) {
-                messageService.updateStatus(ids);
-            }
+
         } else {
             messages = null;
         }
-
+        Long forChatId;
         Obj obj = objService.getObjById(objId);
+
+        if (obj.getUserId().equals(userId)) {
+            forChatId = toUserId;
+        } else {
+            forChatId = userId;
+        }
+
         String opponent = createUserService.getUserById(toUserId).getUsername();
+        String chatId = obj.getId() + "&" + obj.getUserId() + "&" + forChatId;
 
         model.addAttribute("messages", messages);
         model.addAttribute("fromUserId", userId);
@@ -97,6 +105,7 @@ public class MessageController {
         model.addAttribute("objId", objId);
         model.addAttribute("toUserName", opponent);
         model.addAttribute("photo", obj.getPathStrOne());
+        model.addAttribute("chatId", chatId);
         model.addAttribute("address", addressRepository.findAddressById(objId).getLocality().toString());
         return "messages/view_msg";
     }
@@ -105,7 +114,9 @@ public class MessageController {
     @ResponseBody
     public Object addMessage(@RequestParam("to_user_id") Long toUserId, @RequestParam("from_user_id") Long fromUserId,
                              @RequestParam("obj_id") Long objId,
-                             @RequestParam("body") String body) {
+                             @RequestParam("body") String body,
+                             @RequestParam("chatId") String chatId
+    ) {
 
         DateFormat dateFormat = new SimpleDateFormat("dd:MM:yy HH:mm:ss");
         Date date = new Date();
@@ -123,6 +134,9 @@ public class MessageController {
         msg.put("id", newMsg.getId());
         msg.put("body", newMsg.getBody());
         msg.put("date", newMsg.getCreatedAt());
+
+
+        wsService.notifyUser(userService.getUserNameParticipant(toUserId).getUsername(), message, chatId);
         return msg;
     }
 

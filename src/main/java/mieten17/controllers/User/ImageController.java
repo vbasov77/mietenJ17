@@ -3,6 +3,7 @@ package mieten17.controllers.User;
 
 import mieten17.models.Image;
 import mieten17.services.ImageService;
+import mieten17.services.RandomService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/user")
 public class ImageController {
+
+    @Autowired
+    private RandomService randomService;
     @Autowired
     private ImageService imageService;
 
@@ -41,10 +45,8 @@ public class ImageController {
     public Object addImage(@RequestParam("file") MultipartFile file, @PathVariable Long id) {
         if (!file.isEmpty()) {
             try {
-                int length = 15;
-                boolean useLetters = true;
-                boolean useNumbers = true;
-                String imgName = RandomStringUtils.random(length, useLetters, useNumbers) + ".jpg";
+
+                String imgName = randomService.random() + ".jpg";
                 StringBuilder fileNames = new StringBuilder();
                 Path fileNameAndPath = Paths.get("D:/STUD/Spring/img_for_mieten17/", imgName);
                 fileNames.append(imgName);
