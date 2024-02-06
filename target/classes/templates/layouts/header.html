@@ -15,6 +15,7 @@
 
         <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet">
         <link th:href="@{/css/styles.css}" rel="stylesheet">
+        <link th:href="@{/css/menu.css}" rel="stylesheet">
 
     </head>
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -44,6 +45,16 @@
                        margin-bottom: 3px; margin-right: 3px">
                             <span th:text="${session.localityName}">Locality</span></a>
                     </span>
+                    <div sec:authorize="isAuthenticated()">
+                        <a th:href="@{/user/my_msg}"  class="nav-link menu-icon" title="Мои сообщения" id="alerts">
+                            <img th:src="@{'/icons/messages.svg'}"
+                                 style="width: 22px; height: auto; margin-top: 2px">
+                            <div id="notificationsMsg"></div>
+                            <span th:if="${session.notificMsg}">
+
+                            </span>
+                        </a>
+                    </div>
                     <div sec:authorize="isAnonymous()">
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/login}">Логин</a>

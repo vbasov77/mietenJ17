@@ -1,71 +1,9 @@
 <div th:replace="~{layouts/header :: header(My)}"/>
 
 <link th:href="@{/css/preloader.css}" rel="stylesheet">
+<link th:href="@{/css/obj.css}" rel="stylesheet">
 <style th:inline="css">
-    .rowM .big img {
-        width: 18rem;
-        float: left;
-        clear: left;
-        display: block;
-    }
 
-    .rem {
-        opacity: 0.6;
-    }
-
-    .rem:hover {
-        opacity: 1;
-    }
-
-    .down {
-        margin-top: 30px;
-    }
-
-    .detail img {
-        margin: 0 0 5px 0;
-    }
-
-    @media screen and (max-width: 1000px) {
-
-        .rowM .big img {
-            width: 100%;
-            float: left;
-            clear: left;
-            display: block;
-        }
-
-        .detail {
-            display: inline-block;
-            margin: 0 0 0 3px;
-            font-size: 13px;
-        }
-
-        .detail img {
-            margin: 0 0 5px 0;
-        }
-
-    }
-
-    @media (max-width: 558px) {
-        .rowM {
-            width: 100%;
-        }
-    }
-
-    .lit {
-        display: flex;
-        align-items: center;
-        justify-content: center
-    }
-
-    .card.d-inline-block.padding {
-        margin: 5px;
-        padding: 8px;
-    }
-
-    .preloader-img {
-        display: none;
-    }
 </style>
 <center><h1 style="margin-top: 50px">Мои объекты</h1></center>
 <div id="preload">

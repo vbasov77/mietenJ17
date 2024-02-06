@@ -1,0 +1,14 @@
+.menu-icon {
+    opacity: 0.6;
+}
+
+.menu-icon:hover {
+    opacity: 1;
+}
+
+.notifications{
+    color: red;
+    font-size: 15px;
+    float: right;
+    font-weight: bold;
+}

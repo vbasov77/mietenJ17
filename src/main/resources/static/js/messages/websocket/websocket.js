@@ -5,12 +5,20 @@ $(document).ready(function () {
     connect();
 });
 
+/**
+ * Сработает, если ввести от 1-го символа в инпуте
+ */
 document.querySelector('#private-message').addEventListener('keydown', function () {
     if (this.value === '' && session === false) {
         session = true;
         goPing();
     }
 })
+
+/**
+ * Сработает, если обновить страницу
+ * @type {confirmExit}
+ */
 window.onbeforeunload = confirmExit;
 
 function confirmExit() {
@@ -42,15 +50,22 @@ function connect() {
 
         stompClient.subscribe('/user/topic/private-messages/' + chatId, function (message) {
             showMessage(JSON.parse(message.body));
+            notificationsMsg();
         });
 
         stompClient.subscribe('/user/topic/read-messages/' + chatId, function (message) {
             changeBackground(JSON.parse(message.body));
         });
 
+        // stompClient.subscribe('/user/topic/notificationsMsg/user-id:' + from_user_id, function (message) {
+        //     notificationsMsg(JSON.parse(message.body));
+        // });
+
     });
 }
-
+function notificationsMsg(res){
+    $("#notificationsMsg").append(`<div class="notifications">!</div>`)
+}
 document.addEventListener("DOMContentLoaded", () => {
     goPing();
 });
@@ -68,6 +83,8 @@ function changeBackground(res) {
     }
     session = false;
 }
+
+
 
 
 function showMessage(res) {

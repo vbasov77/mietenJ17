@@ -49,9 +49,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "select id from messages " +
-            "where (from_user_id = :toUserId and to_user_id = :fromUserId  and status = 0) " +
-            "or (from_user_id = :fromUserId and to_user_id = :toUserId  and status = 0);",
+    @Query(value = "select id from messages where from_user_id = :toUserId and to_user_id = :fromUserId  and status = 0;",
             nativeQuery = true)
     List<Long> getUnreadMessages(Long toUserId, Long fromUserId);
 
