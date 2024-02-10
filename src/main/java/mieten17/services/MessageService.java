@@ -46,4 +46,9 @@ public class MessageService {
         return messageRepository.getUnreadMessages(toUserId, fromUserId);
     }
 
+    public Integer findCountMsgNotRead(Long userId){
+        return messageRepository.findMessagesByFromUserIdOrToUserId(userId).size();
+    }
+
+
 }

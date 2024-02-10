@@ -41,6 +41,7 @@ public class FrontController {
         String img = objs.get(0).getPathStrOne();
         model.addAttribute("data", objs);
         model.addAttribute("filter", filter);
+
         return "front";
     }
 

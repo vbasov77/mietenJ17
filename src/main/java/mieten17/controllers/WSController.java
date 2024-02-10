@@ -1,9 +1,12 @@
 package mieten17.controllers;
 
+import jakarta.servlet.http.HttpSession;
 import mieten17.models.Message;
 import mieten17.services.WSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class WSController {
@@ -26,8 +29,8 @@ public class WSController {
     public void read(
             @RequestParam("userId") Long id,
             @RequestParam("fromUserId") Long fromUserId,
-            @RequestParam("chatId") String chatId) {
-
-        service.read(id, fromUserId, chatId);
+            @RequestParam("chatId") String chatId,
+            HttpSession session) {
+        service.read(id, fromUserId, chatId, session);
     }
 }

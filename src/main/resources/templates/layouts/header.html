@@ -13,6 +13,9 @@
         <script th:src="@{/js/jquery/jquery-ui.js}"></script>
         <script th:src="@{/js/bootstrap/popper.min.js}" defer></script>
 
+        <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+        <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
         <link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet">
         <link th:href="@{/css/styles.css}" rel="stylesheet">
         <link th:href="@{/css/menu.css}" rel="stylesheet">
@@ -43,16 +46,16 @@
                            onClick="return confirm('Хотите изменить местоположение?')"
                            th:href="@{/update_location}"><img th:src="@{'/icons/map.svg'}" style="width: 19px; height: auto;
                        margin-bottom: 3px; margin-right: 3px">
-                            <span th:text="${session.localityName}">Locality</span></a>
+                            <span id="locality" th:text="${session.localityName}">Locality</span></a>
                     </span>
                     <div sec:authorize="isAuthenticated()">
-                        <a th:href="@{/user/my_msg}"  class="nav-link menu-icon" title="Мои сообщения" id="alerts">
+                        <a th:href="@{/user/my_msg}" class="nav-link menu-icon" title="Мои сообщения" id="alerts">
                             <img th:src="@{'/icons/messages.svg'}"
                                  style="width: 22px; height: auto; margin-top: 2px">
-                            <div id="notificationsMsg"></div>
-                            <span th:if="${session.notificMsg}">
-
-                            </span>
+                            <div id="notificationsMsg" class="notifications notificationsMsg"></div>
+<!--                            <span th:if="${session.notificationsMsg > 0}">-->
+                            <span id="counter" class="counter notifications" th:text="${session.notificationsMsg}">Notification</span>
+<!--                        </span>-->
                         </a>
                     </div>
                     <div sec:authorize="isAnonymous()">
