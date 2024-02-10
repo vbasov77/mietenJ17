@@ -1,5 +1,6 @@
 package mieten17.config;
 
+import lombok.Builder;
 import mieten17.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+@Builder
 public class MyUserDetails implements UserDetails {
 
     public static final String ROLE_ADMIN = "ROLE_ADMIN";

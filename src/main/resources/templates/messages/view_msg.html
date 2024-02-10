@@ -80,7 +80,7 @@
                             </table>
                         </div>
 
-                        <div class="messages">
+                        <div class="messages" id="msg">
                             <ul>
                                 <div th:each="msg : ${messages}">
                                     <li class="send">
@@ -176,8 +176,6 @@
 
 </section>
 <div th:if="${objId}">
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script th:inline="javascript">
         let to_user_id = [[${toUserId}]];
         let from_user_id = [[${fromUserId}]];

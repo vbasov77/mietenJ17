@@ -28,11 +28,8 @@ public class WebSecurityConfig {
         return authProvider;
     }
 
-
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-
         return authConfig.getAuthenticationManager();
     }
 
@@ -42,14 +39,14 @@ public class WebSecurityConfig {
     }
 
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http.authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/user/**").authenticated()
+                                .requestMatchers("/user/**").authenticated()
 //                        .requestMatchers("/user/edit_obj/id{id}**").access(userSecurity)
-                        .requestMatchers("/admin/**").authenticated()
-                        .anyRequest().permitAll()
+                                .requestMatchers("/admin/**").authenticated()
+                                .anyRequest().permitAll()
 
                 )
                 .formLogin(form -> form

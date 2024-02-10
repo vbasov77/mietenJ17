@@ -1,16 +1,19 @@
 var stompClient = null;
-let session = false;
 
 $(document).ready(function () {
-    connect();
+    connectWebSocket();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    goPing();
 });
 
 /**
  * Сработает, если ввести от 1-го символа в инпуте
  */
 document.querySelector('#private-message').addEventListener('keydown', function () {
-    if (this.value === '' && session === false) {
-        session = true;
+    if (this.value === '') {
+        counterJq.html("");
         goPing();
     }
 })
@@ -42,50 +45,34 @@ function goPing() {
     });
 }
 
-
-function connect() {
+function connectWebSocket() {
     var socket = new SockJS('/our-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
 
         stompClient.subscribe('/user/topic/private-messages/' + chatId, function (message) {
             showMessage(JSON.parse(message.body));
-            notificationsMsg();
         });
 
         stompClient.subscribe('/user/topic/read-messages/' + chatId, function (message) {
             changeBackground(JSON.parse(message.body));
         });
 
-        // stompClient.subscribe('/user/topic/notificationsMsg/user-id:' + from_user_id, function (message) {
-        //     notificationsMsg(JSON.parse(message.body));
-        // });
-
     });
 }
-function notificationsMsg(res){
-    $("#notificationsMsg").append(`<div class="notifications">!</div>`)
-}
-document.addEventListener("DOMContentLoaded", () => {
-    goPing();
-});
+
 
 function changeBackground(res) {
-    if (res.length) {
+    if (res) {
         const checkBackground = (id) => {
             const element = document.querySelector(`div[data-id="${id}"]`);
             element.style.backgroundColor = '#f5f5f5';
-
         };
         for (let i = 0; i < res.length; i++) {
             checkBackground(res[i]);
         }
     }
-    session = false;
 }
-
-
-
 
 function showMessage(res) {
     $(".messages ul").append(`<li class="send"> <div class="myClass">

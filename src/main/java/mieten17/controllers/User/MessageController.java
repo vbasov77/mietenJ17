@@ -1,7 +1,9 @@
 package mieten17.controllers.User;
 
+import jakarta.servlet.http.HttpSession;
 import mieten17.config.MyUserDetails;
 import mieten17.models.Message;
+import mieten17.models.Notification;
 import mieten17.models.Obj;
 import mieten17.repositories.AddressRepository;
 import mieten17.services.*;
@@ -23,6 +25,9 @@ public class MessageController {
 
     @Autowired
     private RandomService randomService;
+
+    @Autowired
+    NotificationService notificationService;
     @Autowired
     private WSService wsService;
     @Autowired
@@ -115,7 +120,8 @@ public class MessageController {
     public Object addMessage(@RequestParam("to_user_id") Long toUserId, @RequestParam("from_user_id") Long fromUserId,
                              @RequestParam("obj_id") Long objId,
                              @RequestParam("body") String body,
-                             @RequestParam("chatId") String chatId
+                             @RequestParam("chatId") String chatId,
+                             HttpSession session
     ) {
 
         DateFormat dateFormat = new SimpleDateFormat("dd:MM:yy HH:mm:ss");
@@ -127,16 +133,24 @@ public class MessageController {
         message.setToUserId(toUserId);
         message.setBody(body);
         message.setCreatedAt(format);
-        Message newMsg = new Message();
-        newMsg = messageService.addMsg(message);
+
+        Message newMsg = messageService.addMsg(message);
+
+        //Сформируем новое сообщение на запрос Ajax
         Map<String, Object> msg = new HashMap<>();
         msg.put("bool", true);
         msg.put("id", newMsg.getId());
         msg.put("body", newMsg.getBody());
         msg.put("date", newMsg.getCreatedAt());
 
+        // Добавим в базу уведомление пользователю
+        Notification notification = new Notification();
+        notification.setUserId(toUserId);
+        notificationService.save(notification);
 
-        wsService.notifyUser(userService.getUserNameParticipant(toUserId).getUsername(), message, chatId);
+        // Отправим по сокету сообщение
+        Integer count = wsService.notifyUser(userService.getUserNameParticipant(toUserId).getUsername(), toUserId, message, chatId);
+        session.setAttribute("notificationsMsg", count);
         return msg;
     }
 
