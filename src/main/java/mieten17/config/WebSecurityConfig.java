@@ -38,13 +38,10 @@ public class WebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(requests -> requests
                                 .requestMatchers("/user/**").authenticated()
-//                        .requestMatchers("/user/edit_obj/id{id}**").access(userSecurity)
                                 .requestMatchers("/admin/**").authenticated()
                                 .anyRequest().permitAll()
 

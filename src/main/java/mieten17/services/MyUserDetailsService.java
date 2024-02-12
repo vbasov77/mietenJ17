@@ -1,6 +1,5 @@
 package mieten17.services;
 
-import jakarta.servlet.http.HttpSession;
 import mieten17.config.MyUserDetails;
 import mieten17.models.User;
 import mieten17.repositories.UserRepository;
@@ -16,9 +15,6 @@ import java.util.Optional;
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private SessionService sessionService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

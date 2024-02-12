@@ -21,20 +21,30 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-xl-2 ">
+                                            <div class="col-xl-3 ">
                                                 <div th:if="${msg[8]}">
                                                     <img th:src="@{'/img_for_mieten17/' + ${msg[8]}}"
-                                                         style="width: 80px; height: auto">
+                                                         style="width: 110px; height: auto">
                                                 </div>
                                                 <div th:unless="${msg[8]}">
                                                     <img th:src="@{'/images/no_image/no_image.jpg'}"
-                                                         style="width: 100px; height: auto">
+                                                         style="width: 110px; height: auto">
                                                 </div>
+
                                             </div>
-                                            <div class="col-xl-6 text-left">
+                                            <div class="col-xl-8 text-left">
                                                 <div th:text="${msg[4]}"></div>
                                             </div>
+                                            <div th:if="${msg[5] == 0}">
+                                                <div class="col-xl-6 text-right">
+                                                    <div>
+                                                        <img class="status" th:src="@{'/icons/error2.svg'}"
+                                                             style="width: 15px; height: auto">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </a>
