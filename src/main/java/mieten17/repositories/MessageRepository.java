@@ -24,7 +24,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
             "user_id, (select i.path from images i where obj_id = m.obj_id order by i.id limit 1) " +
             "path from messages m where m.id in (select max(m2.id) from messages m2 where :authId in " +
             "(from_user_id, to_user_id) group by " +
-            "(case when from_user_id = :authId then to_user_id else from_user_id end));",
+            "(case when from_user_id = :authId then to_user_id else from_user_id end)) order by m.status, m.created_at desc;",
             nativeQuery = true)
     public List<Object> myMessages(Long authId);
 
