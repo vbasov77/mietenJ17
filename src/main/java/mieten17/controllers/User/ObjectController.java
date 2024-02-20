@@ -232,8 +232,8 @@ public class ObjectController {
         return object;
     }
 
+
     @PostMapping("/edit_obj/id{id}")
-    @PreAuthorize("hasAuthority('ROLE_USER') || hasAuthority('ROLE_ADMIN')")
     @ResponseBody
     public Object editObj(
             @RequestParam int price,
