@@ -232,7 +232,6 @@ public class ObjectController {
         return object;
     }
 
-
     @PostMapping("/edit_obj/id{id}")
     @ResponseBody
     public Object editObj(
