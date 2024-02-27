@@ -1,10 +1,9 @@
-package mieten17.controllers.User;
+package mieten17.controllers.user;
 
 
 import mieten17.models.Image;
 import mieten17.services.ImageService;
 import mieten17.services.RandomService;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

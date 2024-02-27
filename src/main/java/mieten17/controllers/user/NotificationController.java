@@ -1,4 +1,4 @@
-package mieten17.controllers.User;
+package mieten17.controllers.user;
 
 
 import jakarta.servlet.http.HttpSession;
