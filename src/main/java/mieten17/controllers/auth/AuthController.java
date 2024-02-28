@@ -1,4 +1,4 @@
-package mieten17.controllers;
+package mieten17.controllers.auth;
 
 import mieten17.models.User;
 import mieten17.repositories.UserRepository;
