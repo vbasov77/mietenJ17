@@ -13,11 +13,10 @@ public class CountryService {
     public Long getCountryId(String countryName) {
         Country country = countryRepository.findIdByCountry(countryName);
         if (country == null) {
-            Country countr = new Country();
-            countr.setCountry(countryName);
-            countryRepository.save(countr);
-            Long newCountryId = countryRepository.findIdByCountry(countryName).getId();
-            return newCountryId;
+            Country newCountry = new Country();
+            newCountry.setCountry(countryName);
+            countryRepository.save(newCountry);
+            return countryRepository.findIdByCountry(countryName).getId();
         }
         return country.getId();
     }

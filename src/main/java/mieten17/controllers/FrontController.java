@@ -7,13 +7,12 @@ import lombok.NoArgsConstructor;
 import mieten17.models.Filter;
 import mieten17.models.Obj;
 import mieten17.services.FilterService;
-import mieten17.services.ObjService;
+import mieten17.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.security.Principal;
 import java.util.List;
 
 
@@ -29,13 +28,13 @@ public class FrontController {
     private FilterService filterService;
 
     @Autowired
-    private ObjService objService;
+    private UserService userService;
 
     @GetMapping("/")
     public String front(HttpSession session, Model model) {
         Filter filter = filterService.getFilter(session);
         List<Obj> objs = filterService.variablesByFilter(filter, session);
-        if(objs.size() < 1){
+        if (objs.size() < 1) {
             objs = null;
         }
         String img = objs.get(0).getPathStrOne();
