@@ -10,8 +10,6 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -23,8 +21,6 @@ public class CreateUserServiceTest {
     private CreateUserService createUserService;
     @Mock
     private UserRepository userRepository;
-
-
 
     @Test
     public void testCreateNewUser() {

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 public class NotificationService {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
-
     @Autowired
     private NotificationRepository notificationRepository;
 
@@ -21,7 +20,6 @@ public class NotificationService {
 
     public void sendPrivateNotification(final String userId) {
         ResponseMessage message = new ResponseMessage("Private Notification");
-
         messagingTemplate.convertAndSendToUser(userId, "/topic/private-notifications", message);
     }
 

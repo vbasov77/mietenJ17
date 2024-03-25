@@ -18,7 +18,4 @@ public class Video {
 
     @Column(name = "video")
     private String video;
-
-
-
 }

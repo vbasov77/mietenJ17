@@ -6,14 +6,14 @@
             <input id="noneInternet" type="checkbox" name="service[]" value="нет">
             <span>Нет</span>
         </label>
-        <label  class="checkbox-btn2">
+        <label class="checkbox-btn2">
             <input id="viFi" type="checkbox" name="service[]"
-            value="viFi">
+                   value="viFi">
             <span>Vi-Fi</span>
         </label>
         <label class="checkbox-btn2">
             <input id="television" type="checkbox" name="service[]"
-            value="телевидение">
+                   value="телевидение">
             <span>Телевидение</span>
         </label>
     </div>
@@ -21,7 +21,7 @@
         let serviceInter = [[${service}]];
 
         serviceArrInter = serviceInter.split(",")
-        $('#internetAp').find(':checkbox[name="service[]"]').each(function() {
+        $('#internetAp').find(':checkbox[name="service[]"]').each(function () {
             if (serviceArrInter.some(v => v.trimStart() == $(this).val())) {
                 $(this).prop('checked', true);
             }

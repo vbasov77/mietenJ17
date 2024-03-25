@@ -1,6 +1,5 @@
 package mieten17.services;
 
-
 import mieten17.models.Locality;
 import mieten17.repositories.LocalityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LocalityService {
-
     @Autowired
     private LocalityRepository localityRepository;
 

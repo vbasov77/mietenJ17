@@ -14,11 +14,9 @@ import java.util.Optional;
 
 @Service
 public class FilterService {
-
     public static final String PERCENT = "%";
     @Autowired
     private LocalityRepository localityRepository;
-
     @Autowired
     private ObjRepository objRepository;
 
@@ -133,7 +131,6 @@ public class FilterService {
             session.setAttribute("localityId", null);
             session.removeAttribute("localityName");
         }
-
         return localityId;
     }
     
@@ -255,60 +252,26 @@ public class FilterService {
 
     public List<Obj> variablesByFilter(Filter filter, HttpSession session) {
         String localityId = localityIdSession(filter.getLocalityName(), session);
-
         String countRooms = filter.getCountRooms();
+
         if (countRooms == null || countRooms.isEmpty()) {
             countRooms = "";
         }
         String countRoomsDb = countRoomsSession(countRooms, session);
-
         Integer capacityDb = capacitySession(filter.getCapacity(), session);
-
         Integer priceFromDb = priceFromSession(filter.getPriceFrom(), session);
-
         Integer priceToDb = priceToDbSession(filter.getPriceTo(), session);
-
         Integer areaFromDb = areaFromSession(filter.getAreaFrom(), session);
-
         Integer areaToDb = areaToDbSession(filter.getAreaTo(), session);
-
         String balconyDb = balconySession(filter.getBalcony(), session);
-
         Integer notFirstDb = notFirstSession(filter.getNotFirst(), session);
-
         Integer notEndDb = notEndSession(filter.getNotEnd(), session);
-
         String childrenDb = childrenSession(filter.getChildren(), session);
-
         String animalsDb = animalsSession(filter.getAnimals(), session);
-
         String smokingDb = smokingSession(filter.getSmoking(), session);
-
         String partyDb = partySession(filter.getParty(), session);
-
         String documentsDb = documentsSession(filter.getDocuments(), session);
-
         String monthlyDb = monthlySession(filter.getMonthly(), session);
-
-//        System.out.println("Locality " + localityId);
-//        System.out.println("Count " + countRoomsDb);
-//        System.out.println("capacityDb " + capacityDb);
-//        System.out.println("priceFromDb " + priceFromDb);
-//        System.out.println("priceToDb " + priceToDb);
-//        System.out.println("areaFromDb " + areaFromDb);
-//        System.out.println("areaToDb " + areaToDb);
-//        System.out.println("balconyDb " + balconyDb);
-//        System.out.println("notFirstDb " + notFirstDb);
-//        System.out.println("notEndDb " + notEndDb);
-//        System.out.println("childrenDb " + childrenDb);
-//        System.out.println("animalsDb " + animalsDb);
-//        System.out.println("smokingDb " + smokingDb);
-//        System.out.println("partyDb " + partyDb);
-//        System.out.println("documentsDb " + documentsDb);
-//        System.out.println("monthlyDb " + monthlyDb);
-//
-//        System.out.println("balconyDb " + filter.getBalcony());
-
 
         return objRepository.getFilterObj(localityId, capacityDb, countRoomsDb, priceFromDb, priceToDb, areaFromDb, areaToDb,
                 balconyDb, notFirstDb, notEndDb, childrenDb, animalsDb, smokingDb, partyDb, documentsDb, monthlyDb);

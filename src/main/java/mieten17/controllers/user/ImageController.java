@@ -21,7 +21,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("/user")
 public class ImageController {
-
     @Autowired
     private RandomService randomService;
     @Autowired
@@ -36,7 +35,6 @@ public class ImageController {
         object.put("answer", "ok");
 
         return object;
-
     }
 
     @RequestMapping(value = "/add_img/id{id}", method = RequestMethod.POST)
@@ -44,7 +42,6 @@ public class ImageController {
     public Object addImage(@RequestParam("file") MultipartFile file, @PathVariable Long id) {
         if (!file.isEmpty()) {
             try {
-
                 String imgName = randomService.random() + ".jpg";
                 StringBuilder fileNames = new StringBuilder();
                 Path fileNameAndPath = Paths.get("D:/STUD/Spring/img_for_mieten17/", imgName);
@@ -60,9 +57,7 @@ public class ImageController {
                 Map<String, Object> object = new HashMap<>();
                 object.put("answer", "ok");
                 object.put("fil", imgArr.toString().replaceAll("\\[", "").replaceAll("\\]", ""));
-
                 return object;
-
             } catch (Exception e) {
                 return "error";
             }

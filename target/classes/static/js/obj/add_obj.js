@@ -5,7 +5,6 @@ $(function () {
             preloader = $('.preloader-img');
         const address = document.getElementById('suggest').value;
         ymaps.ready(inits);
-
         function inits() {
             $.ajax({
                 method: 'GET',
@@ -37,8 +36,6 @@ $(function () {
             });
         }
     });
-
-
 });
 
 

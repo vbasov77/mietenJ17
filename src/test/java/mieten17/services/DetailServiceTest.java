@@ -1,7 +1,6 @@
 package mieten17.services;
 
 import mieten17.models.Detail;
-import mieten17.models.User;
 import mieten17.repositories.DetailRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,10 +19,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class DetailServiceTest {
-
     @InjectMocks
     private DetailService detailService;
-
     @Mock
     private DetailRepository detailRepository;
 

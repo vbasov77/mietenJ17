@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mieten17.services.ObjService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
 import java.util.List;
@@ -63,7 +61,7 @@ public class Obj {
         this.userId = userId;
     }
 
-    public boolean isAuthor(Long userId){
+    public boolean isAuthor(Long userId) {
         return this.getUserId().equals(userId);
     }
 

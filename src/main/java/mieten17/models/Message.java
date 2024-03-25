@@ -3,16 +3,10 @@ package mieten17.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @Entity
 @Data
 @Table(name = "messages")
-public class Message {
-    @Id
+public class Message {    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;

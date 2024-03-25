@@ -88,22 +88,18 @@ public class Filter {
     }
 
     public String getChildren() {
-
         return children;
     }
 
     public String getAnimals() {
-
         return animals;
     }
 
     public String getSmoking() {
-
         return smoking;
     }
 
     public String getParty() {
-
         return party;
     }
 
@@ -112,7 +108,6 @@ public class Filter {
     }
 
     public String getMonthly() {
-
         return monthly;
     }
 

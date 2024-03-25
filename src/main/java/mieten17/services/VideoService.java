@@ -7,13 +7,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class VideoService {
-
     @Autowired
     private VideoRepository videoRepository;
 
     public void save(Long objId, String path) {
         Video checkVideo = videoRepository.findVideoByObjId(objId);
-        if(checkVideo == null){
+        if (checkVideo == null) {
             Video video = new Video();
             video.setObjId(objId);
             video.setVideo(path);
@@ -21,10 +20,6 @@ public class VideoService {
         } else {
             // Обновляем БД
             videoRepository.updateVideo(path, objId);
-
         }
-
     }
-
-
 }

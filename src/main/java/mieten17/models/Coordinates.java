@@ -1,6 +1,5 @@
 package mieten17.models;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,6 +17,5 @@ public class Coordinates {
 
     @Column(name = "coordinates")
     private String coordinates;
-
 
 }

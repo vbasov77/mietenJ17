@@ -1,6 +1,5 @@
 package mieten17.services;
 
-
 import mieten17.models.User;
 import mieten17.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

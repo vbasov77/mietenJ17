@@ -9,19 +9,19 @@
         </label>
         <label class="checkbox-btn2">
             <input id="linen" type="checkbox" name="comfort[]"
-            value="постельное бельё">
+                   value="постельное бельё">
             <span>Постельное бельё</span>
         </label>
 
         <label class="checkbox-btn2">
             <input id="towels" type="checkbox" name="comfort[]"
-            value="полотенца">
+                   value="полотенца">
             <span>Полотенца</span>
         </label>
 
         <label class="checkbox-btn2">
             <input id="hygieneProducts" type="checkbox" name="comfort[]"
-            value="средства гигиены">
+                   value="средства гигиены">
             <span>Средства гигиены</span>
         </label>
     </div>
@@ -29,7 +29,7 @@
     <script th:inline="javascript">
         let comfort = [[${comfort}]];
         comfortArr = comfort.split(",")
-        $('#comfortAp').find(':checkbox[name="comfort[]"]').each(function() {
+        $('#comfortAp').find(':checkbox[name="comfort[]"]').each(function () {
             if (comfortArr.some(v => v.trimStart() == $(this).val())) {
                 $(this).prop('checked', true);
             }

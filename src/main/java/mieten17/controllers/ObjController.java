@@ -17,7 +17,6 @@ import java.util.List;
 public class ObjController {
     @Autowired
     private ObjService objService;
-
     @Autowired
     private ImageRepository imageRepository;
 
@@ -37,11 +36,10 @@ public class ObjController {
             model.addAttribute("data", obj);
             model.addAttribute("images", images);
             return "objects/view_obj";
-        } catch (Exception e){
+        } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
             return "errors/error_not_found";
         }
-
 
     }
 }
