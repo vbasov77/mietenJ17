@@ -43,6 +43,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(requests -> requests
                                 .requestMatchers("/user/**").authenticated()
                                 .requestMatchers("/admin/**").authenticated()
+                                .requestMatchers("/actuator/**").hasAnyRole("ADMIN")
                                 .anyRequest().permitAll()
 
                 )

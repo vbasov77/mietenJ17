@@ -29,7 +29,7 @@ public class MsgSocketController {
     @MessageMapping("/private-message")
     @SendToUser("/topic/private-messages")
     public ResponseMessage getPrivateMessage(final Message message,
-                                             final Principal principal) throws InterruptedException {
+                                             final Principal principal) {
         notificationService.sendPrivateNotification(principal.getName());
         return new ResponseMessage(HtmlUtils.htmlEscape(message.getBody())
         );

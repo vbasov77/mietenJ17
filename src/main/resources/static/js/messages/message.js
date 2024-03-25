@@ -50,35 +50,6 @@ function notified() {
 
 }
 
-function checkNewMsg() {
-    data = {
-        "to_user_id": to_user_id,
-        "from_user_id": from_user_id,
-        "obj_id": obj_id,
-    };
-    $.ajax({
-            url: '/check_message',
-            type: 'post',
-            data: data,
-            dataType: 'json',
-            success: function (res) {
-                if (res.bool === true) {
-                    for (let i = 0; i < res.messages.length; i++) { // выведет 0, затем 1, затем 2
-                        if (res.messages[i].to_user_id = to_user_id) {
-                            $(`<li class="send"> <div class="myClass">
-<div id="` + res.messages[i].id + `" data-id="` + res.messages[i].id + `" style="font-size: 17px; background-color: #f5f5f5; " class="messageBlock">
-                ${res.messages[i].body}<br>
-                <small  style="font-size: 10px; opacity: 0.6" class="mb-0 text-left">${res.messages[i].created_at.toLocaleString()}</small >
-                </div></div></li>`).appendTo($('.messages ul'));
-                            $('.message-input .emoji-wysiwyg-editor').html('');
-                            $('.messages').animate({scrollTop: $('.messages ul').height()}, "fast");
-                        }
-                    }
-                }
-            }
-        }
-    );
-}
 
 $('.messages').animate({scrollTop: $('.messages ul').height()}, "fast");
 
