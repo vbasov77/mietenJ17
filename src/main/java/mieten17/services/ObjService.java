@@ -30,8 +30,12 @@ public class ObjService {
         return objRepository.findObjsByPublished(published);
     }
 
-    public Obj getObjById(Long id) {
-        return objRepository.findObjById(id);
+    public Obj getObjById(Long id) throws Exception {
+        Obj objById = objRepository.findObjById(id);
+        if(objById == null){
+            throw new Exception("Обращение к несуществующему id");
+        }
+        return objById;
     }
 
     public List<Obj> getFilterObj(String localityName, Integer capacity, String countRooms, Integer priceFrom,

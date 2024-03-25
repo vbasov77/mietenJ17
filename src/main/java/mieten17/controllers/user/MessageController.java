@@ -73,46 +73,51 @@ public class MessageController {
     @RequestMapping(value = "/message", method = RequestMethod.GET)
     public String view(@RequestParam("obj_id") Long objId,
                        @RequestParam("to_user_id") Long toUserId,
-                       Model model, @AuthenticationPrincipal MyUserDetails user) {
-        List<Message> messages = messageService.getMsgToUsers(toUserId, user.getId(), objId);
-        Long userId = user.getId();
+                       Model model, @AuthenticationPrincipal MyUserDetails user){
+        try {
+            List<Message> messages = messageService.getMsgToUsers(toUserId, user.getId(), objId);
+            Long userId = user.getId();
 
-        if (messages.size() != 0) {
-            int countMess = messages.size();
-            List<Long> ids = new ArrayList<>();
+            if (messages.size() != 0) {
+                int countMess = messages.size();
+                List<Long> ids = new ArrayList<>();
 
-            //Изменили статус сообщения после прочтения
-            for (int i = 0; i < countMess; i++) {
-                if (messages.get(i).getToUserId().equals(user.getId()) && messages.get(i).getStatus() == 0) {
-                    ids.add(messages.get(i).getId());
-                    messages.get(i).setStatus(1);
+                //Изменили статус сообщения после прочтения
+                for (int i = 0; i < countMess; i++) {
+                    if (messages.get(i).getToUserId().equals(user.getId()) && messages.get(i).getStatus() == 0) {
+                        ids.add(messages.get(i).getId());
+                        messages.get(i).setStatus(1);
+                    }
                 }
+
+            } else {
+                messages = null;
+            }
+            Long forChatId;
+            Obj obj = objService.getObjById(objId);
+
+            if (obj.getUserId().equals(userId)) {
+                forChatId = toUserId;
+            } else {
+                forChatId = userId;
             }
 
-        } else {
-            messages = null;
+            String opponent = createUserService.getUserById(toUserId).getUsername();
+            String chatId = obj.getId() + "&" + obj.getUserId() + "&" + forChatId;
+
+            model.addAttribute("messages", messages);
+            model.addAttribute("fromUserId", userId);
+            model.addAttribute("toUserId", toUserId);
+            model.addAttribute("objId", objId);
+            model.addAttribute("toUserName", opponent);
+            model.addAttribute("photo", obj.getPathStrOne());
+            model.addAttribute("chatId", chatId);
+            model.addAttribute("address", addressRepository.findAddressById(objId).getLocality().toString());
+            return "messages/view_msg";
+        } catch (Exception e){
+            model.addAttribute("error", e.getMessage());
+            return "errors/error_not_found";
         }
-        Long forChatId;
-        Obj obj = objService.getObjById(objId);
-
-        if (obj.getUserId().equals(userId)) {
-            forChatId = toUserId;
-        } else {
-            forChatId = userId;
-        }
-
-        String opponent = createUserService.getUserById(toUserId).getUsername();
-        String chatId = obj.getId() + "&" + obj.getUserId() + "&" + forChatId;
-
-        model.addAttribute("messages", messages);
-        model.addAttribute("fromUserId", userId);
-        model.addAttribute("toUserId", toUserId);
-        model.addAttribute("objId", objId);
-        model.addAttribute("toUserName", opponent);
-        model.addAttribute("photo", obj.getPathStrOne());
-        model.addAttribute("chatId", chatId);
-        model.addAttribute("address", addressRepository.findAddressById(objId).getLocality().toString());
-        return "messages/view_msg";
     }
 
     @RequestMapping(value = "/add_message", method = RequestMethod.POST)

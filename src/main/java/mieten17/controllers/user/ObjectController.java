@@ -65,7 +65,7 @@ public class ObjectController {
     @GetMapping("/edit_obj/id{id}")
     @PreAuthorize("hasAuthority('ROLE_USER') || hasAuthority('ROLE_ADMIN')")
 //    @PostAuthorize(value = "#serv.getObjById(#id).userId == #user.id")
-    public String editObjPage(@PathVariable Long id, Model model, @AuthenticationPrincipal MyUserDetails user) {
+    public String editObjPage(@PathVariable Long id, Model model, @AuthenticationPrincipal MyUserDetails user) throws Exception {
         Obj obj = objService.getObjById(id);
         if (obj.isAuthor(user.getId()) || user.isAdmin()) {
             String regex = "\\[|\\]";
@@ -253,7 +253,7 @@ public class ObjectController {
             @RequestParam String textObj,
             @RequestParam String video,
             @PathVariable Long id,
-            @AuthenticationPrincipal MyUserDetails user) {
+            @AuthenticationPrincipal MyUserDetails user) throws Exception {
         Obj objById = objService.getObjById(id);
         Map<String, Object> object = new HashMap<>();
         if (objById.isAuthor(user.getId()) || user.isAdmin()) {

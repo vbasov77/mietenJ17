@@ -35,7 +35,7 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     public Message findMessageByIdAndStatus(Long id, int status);
 
-    public void deleteById(Long id);
+    void deleteById(Long id);
 
     @Transactional
     @Modifying

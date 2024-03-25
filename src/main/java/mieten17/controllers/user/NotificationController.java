@@ -1,6 +1,5 @@
 package mieten17.controllers.user;
 
-
 import jakarta.servlet.http.HttpSession;
 import mieten17.config.MyUserDetails;
 import mieten17.services.MessageService;
