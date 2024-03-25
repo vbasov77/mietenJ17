@@ -18,13 +18,10 @@ import java.util.*;
 
 @Controller
 public class SearchController {
-
     @Autowired
     private FilterService filterService;
-
     @Autowired
     private LocalityRepository localityRepository;
-
     @Autowired
     private ObjService objService;
 
@@ -70,7 +67,6 @@ public class SearchController {
         if (objs.size() < 1) {
             objs = null;
         }
-
         Filter filter = filterService.getFilter(session);
         model.addAttribute("filter", filter);
         model.addAttribute("data", objs);

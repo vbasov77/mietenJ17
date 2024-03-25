@@ -3,7 +3,6 @@ package mieten17.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
 @Entity
 @Data
 @Table(name = "rules")

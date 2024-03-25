@@ -12,7 +12,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class FilterServiceTest {
-
     @InjectMocks
     private FilterService filterService;
 
@@ -23,6 +22,6 @@ public class FilterServiceTest {
 
     @Test
     public void testGetFilter(HttpSession session) {
-   
+
     }
 }

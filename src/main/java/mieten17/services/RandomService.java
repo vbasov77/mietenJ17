@@ -6,8 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RandomService {
-
-    public String random(){
+    public String random() {
         int length = 15;
         boolean useLetters = true;
         boolean useNumbers = true;

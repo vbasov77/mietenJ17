@@ -9,14 +9,11 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ImageRepository extends JpaRepository<Image, Long> {
-
     List<Image> findAllByObjId(Long objId);
-
-    void deleteImageByPath(String pathImg);
 
     @Transactional
     @Modifying
     @Query(value = "delete from images where path = :pathName",
             nativeQuery = true)
-    public void deleteImg(String pathName);
+    void deleteImg(String pathName);
 }

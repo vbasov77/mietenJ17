@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 @Builder
 public class MyUserDetails implements UserDetails {
-
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     private final User user;
 

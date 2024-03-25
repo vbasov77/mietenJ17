@@ -17,7 +17,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 public class AddressServiceTest {
     @InjectMocks
     private AddressService addressService;
-
     @Mock
     private AddressRepository addressRepository;
 
@@ -27,7 +26,7 @@ public class AddressServiceTest {
     }
 
     @Test
-    public void testSave(){
+    public void testSave() {
         Address address = new Address();
         addressService.save(address);
         Mockito.verify(addressRepository, Mockito.times(1)).save(address);

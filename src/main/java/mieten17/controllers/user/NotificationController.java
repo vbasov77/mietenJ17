@@ -18,7 +18,6 @@ public class NotificationController {
     @ResponseBody
     public Object findCountNotifications(HttpSession session,
                                          @AuthenticationPrincipal MyUserDetails userDetails) {
-
         Integer countMsgNotRead = messageService.findCountMsgNotRead(userDetails.getId());
         session.setAttribute("notificationsMsg", countMsgNotRead);
         return countMsgNotRead;

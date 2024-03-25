@@ -14,7 +14,6 @@ import java.util.Map;
 public class AuthController {
     @Autowired
     private CreateUserService createUserService;
-
     @Autowired
     private UserRepository userRepository;
 

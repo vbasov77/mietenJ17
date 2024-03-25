@@ -31,36 +31,26 @@ public class ObjectController {
     private VideoService videoService;
     @Autowired
     private LocalityService localityService;
-
     @Autowired
     private DetailRepository detailRepository;
-
     @Autowired
     private DetailService detailService;
-
     @Autowired
     private RuleService ruleService;
-
     @Autowired
     private RuleRepository ruleRepository;
     @Autowired
     private ImageRepository imageRepository;
-
     @Autowired
     private CountryService countryService;
-
     @Autowired
     private AddressService addressService;
-
-
     @Autowired
     private ObjService objService;
-
     @Autowired
     private ObjRepository objRepository;
-
     @Autowired
-    CoordinatesRepository coordinatesRepository;
+    private CoordinatesRepository coordinatesRepository;
 
     @GetMapping("/edit_obj/id{id}")
     @PreAuthorize("hasAuthority('ROLE_USER') || hasAuthority('ROLE_ADMIN')")
@@ -156,7 +146,6 @@ public class ObjectController {
     @ResponseBody
     public Long addObject(@RequestBody String data, @AuthenticationPrincipal MyUserDetails user) throws IOException {
         DocumentContext response = JsonPath.parse(data);
-
         String coordinatesStr = response.read("$.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos");
 
         // Для дальнейшей читабельности нужно перевернуть порядок координат местами и записать в БД
@@ -171,7 +160,6 @@ public class ObjectController {
         obj.setAddress(address);
         obj.setPublished(0);
         obj.setCoordinates(Collections.singleton(coordinates));
-
         List object =
                 response.read("$.response.GeoObjectCollection.featureMember[0]." +
                         "GeoObject.metaDataProperty.GeocoderMetaData.Address.Components");
@@ -200,7 +188,6 @@ public class ObjectController {
         shortAddress.setLocalityId(localityId);
         shortAddress.setLocality(addressStr);
         addressService.save(shortAddress);
-
         return id;
     }
 
@@ -260,7 +247,6 @@ public class ObjectController {
             Detail checkDetails = detailRepository.findDetailByObjId(id);
             ruleService.createRules(id, children, animals, smoking, party,
                     documents, monthly);
-
             String balconyStr = String.join(",", balcony); // Из массива в строку
             String parkingStr = String.join(",", parking);
             String serviceStr = String.join(",", service);

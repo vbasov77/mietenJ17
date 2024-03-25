@@ -5,6 +5,7 @@
     .rem {
         opacity: 0.5;
     }
+
     .rem:hover {
         opacity: 1;
     }
@@ -79,13 +80,12 @@
                                 </div>
                             </table>
                         </div>
-
                         <div class="messages" id="msg">
                             <ul>
                                 <div th:each="msg : ${messages}">
                                     <li class="send">
                                         <div class="myClass">
-<!--                                            Эти сообщения от собеседника, отобразятся слева-->
+                                            <!--                                            Эти сообщения от собеседника, отобразятся слева-->
                                             <div th:if="${msg.getFromUserId() != toUserId}">
                                                 <div th:if="${msg.getStatus() == 0}">
                                                     <div class="messageBlock" th:id="${msg.getId()}"
@@ -122,7 +122,6 @@
                                                 </div>
                                             </div>
                                             <div th:if="${msg.getFromUserId() == toUserId}">
-
                                                 <div th:if="${msg.getStatus() == 0}">
                                                     <div class="messageBlock" th:id="${msg.getId()}"
                                                          style="background-color: #dad6f5;"
@@ -154,8 +153,10 @@
                         <div th:if="${objId}">
                             <div class="message-input">
                                 <div class="wrap">
-                                    <input class="form-control" id="private-message" type="text" placeholder="Ваше сообщение..."/>
-                                    <button id="send-private" class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                    <input class="form-control" id="private-message" type="text"
+                                           placeholder="Ваше сообщение..."/>
+                                    <button id="send-private" class="submit"><i class="fa fa-paper-plane"
+                                                                                aria-hidden="true"></i>
                                     </button>
                                 </div>
                             </div>
@@ -164,7 +165,8 @@
                             <div class="text-center">
                                 <a class="btn btn-outline-danger btn-sm"
                                    onClick="return confirm('Подтвердите удаление!')"
-                                   th:href="@{'/user/delete_chat?to_user_id='+${toUserId} +'&from_user_id=' + ${fromUserId}+ '&obj_id='+${objId} }">Удалить чат
+                                   th:href="@{'/user/delete_chat?to_user_id='+${toUserId} +'&from_user_id=' + ${fromUserId}+ '&obj_id='+${objId} }">Удалить
+                                    чат
                                 </a>
                             </div>
                         </div>
@@ -185,7 +187,6 @@
     <script th:src="@{'/js/messages/message.js'}"></script>
     <script th:src="@{'/js/messages/websocket/websocket.js'}"></script>
 </div>
-
 <div th:replace="~{layouts/footer :: footer(ViewMsg)}"/>
 
 

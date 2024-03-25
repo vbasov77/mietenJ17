@@ -1,6 +1,5 @@
 package mieten17.services;
 
-
 import mieten17.models.Message;
 import mieten17.repositories.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;

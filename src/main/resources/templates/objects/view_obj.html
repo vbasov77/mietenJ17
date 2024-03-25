@@ -40,7 +40,6 @@
                             <span th:text="${data.getCountRoomsStr()}"/> комн.</h3>
                     </div>
                 </div>
-
                 <div id="carusel" class="carousel slide" data-ride="carousel">
                     <ul class="carousel-indicators">
                         <div th:each="img, state : ${images}">
@@ -118,7 +117,6 @@
                         <span class="bgGray" th:text="${service}"/><br>
                     </div>
                 </div>
-
                 <div class="lineH" th:if="${data.getBalconyStr()} != 'нет'">
                     <b>Есть</b><br>
                     <div style="display: inline-block" th:each="balcony : ${data.getBalconyList()}">
@@ -127,7 +125,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="lineH" th:if="${!data.getParkingStr().equals('нет')}">
                     <b>Паркинг</b><br>
                     <div style="display: inline-block" th:each="parking : ${data.getParkingList()}">
@@ -136,7 +133,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="lineH" th:if="${data.getComfortStr()}">
                     <b>Комфорт</b><br>
                     <div style="display: inline-block" th:each="comfort : ${data.getComfortList()}">
@@ -145,37 +141,29 @@
                         </div>
                     </div>
                 </div>
-
-
                 <div style="display: block;" class="lineH">
                     <b>Правила въезда</b><br>
                     <div style="display: inline-block;" th:if="${data.getAnimalsStr().equals('да')}">
                         <span class="bgGray">можно с животными</span>
                     </div>
-
                     <div style="display: inline-block;" th:if="${data.getChildrenStr().equals('да')}">
                         <span class="bgGray">можно с детьми</span>
                     </div>
-
                     <div style="display: inline-block;" th:if="${data.getSmokingStr().equals('да')}">
                         <span class="bgGray">можно курить</span>
                     </div>
-
                     <div style="display: inline-block;" th:if="${data.getPartyStr().equals('да')}">
                         <span class="bgGray">разрешены вечеринки</span>
                     </div>
-
                     <div style="display: inline-block;" th:if="${data.getDocumentsStr().equals('да')}">
                         <span class="bgGray">есть отчётные документы</span>
                     </div>
-
                     <div style="display: inline-block;" th:if="${data.getMonthlyStr().equals('да')}">
                         <span class="bgGray">можно помесячно</span>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="row justify-content-center text-center">
             <div class="col-12">
                 <div style="margin: 50px 0 50px 0">
@@ -193,7 +181,6 @@
                                 allowfullscreen>
                         </iframe>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -207,7 +194,6 @@
         <div id="map" style="width: 100%; height: 400px"></div>
     </div>
 </section>
-
 <script th:inline="javascript">
     let images = [[${images}]];
     let coordinates = [[${data.getCoordinateStr()}]];
@@ -215,10 +201,7 @@
     let address = [[${data.getAddress()}]];
     let price = [[${data.getPriceStr()}]];
 </script>
-<!--<script type="text/javascript" th:src="@{/js/map/map_api.js}"></script>-->
-
 <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-
 <script th:inline="javascript">
     // Функция ymaps.ready() будет вызвана, когда
     // загрузятся все компоненты API, а также когда будет готово DOM-дерево.
@@ -238,7 +221,6 @@
             // Элементы управления
             // https://tech.yandex.ru/maps/doc/jsapi/2.1/dg/concepts/controls/standard-docpage/
             controls: [
-
                 'zoomControl', // Ползунок масштаба
                 'rulerControl', // Линейка
                 'routeButtonControl', // Панель маршрутизации
@@ -262,12 +244,9 @@
             // Балун откроется при клике по метке.
             balloonContent: '<center><div>' + address + '<br>От ' + price + ' руб.<br></div></center>'
         });
-
         // После того как метка была создана, добавляем её на карту.
         myMap.geoObjects.add(myPlacemark);
-
     }
 </script>
-
 <script type="text/javascript" th:src="@{/js/slider/slider.js}"></script>
 <div th:replace="~{layouts/footer :: footer(View_obj)}"/>

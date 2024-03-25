@@ -13,10 +13,8 @@ import java.util.List;
 public class WSService {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
-
     @Autowired
     private UserService userService;
-
     @Autowired
     private MessageService messageService;
 

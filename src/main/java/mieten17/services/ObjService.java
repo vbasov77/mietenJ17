@@ -10,10 +10,8 @@ import java.util.List;
 
 @Service
 public class ObjService {
-
     @Autowired
     private FilterService filterService;
-
     @Autowired
     private ObjRepository objRepository;
 
@@ -32,7 +30,7 @@ public class ObjService {
 
     public Obj getObjById(Long id) throws Exception {
         Obj objById = objRepository.findObjById(id);
-        if(objById == null){
+        if (objById == null) {
             throw new Exception("Обращение к несуществующему id");
         }
         return objById;
@@ -45,25 +43,20 @@ public class ObjService {
                                   HttpSession session) {
 
         String localityId = filterService.localityIdSession(localityName, session);// по городу
-
         String countRoomsDb = filterService.countRoomsSession(countRooms, session); // по количеству комнат
-
         Integer capacityDb = filterService.capacitySession(capacity, session);// Поиск по количеству человек
-
         Integer priceFromDb = filterService.priceFromSession(priceFrom, session); // по цене от
         Integer priceToDb = filterService.priceToDbSession(priceTo, session); // по цене до
-
         Integer areaFromDb = filterService.areaFromSession(areaFrom, session); // площадь от
         Integer areaToDb = filterService.areaToDbSession(areaTo, session); // площадь до
-
         String balconyStr = null;
-        if(balcony != null){
+
+        if (balcony != null) {
             balconyStr = String.join(",", balcony);
         }
         String balconyDb = filterService.balconySession(balconyStr, session); // Поиск по наличию балкона - лоджии
         Integer notFirstDb = filterService.notFirstSession(notFirst, session); // не первый
         Integer notEndDb = filterService.notEndSession(notEnd, session); // не последний
-
         String childrenDb = filterService.childrenSession(children, session);// можно с детьми
         String animalsDb = filterService.animalsSession(animals, session);// можно с животными
         String smokingDb = filterService.smokingSession(smoking, session);// можно курить
@@ -71,10 +64,8 @@ public class ObjService {
         String documentsDb = filterService.documentsSession(documents, session);// есть отчётные документы
         String monthlyDb = filterService.monthlySession(monthly, session);// есть отчётные документы
 
-
-
         return objRepository.getFilterObj(localityId, capacityDb, countRoomsDb, priceFromDb, priceToDb, areaFromDb, areaToDb,
-                balconyDb, notFirstDb,  notEndDb, childrenDb, animalsDb, smokingDb, partyDb, documentsDb, monthlyDb);
+                balconyDb, notFirstDb, notEndDb, childrenDb, animalsDb, smokingDb, partyDb, documentsDb, monthlyDb);
     }
 
     public List<Obj> getMyObj(Long userId) {
@@ -93,8 +84,8 @@ public class ObjService {
         objRepository.deleteById(id);
     }
 
-    public Long findUserIdByID(Long id){
-       return objRepository.findUserIdByID(id);
+    public Long findUserIdByID(Long id) {
+        return objRepository.findUserIdByID(id);
     }
 
 }

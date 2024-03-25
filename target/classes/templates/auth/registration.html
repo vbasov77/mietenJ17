@@ -1,33 +1,29 @@
 <div th:replace="~{layouts/header :: header(Registration)}"/>
 <link th:href="@{/css/login.css}" rel="stylesheet">
-
 <div class="container" style="margin: 20px 0 20px 0 ">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="reg" th:if="${message}" >
+                <div class="reg" th:if="${message}">
                     <span th:text="${message}"/>
                 </div>
-
                 <div class="card-header">Регистрация</div>
                 <div class="card-body">
                     <form th:action="@{/registration}" method="post">
                         <div class="form-group row">
                             <label for="username" class="col-md-4 col-form-label text-md-right">Login</label>
                             <div class="col-md-6">
-                                <input id="username" name="username" type="text" class="form-control" placeholder="Login"
-                                       autocomplete="off" required  autofocus>
+                                <input id="username" name="username" type="text" class="form-control"
+                                       placeholder="Login"
+                                       autocomplete="off" required autofocus>
                             </div>
-
                         </div>
-
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
                             <div class="col-md-6">
                                 <input type="email" id="email" class="form-control" name="email"
-                                       autocomplete="off"  placeholder="Email" required>
+                                       autocomplete="off" placeholder="Email" required>
                             </div>
-
                         </div>
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">Пароль</label>
@@ -35,11 +31,7 @@
                                 <input type="password" id="password" class="form-control" name="password"
                                        placeholder="Пароль" required>
                             </div>
-
                         </div>
-
-
-
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
@@ -60,5 +52,4 @@
         </div>
     </div>
 </div>
-
 <div th:replace="~{layouts/footer :: footer(Registration)}"/>

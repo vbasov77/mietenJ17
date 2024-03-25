@@ -17,7 +17,6 @@ import java.util.Optional;
 public class LocalityController {
     @Autowired
     private LocalityRepository localityRepository;
-
     @Autowired
     private LocalityService localityService;
 
@@ -50,7 +49,6 @@ public class LocalityController {
         Long id = localityService.getLocalityId(locality, countryId);
         return id;
     }
-
 
 }
 

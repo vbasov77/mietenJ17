@@ -7,9 +7,6 @@ public class ResponseMessage {
         this.content = content;
     }
 
-    public ResponseMessage() {
-    }
-
     public String getContent() {
         return content;
     }

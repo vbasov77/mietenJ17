@@ -1,6 +1,5 @@
 package mieten17.models;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -8,7 +7,6 @@ import lombok.Data;
 @Data
 @Table(name = "images")
 public class Image {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

@@ -26,7 +26,6 @@ import java.util.List;
 public class FrontController {
     @Autowired
     private FilterService filterService;
-
     @Autowired
     private UserService userService;
 

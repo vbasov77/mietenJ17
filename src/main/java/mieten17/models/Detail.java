@@ -3,9 +3,6 @@ package mieten17.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.List;
-
-
 @Entity
 @Data
 @Table(name = "details")
